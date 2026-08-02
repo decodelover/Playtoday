@@ -1,0 +1,52 @@
+# JavaScript and workspace output
+node_modules/
+.pnpm-store/
+.next/
+.turbo/
+dist/
+build/
+coverage/
+out/
+
+# Test artefacts
+playwright-report/
+test-results/
+.vitest/
+
+# Python output and environments
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Local environment files (examples remain tracked)
+.env
+.env.*
+!.env.example
+
+# Editors
+.idea/
+.vscode/
+*.suo
+*.user
+*.swp
+
+# Operating systems
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+pnpm-debug.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript incremental state
+*.tsbuildinfo

@@ -1,0 +1,10 @@
+[project]
+name = "playtoday-prediction-api"
+version = "0.0.0"
+description = "Non-operational placeholder for the future PlayToday prediction service."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.playtoday]
+status = "placeholder"

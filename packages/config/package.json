@@ -1,0 +1,24 @@
+{
+  "name": "@playtoday/config",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Future shared TypeScript, linting, and project configuration.",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json --noEmit false",
+    "lint": "eslint src --max-warnings=0",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test",
+    "format": "prettier --check \"src/**/*.ts\" \"*.json\"",
+    "clean": "node ../../scripts/clean.mjs dist coverage"
+  }
+}
