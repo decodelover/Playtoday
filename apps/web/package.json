@@ -3,29 +3,44 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "node ../../scripts/run-web.mjs dev",
+    "build": "node ../../scripts/run-web.mjs build",
+    "start": "node ../../scripts/run-web.mjs start",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
-    "test": "node --test",
-    "format": "prettier --check \"src/**/*.{css,ts,tsx}\" \"*.{json,mjs,ts}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "clean": "node ../../scripts/clean.mjs .next coverage tsconfig.tsbuildinfo"
   },
   "dependencies": {
+    "@playtoday/database-types": "workspace:*",
+    "@playtoday/ui": "workspace:*",
+    "@supabase/supabase-js": "catalog:",
+    "geist": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "server-only": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
+    "@playtoday/config": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
+    "@testing-library/dom": "catalog:",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "eslint": "catalog:",
-    "eslint-config-next": "catalog:",
+    "jsdom": "catalog:",
     "postcss": "catalog:",
     "tailwindcss": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

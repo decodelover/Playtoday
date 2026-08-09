@@ -1,18 +1,75 @@
 # Development Rules
 
+- Future design work must consult Taste Skill and UI/UX Pro Max without overriding PlayToday tokens or accessibility.
+- Do not use generic generated layouts, fake testimonials, statistics, partnerships, accuracy claims or random demo data.
+- Do not add demonstration values to public pages. Update `PUBLIC_CONTENT_AND_DATA.md` when public data or claim rules change.
+- Review integration status for public bookmaker wording; feature claims must match current status.
+
+## Public website
+
+- Public pages use the public layout; authenticated pages never render public navigation.
+- Update the public route inventory for every route change and use approved marketing primitives.
+- Public claims require evidence. Never fabricate performance, users, testimonials, partnerships or bookmaker approval.
+- Do not use pressure language, unsupported metadata, premature pricing/payment claims or credential collection before Phase 3.
+- Public pages remain accessible and responsive; bookmaker logos require explicit approval.
+
+## Shared component rules
+
+- Use existing shared components before creating new button, input, card, dialog, or status patterns.
+- Do not add feature logic or external calls to `@playtoday/ui`, and never import `apps/web` into packages.
+- Do not bypass accessibility primitives or create custom inaccessible selects and menus.
+- Do not rely on color alone, add unnecessary client boundaries, or deep-import UI internals.
+- Stable components require semantic variants, design tokens, behavior tests, documentation, preview coverage, and an updated component inventory.
+
+## Visual-system rules
+
+- Future public interface work must reference `docs/PUBLIC_DESIGN_SYSTEM.md`. Shared application components continue to use `@playtoday/ui`.
+- No raw color in feature components without a documented, reviewed exception; exact values belong in theme definitions.
+- No arbitrary typography or motion values and no new icon library without approval.
+- No casino styling, guaranteed-outcome copy, flashing odds, pressure animation, confetti, or loss-recovery cues.
+- No dashboard page may be built outside the design system or before its roadmap phase.
+- Every component must provide semantic HTML, keyboard operation, visible focus, sufficient targets/contrast, reduced motion, and responsive behavior.
+- Every status must include written or symbolic non-color meaning.
+- Visual changes must update relevant design documents, decisions, preview evidence, and tests.
+
+## GitHub and continuous-integration rules
+
+- Keep CI passing and reproduce it locally with `pnpm ci:check` before declaring a step complete.
+- Never bypass mandatory jobs, add `continue-on-error` to required checks, conceal failures, or describe a skipped/failed check as passing.
+- Keep workflow permissions read-only unless a separately authorized step documents and reviews a specific need.
+- Never expose secrets to untrusted pull-request workflows and never use `pull_request_target` without a future explicit security review.
+- Update workflow commands and `pnpm ci:check` together whenever repository quality commands change.
+- Keep GitHub Actions on supported stable versions and document every new workflow, trigger, permission, credential boundary, and external effect.
+- Every controlled step must provide the complete visible walkthrough before repository changes, concise progress updates, a permanent walkthrough, and an evidence-based completion report.
+- Dependency-update pull requests require normal CI and human review; automatic merging is prohibited by default.
+
 These rules apply to every human contributor, coding agent, review agent, and automation acting on this repository.
+
+## Application-shell and route rules
+
+- New application routes must update `docs/ROUTE_INVENTORY.md` and the central typed route configuration.
+- Sidebar, mobile navigation, drawer, and breadcrumbs consume that configuration; do not duplicate labels.
+- Review information architecture before adding a top-level route.
+- Mobile content must include bottom-navigation and safe-area clearance.
+- Every navigation icon needs visible text or an accessible name, and the current route must use `aria-current`.
+- Shell placeholders must not become feature pages or show fake operational data.
+- Shell components contain no authentication or subscription business logic.
+- Next.js routing logic belongs in `apps/web`, not generic `@playtoday/ui` primitives.
 
 ## Mandatory workflow
 
-1. Work on exactly one named [roadmap](ROADMAP.md) step at a time.
-2. Read the roadmap step and all linked product, architecture, security, data, bookmaker, and decision documentation before changing code.
-3. Confirm the step’s dependencies are complete. Never implement a later phase early because it appears convenient.
-4. State the intended scope before editing and preserve unrelated user changes.
-5. Implement only the smallest coherent change that satisfies the current step.
-6. Verify against the step’s acceptance and completion criteria.
-7. Run applicable formatting, linting, type checking, unit, integration, and end-to-end tests before declaring completion.
-8. Report every changed file, verification result, unresolved risk, assumption, and deferred item.
-9. Stop when the current roadmap step is complete. Do not proceed automatically.
+1. Print a visible walkthrough plan before running implementation commands or changing files.
+2. Save that plan and its eventual implementation evidence under `docs/walkthroughs/`.
+3. Work on exactly one named [roadmap](ROADMAP.md) step at a time.
+4. Read the roadmap step and all linked product, architecture, security, data, bookmaker, and decision documentation before changing code.
+5. Confirm the step’s dependencies are complete. Never implement a later phase early because it appears convenient.
+6. State the intended scope before editing and preserve unrelated user changes.
+7. Provide concise progress updates after meaningful implementation groups.
+8. Implement only the smallest coherent change that satisfies the current step.
+9. Verify against the step’s acceptance and completion criteria; verification may never be skipped.
+10. Run applicable formatting, linting, type checking, unit, integration, and end-to-end tests before declaring completion.
+11. End with the step’s mandatory completion report, including every changed file, verification result, unresolved risk, assumption, and deferred item.
+12. Stop when the current roadmap step is complete. Do not proceed automatically.
 
 ## Architecture and decisions
 
@@ -49,6 +106,10 @@ These rules apply to every human contributor, coding agent, review agent, and au
 - Require two-factor authentication for administrators before production administration is enabled.
 - Avoid logging secrets, credentials, full payment payloads, or unnecessary personal data.
 - Include rollback or recovery planning for material releases and migrations.
+- Treat every `NEXT_PUBLIC_` value as public and never store a secret in one.
+- Access application environment values through typed server/client modules rather than scattered `process.env` reads.
+- Keep real credentials out of tracked templates, tests, documentation, logs, and generated environment snapshots.
+- Production-required configuration must fail clearly without printing supplied values.
 
 ## Completion report template
 

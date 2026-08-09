@@ -1,8 +1,16 @@
 .git/
+.pytest_cache/
+.ruff_cache/
+.venv/
 .next/
 .turbo/
+.vitest/
+__pycache__/
 build/
 coverage/
 dist/
+next-env.d.ts
 node_modules/
 pnpm-lock.yaml
+.agents/
+skills-lock.json

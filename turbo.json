@@ -18,11 +18,20 @@
       "outputs": []
     },
     "test": {
-      "dependsOn": ["^build"],
       "outputs": []
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "test:coverage": {
+      "outputs": ["coverage/**"]
     },
     "format": {
       "cache": false,
+      "outputs": []
+    },
+    "format:check": {
       "outputs": []
     },
     "clean": {

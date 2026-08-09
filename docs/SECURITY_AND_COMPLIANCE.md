@@ -1,5 +1,11 @@
 # Security and Compliance Baseline
 
+## Foundation CI controls
+
+GitHub Actions uses read-only repository contents permission, disables persisted checkout credentials, accepts no secrets, and performs no deployment or package publication. Untrusted pull-request code must not run through `pull_request_target` or receive elevated tokens. Workflow files must never print the full environment, use unverified installer pipelines, hide mandatory failures, or contact production services. Dependabot changes follow ordinary review and CI; no automatic merge is authorized.
+
+The Step 1E repository guard verifies targeted invariants and prohibited active naming but is not a complete secret, dependency, or license scanner. Dedicated advanced supply-chain tooling remains a later, separately authorized control.
+
 > This document defines product and engineering requirements. It is not legal advice. Qualified counsel must review gambling-related classification, consumer protection, privacy, payments, marketing, and geographic availability before launch.
 
 ## Security principles
@@ -33,6 +39,8 @@
 ## Row Level Security
 
 - Enable RLS on every table exposed through Supabase APIs, including join and storage metadata tables where applicable.
+- `contact_submissions` enables and forces RLS, grants no access to `anon` or `authenticated`, and grants insert to `service_role` only. It intentionally has no public policy. The Contact server action is the sole public write boundary.
+- Apply and verify the migration in an approved Supabase environment before release. Static migration tests do not replace database-level allow and deny tests.
 - Commit policies through reviewed migrations and test allowed and denied paths using realistic identities.
 - Users may access only their own private artifacts unless a record is intentionally public.
 - Public Daily Edge records must expose an explicit public projection, not unrestricted underlying operational rows.

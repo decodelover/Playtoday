@@ -1,0 +1,67 @@
+:root {
+  --pt-font-sans:
+    var(--font-geist-sans, "Segoe UI"), ui-sans-serif, system-ui, sans-serif;
+  --pt-font-data: var(--font-geist-mono, "Cascadia Mono"), ui-monospace, monospace;
+}
+
+.pt-type-display-large {
+  font: 650 clamp(2.5rem, 7vw, 4.5rem) / 0.98 var(--pt-font-sans);
+  letter-spacing: -0.052em;
+}
+
+.pt-type-display-medium {
+  font: 650 clamp(2rem, 5vw, 3.5rem) / 1.02 var(--pt-font-sans);
+  letter-spacing: -0.045em;
+}
+
+.pt-type-heading-1 {
+  font: 650 2rem / 1.15 var(--pt-font-sans);
+  letter-spacing: -0.03em;
+}
+.pt-type-heading-2 {
+  font: 650 1.5rem / 1.25 var(--pt-font-sans);
+  letter-spacing: -0.022em;
+}
+.pt-type-heading-3 {
+  font: 620 1.25rem / 1.3 var(--pt-font-sans);
+  letter-spacing: -0.015em;
+}
+.pt-type-heading-4 {
+  font: 620 1rem / 1.4 var(--pt-font-sans);
+  letter-spacing: -0.008em;
+}
+.pt-type-body-large {
+  font: 450 1.125rem / 1.65 var(--pt-font-sans);
+  letter-spacing: -0.008em;
+}
+.pt-type-body {
+  font: 430 1rem / 1.6 var(--pt-font-sans);
+  letter-spacing: -0.004em;
+}
+.pt-type-body-small {
+  font: 430 0.875rem / 1.55 var(--pt-font-sans);
+  letter-spacing: 0;
+}
+.pt-type-label {
+  font: 620 0.8125rem / 1.35 var(--pt-font-sans);
+  letter-spacing: 0.025em;
+}
+.pt-type-caption {
+  font: 520 0.75rem / 1.4 var(--pt-font-sans);
+  letter-spacing: 0.035em;
+}
+.pt-type-data-large {
+  font: 600 2rem / 1.1 var(--pt-font-data);
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.pt-type-data-medium {
+  font: 600 1.125rem / 1.3 var(--pt-font-data);
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.pt-type-data-small {
+  font: 550 0.8125rem / 1.4 var(--pt-font-data);
+  letter-spacing: -0.015em;
+  font-variant-numeric: tabular-nums lining-nums;
+}

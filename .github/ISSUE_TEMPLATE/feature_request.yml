@@ -1,0 +1,48 @@
+name: Feature request
+description: Propose roadmap-aligned work without starting a future phase.
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: A proposal does not authorize implementation. PlayToday works on one approved roadmap step at a time and never promises guaranteed outcomes.
+  - type: input
+    id: problem
+    attributes:
+      label: Problem
+      description: What user or operational problem should be solved?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: Describe the outcome, not an assumed implementation.
+    validations:
+      required: true
+  - type: input
+    id: roadmap
+    attributes:
+      label: Proposed roadmap step
+      description: Identify an existing step or explain that roadmap review is needed.
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Scope and safety boundaries
+      description: Include responsible-play, data-integrity, AI, security, and bookmaker implications, or state not applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: This request contains no secrets or sensitive personal, payment, or bookmaker information.
+          required: true
+        - label: This request does not claim guaranteed outcomes or unsupported official booking-code support.
+          required: true

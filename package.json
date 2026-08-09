@@ -10,17 +10,29 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "lint": "turbo run lint",
+    "env:check": "tsx scripts/env-check.mjs current",
+    "env:check:test": "tsx scripts/env-check.mjs test",
+    "env:example:check": "tsx scripts/env-check.mjs example",
+    "repository:guard": "node scripts/repository-guard.mjs",
+    "ci:check": "node scripts/ci-check.mjs",
+    "lint": "eslint . --max-warnings=0 && turbo run lint && python -m ruff check services",
+    "lint:fix": "eslint . --fix --max-warnings=0 && turbo run lint -- --fix && python -m ruff check --fix services",
     "typecheck": "turbo run typecheck",
-    "test": "turbo run test",
-    "format": "turbo run format && prettier --check \"*.{json,md,yaml,yml,mjs}\" \"docs/**/*.md\" \"scripts/**/*.mjs\"",
+    "test": "turbo run test && python -m pytest",
+    "test:watch": "turbo run test:watch",
+    "test:coverage": "turbo run test:coverage && python -m pytest",
+    "format": "prettier --write . && python -m ruff format services",
+    "format:check": "prettier --check . && python -m ruff format --check services",
+    "quality": "pnpm env:example:check && pnpm env:check:test && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test:coverage && pnpm build",
     "clean": "turbo run clean --concurrency=1 && node scripts/clean.mjs .turbo"
   },
   "devDependencies": {
+    "@playtoday/config": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
-    "eslint-config-next": "catalog:",
     "prettier": "catalog:",
+    "supabase": "catalog:",
+    "tsx": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:"
   }

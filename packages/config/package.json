@@ -2,7 +2,7 @@
   "name": "@playtoday/config",
   "version": "0.0.0",
   "private": true,
-  "description": "Future shared TypeScript, linting, and project configuration.",
+  "description": "Shared TypeScript and ESLint configuration for PlayToday workspaces.",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -11,14 +11,34 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    }
+    },
+    "./eslint/base": "./eslint/base.mjs",
+    "./eslint/react": "./eslint/react.mjs",
+    "./eslint/next": "./eslint/next.mjs",
+    "./typescript/base.json": "./typescript/base.json",
+    "./typescript/node-library.json": "./typescript/node-library.json",
+    "./typescript/react-library.json": "./typescript/react-library.json",
+    "./typescript/nextjs.json": "./typescript/nextjs.json"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json --noEmit false",
-    "lint": "eslint src --max-warnings=0",
+    "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "node --test",
-    "format": "prettier --check \"src/**/*.ts\" \"*.json\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "clean": "node ../../scripts/clean.mjs dist coverage"
+  },
+  "dependencies": {
+    "@eslint/js": "catalog:",
+    "eslint-config-next": "catalog:",
+    "eslint-plugin-no-secrets": "catalog:",
+    "eslint-plugin-react": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "globals": "catalog:",
+    "typescript-eslint": "catalog:"
+  },
+  "peerDependencies": {
+    "eslint": "^9.39.5",
+    "typescript": ">=5.8.0 <7"
   }
 }

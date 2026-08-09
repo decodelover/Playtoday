@@ -1,0 +1,65 @@
+name: Data or settlement issue
+description: Report a data-integrity or future settlement discrepancy using safe references.
+title: "[Data/Settlement]: "
+body:
+  - type: markdown
+    attributes:
+      value: Do not submit credentials, private tokens, payment-card data, identity documents, or unredacted personal information. This form does not imply that settlement functionality currently exists.
+  - type: input
+    id: reference
+    attributes:
+      label: Internal ticket reference
+      description: Use a non-secret internal reference; state not applicable if none exists.
+    validations:
+      required: true
+  - type: input
+    id: fixture
+    attributes:
+      label: Fixture
+    validations:
+      required: true
+  - type: input
+    id: market
+    attributes:
+      label: Market
+    validations:
+      required: true
+  - type: textarea
+    id: recorded
+    attributes:
+      label: Recorded result
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Data source reference
+      description: Provide a lawful public or internal reference without credentials.
+    validations:
+      required: true
+  - type: input
+    id: timestamp
+    attributes:
+      label: Timestamp and timezone
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted screenshot or evidence
+      description: Remove all secrets and sensitive information.
+  - type: checkboxes
+    id: integrity
+    attributes:
+      label: Integrity confirmation
+      options:
+        - label: I have not altered or fabricated the reported source data.
+          required: true
+        - label: I removed sensitive information and credentials.
+          required: true

@@ -1,0 +1,47 @@
+name: Bug report
+description: Report a reproducible PlayToday defect without sensitive information.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: Do not include passwords, API keys, access tokens, bookmaker credentials, payment-card data, or identity documents. Report security vulnerabilities privately under SECURITY.md.
+  - type: input
+    id: roadmap
+    attributes:
+      label: Roadmap step
+      description: Which completed or active roadmap step is affected?
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Safe reproduction steps
+      description: Remove all sensitive values before submitting.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, browser/runtime versions, branch, and commit; do not paste environment-variable values.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs or screenshots
+      description: Optional; redact credentials and personal, bookmaker, or payment information.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety confirmation
+      options:
+        - label: I removed secrets and sensitive information.
+          required: true
+        - label: This is not a security vulnerability requiring private disclosure.
+          required: true

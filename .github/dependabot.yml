@@ -1,0 +1,46 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Africa/Lagos
+    open-pull-requests-limit: 5
+    groups:
+      compatible-minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:15"
+      timezone: Africa/Lagos
+    open-pull-requests-limit: 3
+    groups:
+      actions-compatible:
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:30"
+      timezone: Africa/Lagos
+    open-pull-requests-limit: 3
+    groups:
+      python-development-tools:
+        patterns:
+          - pytest
+          - ruff
+        update-types:
+          - minor
+          - patch

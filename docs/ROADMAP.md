@@ -6,7 +6,7 @@
 - ⚪ **Not started** — no implementation is authorized.
 - ✅ **Complete** — verification evidence recorded and completion explicitly accepted.
 
-Only one step may be in progress. **Step 1B is complete and no step is currently in progress. Step 1C remains not started.** Completion of a step does not automatically start the next one.
+Phase 2C and Phase 2D are implemented and remain pending live-browser verification. **Phase 1, Phase 2A, and Phase 2B remain complete. Phase 2E is implemented and in progress pending final verification. Revised Phase 2F is implemented locally, with remote Supabase migration execution and database-level RLS tests still pending. Later phases remain not started.**
 
 ## Phase 1 — Definition and delivery governance
 
@@ -18,8 +18,9 @@ Establish an internally consistent source of truth, resolve launch-critical prod
 
 - [x] ✅ **Step 1A — Documentation foundation:** create the product, requirements, architecture, roadmap, development rules, glossary, security/compliance, data/AI, bookmaker policy, ADR index, and changelog documents.
 - [x] ✅ **Step 1B — Monorepo initialization:** initialize the pnpm/Turborepo workspace, minimal Next.js web foundation, shared TypeScript package placeholders, Python service placeholders, and repository tooling without product functionality.
-- [ ] ⚪ **Step 1C — Product validation and provider/legal feasibility:** validate target-user problems and resolve initial region, age, competition, risk, Daily Edge, plan, analytics, retention, licensed-provider, payment, notification, AI, monitoring, and bookmaker-access decisions.
-- [ ] ⚪ **Step 1D — Domain, configuration, and contract design:** specify canonical entities, identifiers, state machines, market/settlement rules, event schemas, environment validation, RLS ownership model, and API contracts without production feature implementation.
+- [x] ✅ **Step 1C — Code quality, shared configuration, formatting, and testing foundation:** centralize TypeScript and ESLint configuration, add Prettier verification, legitimate Vitest and React Testing Library tests, coverage, Ruff, pytest, editor defaults, and non-destructive quality commands.
+- [x] ✅ **Step 1D — Environment validation and secrets management:** establish typed public/private environment contracts, safe templates, server/client boundaries, deterministic validation tests, Git-ignore safeguards, and incident documentation without connecting external services.
+- [x] ✅ **Step 1E — GitHub repository standards and continuous-integration foundation:** establish repository integrity, GitHub Actions quality gates, dependency updates, collaboration templates, security/contribution standards, ownership guidance, and local-to-CI parity without deployment or product functionality.
 
 ### Dependencies
 
@@ -62,11 +63,14 @@ Harden the initialized workspace and establish reusable design, testing, runtime
 
 ### Steps
 
-- [ ] ⚪ **Step 2A — Quality and CI hardening:** add Python lint/type/test tooling, test coverage policy, secret/dependency scanning, GitHub Actions, and protected contributor workflows.
-- [ ] ⚪ **Step 2B — Design system and PWA baseline:** introduce approved shadcn/ui primitives, accessibility tokens, responsive application shell, icons/manifest, and safe offline/staleness behavior.
-- [ ] ⚪ **Step 2C — Python runtime boundaries:** add FastAPI and worker runtimes with typed health/config contracts, lifecycle checks, and no domain behavior.
-- [ ] ⚪ **Step 2D — Local infrastructure and observability baseline:** define Docker-based local workflow, structured logging, correlation IDs, redaction policy, and development diagnostics.
-- [ ] ⚪ **Step 2E — Contract and integration-test foundation:** establish schema compatibility checks and legitimate cross-workspace test harnesses before product features depend on them.
+- [x] ✅ **Phase 2A — Visual identity and design-language foundation:** establish the dark-first PlayToday identity, semantic tokens/statuses, typography, responsive/accessibility principles, minimum shared primitives, static internal preview, governance, and research evidence without building the dashboard.
+- [x] 🟢 **Phase 2B — Shared UI primitives and component-library expansion:** expanded approved actions, forms, feedback, layout, overlays, navigation primitives, and data presentation using the Phase 2A system without an application shell or product workflows.
+- [ ] 🟡 **Phase 2C — Application shell and responsive navigation:** implemented the future-authenticated route group, typed route inventory, responsive sidebar/header/mobile navigation, accessible shell states, and feature-free placeholder routes; live-browser verification remains pending.
+- [ ] 🟡 **Phase 2D — Public website architecture and marketing shell:** implemented a separate public route group, typed registry, responsive header/drawer, footer, marketing primitives, factual placeholders, metadata and public states; final verification remains pending.
+- [ ] 🟡 **Phase 2E — Production public homepage and approved content:** implemented the complete truthful homepage, labelled demonstrations, tests and documentation; final verification remains pending.
+- [ ] 🟡 **Revised Phase 2F — Production public supporting pages and real public data foundation:** implemented the public supporting-page content, searchable Help Centre, verified-performance empty state, contact server action, Supabase migration, and security tests. A linked Supabase project or local Docker runtime is still required to apply the migration and run the pgTAP suite.
+- [ ] ⚪ **Step 2F — Python runtime boundaries:** add FastAPI and worker runtimes with typed health/config contracts, lifecycle checks, and no domain behavior.
+- [ ] ⚪ **Step 2G — Local infrastructure, observability and contract-test foundations:** establish local operational conventions and cross-workspace contract testing.
 
 ### Dependencies
 

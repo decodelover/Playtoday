@@ -1,0 +1,140 @@
+name: PlayToday CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: playtoday-ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+env:
+  APP_ENV: test
+  LOG_LEVEL: error
+  NEXT_PUBLIC_APP_NAME: PlayToday
+  NEXT_PUBLIC_APP_URL: http://localhost:3000
+  NEXT_PUBLIC_SUPABASE_URL: https://project-ref.supabase.co
+  SUPABASE_SERVICE_ROLE_KEY: test-server-service-role-key-not-a-credential
+
+jobs:
+  repository-guard:
+    name: Repository guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm repository:guard
+      - run: pnpm env:example:check
+
+  web-quality:
+    name: Web quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pnpm install --frozen-lockfile
+      - run: python -m pip install --disable-pip-version-check ruff==0.16.1
+      - run: pnpm env:check:test
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm typecheck
+
+  web-tests:
+    name: Web tests
+    needs: web-quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pnpm install --frozen-lockfile
+      - run: python -m pip install --disable-pip-version-check pytest==9.1.1
+      - run: pnpm test
+      - run: pnpm test:coverage
+
+  web-build:
+    name: Web build
+    needs: web-quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+
+  python-quality:
+    name: Python quality (${{ matrix.service }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        service:
+          - prediction-api
+          - ingestion-worker
+          - settlement-worker
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - run: python -m pip install --disable-pip-version-check pytest==9.1.1 ruff==0.16.1
+      - run: python -m ruff format --check services/${{ matrix.service }}
+      - run: python -m ruff check services/${{ matrix.service }}
+      - run: python -m pytest services/${{ matrix.service }}/tests
+
+  final-ci:
+    name: PlayToday CI
+    if: always()
+    needs:
+      - repository-guard
+      - web-tests
+      - web-build
+      - python-quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every CI dependency to pass
+        env:
+          JOB_RESULTS: ${{ toJSON(needs) }}
+        run: node -e "const jobs=JSON.parse(process.env.JOB_RESULTS); const failed=Object.entries(jobs).filter(([,job])=>job.result!=='success'); if(failed.length){console.error('Required jobs did not pass:',failed.map(([name,job])=>name+'='+job.result).join(', '));process.exit(1)} console.log('All required CI jobs passed.')"

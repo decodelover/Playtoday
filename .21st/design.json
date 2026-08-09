@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "project": {
+    "name": "playtoday",
+    "productType": "premium sports intelligence SaaS",
+    "stack": ["Next.js", "React", "TypeScript", "Tailwind CSS 4"]
+  },
+  "sources": {
+    "tokens": ["packages/ui/src/styles", "packages/ui/src/tokens"],
+    "components": ["packages/ui/src/primitives"],
+    "assets": [],
+    "instructions": []
+  },
+  "design": {
+    "colorMode": "light-first public website with dark application shell",
+    "colors": {
+      "foundation": "midnight navy and white",
+      "action": "hot red-orange",
+      "live": "midnight navy",
+      "settledSuccess": "emerald"
+    },
+    "typography": { "interface": "Geist", "data": "Geist Mono" },
+    "spacing": { "base": "4px", "rhythm": "4/8px" },
+    "radius": { "character": "precise, restrained" },
+    "shadows": { "character": "subtle; borders and tone first" },
+    "motion": { "character": "restrained", "range": "120-320ms" },
+    "density": "dense but grouped"
+  },
+  "components": {
+    "installed": [
+      "Button",
+      "Input",
+      "Card",
+      "StatusChip",
+      "DataValue",
+      "SectionHeading",
+      "Skeleton",
+      "EmptyState",
+      "ErrorState"
+    ],
+    "preferredPrimitives": ["@playtoday/ui"],
+    "patterns": [
+      "semantic status labels",
+      "tabular numeric data",
+      "tonal analytical surfaces"
+    ]
+  },
+  "constraints": {
+    "must": [
+      "Use @playtoday/ui tokens",
+      "Pair status colour with text and marker",
+      "Respect reduced motion",
+      "Keep mobile first-class"
+    ],
+    "avoid": [
+      "Casino aesthetics",
+      "Neon overload",
+      "Raw colour values in feature components",
+      "Guaranteed-outcome copy",
+      "Decorative continuous motion"
+    ]
+  },
+  "decisions": [
+    "Dark-first sports intelligence terminal direction",
+    "Blue actions, cyan live states, teal provisional positive states, emerald settled success",
+    "Geist and Geist Mono with tabular numeric treatment",
+    "CSS custom properties are the theme source of truth",
+    "Minimum server-renderable primitives only in Phase 2A",
+    "Phase 2B uses Radix for complex accessible interaction with minimal client boundaries",
+    "The design-system route remains the primary foundation showcase; Storybook is deferred",
+    "Phase 2C uses an expanded desktop sidebar, collapsed tablet sidebar, labelled mobile bottom navigation, and full Sheet drawer from one typed route registry",
+    "Phase 2D separates a spacious public header-and-footer shell from the dense authenticated shell and uses restrained token-driven marketing primitives",
+    "Phase 2E uses asymmetric editorial analytics, labelled demonstrations, varied registers instead of repetitive cards, and loss-first transparency",
+    "The homepage redesign uses a matchroom dossier direction: oversized editorial type, an instrument-panel research stage, chapter numbering, evidence rails, and loss-first settlement storytelling",
+    "The public website uses a Sportradar-referenced sports-technology direction: white and midnight navy foundation, hot red-orange action colour, oversized uppercase statements, hard editorial divisions, and full-width spatial rhythm while preserving original PlayToday content and routes",
+    "The refined homepage keeps the public colour system but uses moderate display sizes, a quieter split hero, fewer visible grid lines, product-first sequencing, and one dominant idea per section",
+    "The final homepage rebuild uses original matchday editorial photography, narrative feature scenes, a physical settlement receipt, and restrained evidence UI; it removes the prior dashboard-led homepage composition entirely",
+    "Homepage controls use a shared 44px-plus touch model, full-width mobile CTA groups, balanced wrapping, and staged 56rem/44rem/24rem responsive refinements for intermediate and small screens",
+    "The post-hero homepage uses a light editorial-product system: off-white atmosphere, floating white instruments, paper-like records, rounded analytical surfaces, and red/navy only as restrained accents rather than large grid backgrounds"
+  ],
+  "evidence": [
+    "ui-ux-pro-max dense analytics research",
+    "Carbon, Primer, and Atlassian data-visualisation accessibility guidance",
+    "21st deterministic review"
+  ],
+  "generatedAt": "2026-08-03T12:54:30.700Z"
+}

@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "geist/font/sans";
 
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PlayToday",
-  description: "AI-powered sports intelligence for today’s games",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
+  title: { default: "PlayToday", template: "%s | PlayToday" },
+  description:
+    "Explainable football analysis, target-odds decision support, and a complete performance record.",
+  openGraph: { siteName: "PlayToday", type: "website" },
+  robots: { index: false, follow: false },
 };
 
-type RootLayoutProps = Readonly<{
-  children: ReactNode;
-}>;
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${GeistSans.variable} ${GeistMono.variable}`}>{children}</body>
     </html>
   );
 }
