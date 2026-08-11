@@ -223,10 +223,13 @@ function AppHeader({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem asChild>
-              <Link href="/settings">Settings placeholder</Link>
+              <Link href="/settings">Account settings</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/support">Support placeholder</Link>
+              <Link href="/support">Help & Support</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/auth/sign-out">Sign out</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

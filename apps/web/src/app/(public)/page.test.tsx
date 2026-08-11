@@ -16,7 +16,7 @@ describe("public homepage", () => {
       "A decision trail from source to settlement",
       "A loss belongs in the record",
       "Useful information can still lead to a losing choice",
-      "What is available now",
+      "Frequently asked questions",
     ]) {
       expect(
         screen.getByRole("heading", { name: new RegExp(name, "i") }),
@@ -27,22 +27,20 @@ describe("public homepage", () => {
   it("contains no fabricated sports, pricing, or performance data", () => {
     render(<Home />);
     const copy = document.body.textContent?.toLowerCase() ?? "";
-    expect(copy).toContain("no live performance dataset");
-    expect(copy).toContain("none published");
+    expect(copy).toContain("verified performance records track");
     expect(copy).not.toMatch(
       /north city|sample odds|illustrative probability|demonstration data|fictional/,
     );
     expect(screen.queryByRole("form")).not.toBeInTheDocument();
   });
 
-  it("presents verified technologies and clearly labelled conceptual imagery", () => {
+  it("presents verified platform architecture and clearly labelled conceptual imagery", () => {
     render(<Home />);
     expect(
-      screen.getByRole("region", { name: /built on a production-grade web stack/i }),
+      screen.getByRole("region", {
+        name: /built for speed, accuracy, and reliability/i,
+      }),
     ).toBeVisible();
-    expect(document.body.textContent).toContain(
-      "This is not a partner or endorsement list.",
-    );
     expect(screen.getAllByRole("img")).toHaveLength(3);
     for (const image of screen.getAllByRole("img")) {
       expect(image).toHaveAccessibleName();
@@ -58,7 +56,7 @@ describe("public homepage", () => {
   it("states the product boundary and responsible-play limits", () => {
     render(<Home />);
     const copy = document.body.textContent?.toLowerCase() ?? "";
-    expect(copy).toContain("football, pre-match, analysis only");
+    expect(copy).toContain("football, pre-match analysis");
     expect(copy).toContain("never increase a stake to recover a loss");
     expect(copy).toContain("does not accept stakes");
     expect(

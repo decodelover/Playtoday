@@ -7,7 +7,7 @@ export function PublicFooter() {
   const footerRoutes = publicRoutes.filter((route) => route.footer !== null);
   return (
     <footer className={styles.footer}>
-      <div className={styles.footerInner} data-reveal="up">
+      <div className={styles.footerInner} data-reveal="up" suppressHydrationWarning>
         <div className={styles.footerStatement}>
           <p className={styles.sectionMarker}>
             <span>PT</span>Football intelligence

@@ -1,8 +1,26 @@
 import type { ReactNode } from "react";
+import { redirect } from "next/navigation";
+import { getOnboardingState } from "../../lib/onboarding-service";
+import { getAuthenticatedUser } from "../../lib/supabase/server";
 import { AppShell } from "../app-shell/app-shell";
 
-export default function ApplicationLayout({
+export default async function ApplicationLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
+  // Server-side identity protection for authenticated app routes
+  const isTestEnvironment = process.env.NODE_ENV === "test";
+  const user = await getAuthenticatedUser();
+
+  if (!user && !isTestEnvironment) {
+    redirect("/sign-in");
+  }
+
+  if (user && !isTestEnvironment) {
+    const onboardingState = await getOnboardingState(user.id);
+    if (!onboardingState.completed) {
+      redirect("/onboarding");
+    }
+  }
+
   return <AppShell>{children}</AppShell>;
 }

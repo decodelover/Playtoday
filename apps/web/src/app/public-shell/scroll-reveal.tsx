@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 import styles from "./shell.module.css";
 
@@ -9,13 +9,11 @@ const REVEAL_SELECTOR = "[data-reveal]";
 export function ScrollReveal({ children }: Readonly<{ children: ReactNode }>) {
   const rootRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const root = rootRef.current;
     if (!root) {
       return undefined;
     }
-
-    root.dataset.motionReady = "true";
 
     const reducedMotion =
       typeof window.matchMedia === "function" &&
@@ -23,9 +21,11 @@ export function ScrollReveal({ children }: Readonly<{ children: ReactNode }>) {
 
     const revealImmediately = (scope: ParentNode) => {
       scope.querySelectorAll<HTMLElement>(REVEAL_SELECTOR).forEach((item) => {
-        item.dataset.revealVisible = "true";
+        item.setAttribute("data-reveal-visible", "true");
       });
     };
+
+    root.setAttribute("data-motion-ready", "true");
 
     if (reducedMotion || typeof IntersectionObserver === "undefined") {
       revealImmediately(root);
@@ -38,7 +38,7 @@ export function ScrollReveal({ children }: Readonly<{ children: ReactNode }>) {
           if (!entry.isIntersecting) {
             return;
           }
-          (entry.target as HTMLElement).dataset.revealVisible = "true";
+          (entry.target as HTMLElement).setAttribute("data-reveal-visible", "true");
           observer.unobserve(entry.target);
         });
       },
@@ -47,7 +47,7 @@ export function ScrollReveal({ children }: Readonly<{ children: ReactNode }>) {
 
     const observe = (scope: ParentNode) => {
       scope.querySelectorAll<HTMLElement>(REVEAL_SELECTOR).forEach((item) => {
-        if (item.dataset.revealVisible !== "true") {
+        if (item.getAttribute("data-reveal-visible") !== "true") {
           observer.observe(item);
         }
       });
@@ -65,7 +65,7 @@ export function ScrollReveal({ children }: Readonly<{ children: ReactNode }>) {
   }, []);
 
   return (
-    <div className={styles.motionRoot} ref={rootRef}>
+    <div className={styles.motionRoot} ref={rootRef} suppressHydrationWarning>
       {children}
     </div>
   );

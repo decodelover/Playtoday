@@ -21,6 +21,9 @@
     "format:check": "prettier --check .",
     "clean": "node ../../scripts/clean.mjs dist coverage"
   },
+  "dependencies": {
+    "zod": "catalog:"
+  },
   "devDependencies": {
     "@playtoday/config": "workspace:*"
   }

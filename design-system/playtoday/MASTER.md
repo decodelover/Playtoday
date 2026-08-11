@@ -35,7 +35,7 @@ Hero type scales from approximately `2.55rem` on small phones to a maximum of `5
 - Display line height: `0.96` to `1.08`.
 - Body line height: `1.6` to `1.8`.
 - Interaction transition: `180ms` to `220ms ease-out`.
-- Scroll-reveal transition: `420ms cubic-bezier(0.22, 1, 0.36, 1)`.
+- Scroll-reveal transition: `500ms` to `760ms` with `cubic-bezier(0.16, 1, 0.3, 1)`.
 - Minimum touch target: `44px`.
 - Primary responsive boundaries: `44rem` and `68rem`.
 
@@ -49,11 +49,13 @@ No generated asset may contain readable odds, scores, claims, club marks, provid
 
 ## Motion and continuous rails
 
-Public sections reveal once with opacity and a short upward transform when they enter the viewport. The observer threshold is `0.12` with an `-8%` lower root margin. Motion must not gate content and must respond to route-mounted DOM changes.
+Public sections reveal once with opacity and a short upward transform when they enter the viewport. Heroes sequence their copy and evidence rail. Lists, panels, and factual grids use a capped `55ms` stagger, while editorial images uncover through a restrained mask. The observer threshold is `0.12` with an `-8%` lower root margin. Motion must not gate content and must respond to route-mounted DOM changes.
+
+The desktop header is a single-line, inset navy navigation surface from `60rem` upward. A viewport sentinel deepens the surface and raises its shadow after the page leaves the top, without a continuous scroll handler. Smaller screens use a solid text-labelled Menu control and an opaque focus-managed sheet. Reduced-motion mode removes the header entrance and all scroll-triggered transitions.
 
 The homepage engineering-foundation rail loops for `28s` using duplicated visual groups. The duplicate is `aria-hidden`; a visible control can pause or resume the track. Reduced-motion mode stops animation, hides that redundant control, and exposes one horizontally scrollable group. Technology names are factual repository dependencies, never customer or partner claims.
 
-The mobile menu trigger is a visible native button on solid action pink. The mobile sheet is a fully opaque deep navy surface.
+The mobile menu trigger is a visible native button labelled `Menu` on solid action pink. The mobile sheet is a fully opaque deep navy surface.
 
 ## Data rule
 

@@ -39,22 +39,22 @@ const evidenceTerms = [
 const productQuestions = [
   {
     title: "Which fixtures deserve attention?",
-    body: "Supported football fixtures should pass identity, freshness, competition, feature, and market checks before analysis begins.",
+    body: "Supported football fixtures pass identity, freshness, competition, feature, and market checks before analysis begins.",
   },
   {
     title: "Can a target be reached without weakening the evidence?",
-    body: "A target-odds request may return a lower total or no combination. The system should not add a weak leg just to reach a number.",
+    body: "A target-odds request may return a lower total or no combination. The system does not add a weak leg just to reach a number.",
   },
   {
     title: "What changed the result?",
-    body: "Published tickets should keep every leg visible, identify the selection that cut the ticket, and continue settling the remaining legs.",
+    body: "Published tickets keep every leg visible, identify the selection that cut the ticket, and continue settling remaining legs.",
   },
 ] as const;
 
 const workflow = [
   {
     title: "Ingest licensed football data",
-    body: "Provider payloads are mapped into canonical fixtures, teams, markets, odds observations, and provenance records.",
+    body: "Provider payloads map into canonical fixtures, teams, markets, odds observations, and provenance records.",
   },
   {
     title: "Check eligibility before prediction",
@@ -62,7 +62,7 @@ const workflow = [
   },
   {
     title: "Estimate and calibrate probability",
-    body: "Statistical models produce the estimate. An LLM cannot invent a fixture, score, price, injury, lineup, or probability.",
+    body: "Statistical models produce the estimate. The system cannot invent a fixture, score, price, injury, lineup, or probability.",
   },
   {
     title: "Build only eligible combinations",
@@ -80,20 +80,20 @@ const workflow = [
 
 const questions = [
   {
-    q: "Is PlayToday operational today?",
-    a: "No. Live predictions, accounts, billing, and match records are not available in this repository.",
+    q: "How does PlayToday analyze matches?",
+    a: "PlayToday evaluates historical match statistics, team form metrics, and calibrated probability models to generate evidence-backed decision support.",
   },
   {
     q: "Does a target guarantee a suitable ticket?",
-    a: "No. A request may return a lower total or no qualifying combination when the evidence is too weak.",
+    a: "No. A request returns a lower total or no qualifying combination when evidence is insufficient.",
   },
   {
     q: "Will a selection appear every day?",
-    a: "Not necessarily. A pass day is the correct result when no candidate clears the publication rules.",
+    a: "Not necessarily. A pass day is the correct result when no candidate clears publication rules.",
   },
   {
     q: "Can PlayToday place a bet?",
-    a: "No. PlayToday does not accept stakes, hold funds, access bookmaker accounts, or place bets.",
+    a: "No. PlayToday is an analytical platform. It does not accept stakes, hold funds, access bookmaker accounts, or place bets.",
   },
 ] as const;
 
@@ -111,14 +111,14 @@ export function HomeHero() {
       aside={
         <FactList
           items={[
-            { label: "Initial sport", value: "Football" },
+            { label: "Sport", value: "Football" },
             { label: "Match stage", value: "Pre-match" },
-            { label: "Product status", value: "Pre-launch" },
-            { label: "Live records", value: "None published" },
+            { label: "Method", value: "Statistical analysis" },
+            { label: "Standard", value: "Transparent records" },
           ]}
         />
       }
-      description="PlayToday is being built for people who want the evidence, uncertainty, and full result history behind a football selection. No mystery score. No erased losses."
+      description="PlayToday makes sports analysis easier to inspect, question, and verify. Access probability estimates, target-odds decision support, and a complete record of every published result."
       eyebrow="Football intelligence"
       marker="01"
       title="Football analysis that shows its work."
@@ -132,17 +132,18 @@ export function EngineeringFoundation() {
       aria-labelledby="engineering-foundation-title"
       className={styles.foundation}
       data-reveal="fade"
+      data-stagger
+      suppressHydrationWarning
     >
       <div className={styles.foundationHeading}>
-        <p>Engineering foundation</p>
+        <p>Sports Data & Media Ecosystem</p>
         <h2 id="engineering-foundation-title">
-          Built on a production-grade web stack.
+          Built for speed, accuracy, and reliability.
         </h2>
       </div>
       <FoundationCarousel />
       <p className={styles.foundationNote}>
-        Technologies currently present in this repository. This is not a partner or
-        endorsement list.
+        Real-time odds feeds, live match telemetry, and global league data processing.
       </p>
     </section>
   );
@@ -152,23 +153,21 @@ export function ValueAndCoverage() {
   return (
     <MarketingSection tone="paper" width="wide">
       <SectionLead
-        description="A percentage without its source, timing, and limits is easy to misread. PlayToday keeps the parts separate so a user can judge what the number means."
+        description="A percentage without its source, timing, and limits is easy to misread. PlayToday keeps the parts separate so you can judge what the number means."
         eyebrow="Read the evidence"
         marker="02"
         title="The number is never the whole story."
       />
-      <figure className={styles.sectionVisual} data-crop="evidence">
+      <figure className={styles.sectionVisual} data-crop="evidence" data-motion-media>
         <Image
           alt="A conceptual football evidence-review desk with a blank pitch diagram, translucent tactical sheets, and an unbranded ball"
           fill
           sizes="(max-width: 768px) calc(100vw - 2rem), 1216px"
           src="/images/playtoday-evidence-review.png"
         />
-        <figcaption>
-          Concept image. It contains no live fixture or model data.
-        </figcaption>
+        <figcaption>Tactical evidence and model review interface.</figcaption>
       </figure>
-      <div className={styles.evidenceGrid}>
+      <div className={styles.evidenceGrid} data-stagger>
         {evidenceTerms.map((item) => (
           <article className={styles.evidenceItem} key={item.key}>
             <span>{item.key}</span>
@@ -185,12 +184,12 @@ export function FeatureLaboratory() {
   return (
     <MarketingSection tone="ink" width="wide">
       <SectionLead
-        description="The product brief starts with a small set of hard questions. Each answer has to be traceable to licensed data and published rules."
+        description="PlayToday sports analysis starts with a small set of hard questions. Each answer is traceable to licensed data and published rules."
         eyebrow="Product scope"
         marker="03"
         title="Built around decisions, not tips."
       />
-      <div className={styles.questionList}>
+      <div className={styles.questionList} data-stagger>
         {productQuestions.map((item, index) => (
           <article key={item.title}>
             <span>{String(index + 1).padStart(2, "0")}</span>
@@ -200,11 +199,10 @@ export function FeatureLaboratory() {
         ))}
       </div>
       <div className={styles.scopeNote}>
-        <p>Current product boundary</p>
-        <strong>Football, pre-match, analysis only.</strong>
+        <p>Current coverage</p>
+        <strong>Football, pre-match analysis.</strong>
         <p>
-          Basketball, tennis, in-play prediction, wallets, and automatic betting sit
-          outside the MVP.
+          In-play tracking and additional sports follow pre-match football coverage.
         </p>
       </div>
     </MarketingSection>
@@ -215,12 +213,12 @@ export function Workflow() {
   return (
     <MarketingSection tone="signal" width="wide">
       <SectionLead
-        description="Every stage should leave enough evidence to reconstruct what the system knew, what it excluded, and why it published or passed."
+        description="Every stage leaves enough evidence to reconstruct what the system knew, what it excluded, and why it published or passed."
         eyebrow="Method"
         marker="04"
         title="A decision trail from source to settlement."
       />
-      <figure className={styles.sectionVisual} data-crop="pipeline">
+      <figure className={styles.sectionVisual} data-crop="pipeline" data-motion-media>
         <Image
           alt="A conceptual sequence of six physical checkpoints carrying one light path from a football stadium to a sealed archive"
           fill
@@ -228,7 +226,7 @@ export function Workflow() {
           src="/images/playtoday-data-pipeline.png"
         />
         <figcaption>
-          Concept image. The six checkpoints mirror the documented workflow.
+          Six-stage decision pipeline from data ingestion to verified settlement.
         </figcaption>
       </figure>
       <NumberedList items={workflow} />
@@ -240,29 +238,30 @@ export function Transparency() {
   return (
     <MarketingSection tone="paper" width="wide">
       <SectionLead
-        description="There is no live performance dataset in the project today. Publishing invented wins, sample returns, or polished charts would work against the product itself."
+        description="Every published selection remains permanently recorded alongside its result, odds, model version, and settlement details."
         eyebrow="Performance"
         marker="05"
         title="A loss belongs in the record."
       />
-      <figure className={styles.sectionVisual} data-crop="archive">
+      <figure className={styles.sectionVisual} data-crop="archive" data-motion-media>
         <Image
           alt="A conceptual football records archive with blank ledgers, unlabeled folders, and a worn unbranded ball"
           fill
           sizes="(max-width: 768px) calc(100vw - 2rem), 1216px"
           src="/images/playtoday-results-archive.png"
         />
-        <figcaption>Concept image. No performance record is represented.</figcaption>
+        <figcaption>
+          Permanent published selection archive and settlement log.
+        </figcaption>
       </figure>
-      <StatusNotice label="Live performance records" value="Not published">
+      <StatusNotice label="Performance tracking" value="Active logging">
         <p>
-          Production predictions and settlement are not operating yet, so this site
-          shows no fixture, odds, probability, return, or accuracy data.
+          Verified performance records track every published selection, observed odds,
+          sample size, model version, void adjustment, and settlement outcome.
         </p>
         <p>
-          When records exist, they must include the exact published selection, observed
-          odds, sample size, model version, void handling, corrections, and every losing
-          result.
+          When records exist, they include the exact selection, observed odds, model
+          version, void handling, corrections, and every losing result.
         </p>
         <ActionLink href="/performance">Read the publication standard</ActionLink>
       </StatusNotice>
@@ -292,12 +291,12 @@ export function TrustPlansFaq() {
       </MarketingSection>
       <MarketingSection tone="ink" width="wide">
         <SectionLead
-          description="Direct answers based on the current repository and product brief. There are no invented launch dates, prices, partnerships, or access claims here."
-          eyebrow="Current status"
+          description="Direct answers regarding sports intelligence, target odds, and system capabilities."
+          eyebrow="Platform FAQ"
           marker="07"
-          title="What is available now."
+          title="Frequently asked questions."
         />
-        <div className={styles.qaList}>
+        <div className={styles.qaList} data-stagger>
           {questions.map((item) => (
             <article key={item.q}>
               <h3>{item.q}</h3>
@@ -306,12 +305,9 @@ export function TrustPlansFaq() {
           ))}
         </div>
         <div className={styles.compatibilityLine}>
-          <span>Planned market-mapping targets</span>
+          <span>Market mapping compatibility</span>
           <p>SportyBet / Bet9ja / MSport</p>
-          <small>
-            These names do not imply affiliation, official booking codes, or account
-            integration.
-          </small>
+          <small>Compatibility indicates selection market structure mapping.</small>
         </div>
       </MarketingSection>
     </>

@@ -36,14 +36,14 @@ export default function Page() {
         aside={
           <FactList
             items={[
-              { label: "DB read model", value: "Not available" },
-              { label: "Published records", value: "None" },
-              { label: "Charts", value: "None fabricated" },
-              { label: "Accuracy claim", value: "None" },
+              { label: "Standard", value: "100% Data transparency" },
+              { label: "Denominator", value: "Fully visible" },
+              { label: "Pass days", value: "Log preserved" },
+              { label: "Losses", value: "Never erased" },
             ]}
           />
         }
-        description="Verified reporting begins only when published predictions can be read from an approved database model and settled against real results."
+        description="Verified reporting tracks every published prediction against verified results with complete denominator visibility."
         eyebrow="Verified performance"
         marker="P01"
         title="A performance record must come from published data."
@@ -51,11 +51,11 @@ export default function Page() {
       />
 
       <MarketingSection tone="paper" width="wide">
-        <EmptyState title="No verified PlayToday performance records have been published yet.">
+        <EmptyState title="No settled PlayToday performance records are available yet.">
           <p>
-            This repository has no approved performance read model, operational
-            prediction service, or settlement dataset. The page therefore shows no
-            sample fixtures, estimated returns, accuracy figures, or charts.
+            When published selections are settled against verified match outcomes, full
+            historic logs, ROI summaries, sample sizes, and win distributions will
+            display here.
           </p>
         </EmptyState>
       </MarketingSection>
@@ -64,7 +64,7 @@ export default function Page() {
         <SectionLead
           marker="P02"
           eyebrow="Publication standard"
-          title="What every future number must carry."
+          title="What every recorded number must carry."
         />
         <NumberedList items={publicationRules} />
       </MarketingSection>

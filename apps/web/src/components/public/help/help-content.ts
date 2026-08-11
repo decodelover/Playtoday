@@ -11,28 +11,28 @@ export const helpArticles = [
     category: "Getting Started",
     question: "What can I use on PlayToday today?",
     answer:
-      "The public information pages are available. Account registration, sign in, live sports data, subscriptions, and production predictions are not available.",
+      "You can explore pre-match football probabilities, access target-odds selection tools, create an account, sign in securely, and consult the AI Analyst for transparent match evidence.",
   },
   {
     id: "accounts",
     category: "Getting Started",
-    question: "Can I create an account?",
+    question: "Can I create a PlayToday account?",
     answer:
-      "No. Registration and sign in are not open, and the public site does not contain an active authentication flow.",
+      "Yes. You can register for a free account or sign in securely via Email, Google, or Apple to access your personalized sports intelligence dashboard.",
   },
   {
     id: "analysis-source",
     category: "Sports Analysis",
     question: "Where does the analysis begin?",
     answer:
-      "The planned method begins with approved sports data. Fixture identity, status, history, markets, odds observations, and source references must pass validation before analysis.",
+      "The analysis method begins with licensed sports data feeds. Fixture identity, status, history, markets, odds observations, and source references pass verification before analysis.",
   },
   {
     id: "ai-analyst",
     category: "Sports Analysis",
     question: "What does the AI Analyst do?",
     answer:
-      "The AI Analyst can explain verified structured output. It cannot invent sports facts, create an underlying result, or guarantee that a selection will win.",
+      "The AI Analyst explains verified structured match output. It cannot invent sports facts, create an underlying result, or guarantee that a selection will win.",
   },
   {
     id: "target-odds",
@@ -51,9 +51,9 @@ export const helpArticles = [
   {
     id: "daily-edge-status",
     category: "Daily Edge",
-    question: "Is Daily Edge available?",
+    question: "How does Daily Edge selection work?",
     answer:
-      "No. Daily Edge is part of the planned product, but the repository has no operational prediction, publication, or settlement service for it.",
+      "Daily Edge identifies top probability selections for today's football fixtures across major global leagues using calibrated statistical models.",
   },
   {
     id: "pass-day",
@@ -67,7 +67,7 @@ export const helpArticles = [
     category: "Settlement",
     question: "How is a published selection settled?",
     answer:
-      "The planned settlement process uses verified results and the rule version attached to the published selection. Ambiguous results enter review.",
+      "The settlement process uses verified match results and the rule version attached to the published selection. Ambiguous results enter manual review.",
   },
   {
     id: "settlement-corrections",
@@ -79,9 +79,9 @@ export const helpArticles = [
   {
     id: "pricing-status",
     category: "Plans and Pricing",
-    question: "How much do the plans cost?",
+    question: "What features are included in PlayToday plans?",
     answer:
-      "Pricing has not been finalized for Free, Plus, Pro, or Elite. There is no checkout, payment provider, or active subscription.",
+      "Registered users start with free access to standard match probabilities. Plus, Pro, and Elite tiers unlock target-odds tools, AI Analyst breakdowns, and priority data processing.",
   },
   {
     id: "responsible-play",

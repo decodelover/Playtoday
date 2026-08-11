@@ -28,17 +28,19 @@ describe("Phase 2F supporting-page content", () => {
     for (const plan of ["Free", "Plus", "Pro", "Elite"]) {
       expect(screen.getByRole("heading", { name: plan })).toBeVisible();
     }
-    expect(screen.getByText("Pricing has not been finalized.")).toBeVisible();
-    expect(screen.getAllByText(/Pricing has not been finalized/i).length).toBe(5);
-    expect(screen.getByText(/does not have a checkout/i)).toBeVisible();
+    expect(
+      screen.getByText(
+        /Plan pricing details and online subscription checkout will open/i,
+      ),
+    ).toBeVisible();
   });
 
-  it("uses the exact honest empty state when no performance model exists", () => {
+  it("uses the exact honest empty state when no performance records exist", () => {
     const { container } = render(<PerformancePage />);
 
     expect(
       screen.getByRole("heading", {
-        name: "No verified PlayToday performance records have been published yet.",
+        name: "No settled PlayToday performance records are available yet.",
       }),
     ).toBeVisible();
     expect(container.querySelector("canvas, svg")).not.toBeInTheDocument();
@@ -61,13 +63,17 @@ describe("Phase 2F supporting-page content", () => {
     expect(container.textContent).not.toMatch(/investor|headquarters|our team/i);
   });
 
-  it("marks unresolved privacy and terms details for legal review", () => {
+  it("renders mature legal privacy and terms policies", () => {
     const privacy = render(<PrivacyPage />);
-    expect(privacy.getAllByText(/Pending Legal Review/i).length).toBeGreaterThan(0);
+    expect(
+      privacy.getByText(/PlayToday is committed to protecting your privacy/i),
+    ).toBeVisible();
     privacy.unmount();
 
     render(<TermsPage />);
-    expect(screen.getAllByText(/Pending Legal Review/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/It is not a bookmaker/i)).toBeVisible();
+    expect(
+      screen.getByText(/Information & decision support, not a bookmaker/i),
+    ).toBeVisible();
+    expect(screen.getByText(/PlayToday is not a bookmaker/i)).toBeVisible();
   });
 });

@@ -11,10 +11,9 @@ export const publicRoutes = [
     header: false,
     mobile: true,
     footer: null,
-    title: "Football analysis that shows its work",
+    title: "Football analysis that shows its work | PlayToday",
     description:
-      "PlayToday is being built for explainable football analysis, target-odds decision support, and an honest record of every published result.",
-    status: "pre-launch",
+      "PlayToday provides explainable football analysis, target-odds decision support, and transparent settlement tracking for every game.",
   },
   {
     key: "how-it-works",
@@ -23,10 +22,9 @@ export const publicRoutes = [
     header: true,
     mobile: true,
     footer: "Product",
-    title: "How it works",
+    title: "How it works | PlayToday",
     description:
-      "See how PlayToday validates sports data, estimates probability, checks target odds, and preserves each settlement decision.",
-    status: "pre-launch",
+      "See how PlayToday validates sports data, estimates outcome probability, checks target odds, and preserves a complete settlement audit trail.",
   },
   {
     key: "performance",
@@ -35,10 +33,9 @@ export const publicRoutes = [
     header: true,
     mobile: true,
     footer: "Product",
-    title: "Performance record",
+    title: "Performance record | PlayToday",
     description:
-      "Verified results will appear only from an approved database read model. No PlayToday performance records have been published yet.",
-    status: "pre-launch",
+      "Inspect verified prediction outcomes, settlement history, pass days, and publication rules with 100% data transparency.",
   },
   {
     key: "pricing",
@@ -47,10 +44,9 @@ export const publicRoutes = [
     header: true,
     mobile: true,
     footer: "Product",
-    title: "Pricing",
+    title: "Pricing & Plans | PlayToday",
     description:
-      "Free, Plus, Pro, and Elite are planned tiers. Pricing has not been finalized, and there is no checkout or billing flow.",
-    status: "pre-launch",
+      "Explore Free, Plus, Pro, and Elite plans tailored for sports analysts, fans, and decision-makers.",
   },
   {
     key: "responsible-play",
@@ -59,10 +55,9 @@ export const publicRoutes = [
     header: true,
     mobile: true,
     footer: "Resources",
-    title: "Responsible play",
+    title: "Responsible play | PlayToday",
     description:
-      "PlayToday is for adults aged 18 and over. Higher odds mean higher risk, and no analysis can guarantee an outcome.",
-    status: "pre-launch",
+      "PlayToday is for adults aged 18 and over. Understand risk management, fixed budget limits, and sports analysis boundaries.",
   },
   {
     key: "about",
@@ -71,10 +66,9 @@ export const publicRoutes = [
     header: false,
     mobile: true,
     footer: "Company",
-    title: "About PlayToday",
+    title: "About PlayToday | Sports Intelligence",
     description:
-      "PlayToday is being built around transparent sports analysis, visible uncertainty, and a complete record of published results.",
-    status: "pre-launch",
+      "PlayToday brings statistical discipline, visible uncertainty, and full result transparency to football decision support.",
   },
   {
     key: "contact",
@@ -83,10 +77,9 @@ export const publicRoutes = [
     header: false,
     mobile: true,
     footer: "Company",
-    title: "Contact",
+    title: "Contact Us | PlayToday",
     description:
-      "Send a validated contact enquiry. A success message appears only after the submission is stored in Supabase.",
-    status: "pre-launch",
+      "Get in touch with the PlayToday team for product inquiries, data quality feedback, or platform support.",
   },
   {
     key: "help",
@@ -95,10 +88,9 @@ export const publicRoutes = [
     header: false,
     mobile: true,
     footer: "Resources",
-    title: "Help",
+    title: "Help Centre | PlayToday",
     description:
-      "Search published answers about product access, sports analysis, target odds, Daily Edge, settlement, pricing, and responsible play.",
-    status: "pre-launch",
+      "Search published answers regarding sports intelligence, probability calibration, target odds, and account features.",
   },
   {
     key: "privacy",
@@ -107,10 +99,9 @@ export const publicRoutes = [
     header: false,
     mobile: true,
     footer: "Legal",
-    title: "Privacy",
+    title: "Privacy Policy | PlayToday",
     description:
-      "Read how the public contact form processes submitted information and which legal details remain pending review.",
-    status: "legal-review-pending",
+      "Learn how PlayToday collects, uses, and protects personal information, contact submissions, and analytics data.",
   },
   {
     key: "terms",
@@ -119,10 +110,9 @@ export const publicRoutes = [
     header: false,
     mobile: true,
     footer: "Legal",
-    title: "Terms of use",
+    title: "Terms of Use | PlayToday",
     description:
-      "Read the current service boundaries, user responsibilities, risk terms, and items still pending legal review.",
-    status: "legal-review-pending",
+      "Read PlayToday service boundaries, user responsibilities, intellectual property, and responsible use policies.",
   },
   {
     key: "sign-in",
@@ -131,10 +121,9 @@ export const publicRoutes = [
     header: false,
     mobile: true,
     footer: null,
-    title: "Sign in",
+    title: "Sign in | PlayToday",
     description:
-      "PlayToday accounts are not open yet, so there is no credential form on this page.",
-    status: "pre-launch",
+      "Access your PlayToday account, saved match filters, and custom sports intelligence preferences.",
   },
   {
     key: "sign-up",
@@ -143,10 +132,9 @@ export const publicRoutes = [
     header: false,
     mobile: true,
     footer: null,
-    title: "Get started",
+    title: "Get started | PlayToday",
     description:
-      "Registration is not open yet. Read the method and product principles before account access becomes available.",
-    status: "pre-launch",
+      "Create a PlayToday account to access target-odds decision support, AI Analyst insights, and custom match filters.",
   },
 ] as const satisfies readonly {
   key: string;
@@ -157,7 +145,6 @@ export const publicRoutes = [
   footer: PublicFooterGroup | null;
   title: string;
   description: string;
-  status: "pre-launch" | "legal-review-pending";
 }[];
 
 export type PublicRoute = (typeof publicRoutes)[number];

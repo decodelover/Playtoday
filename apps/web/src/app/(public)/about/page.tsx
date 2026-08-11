@@ -24,13 +24,13 @@ export default function Page() {
           <FactList
             items={[
               { label: "Purpose", value: "Sports intelligence" },
-              { label: "Initial scope", value: "Pre-match football" },
+              { label: "Coverage", value: "Pre-match football" },
               { label: "Method", value: "Statistical analysis" },
               { label: "Standard", value: "Transparent records" },
             ]}
           />
         }
-        description="PlayToday is being built to make sports analysis easier to inspect, question, and verify."
+        description="PlayToday brings statistical clarity, transparent tracking, and visible uncertainty to sports decision support."
         eyebrow="About PlayToday"
         marker="A01"
         title="Show the evidence, the uncertainty, and the result."
@@ -46,7 +46,7 @@ export default function Page() {
         <ContentGrid>
           <ContentPanel title="Transparency before promotion">
             <p>
-              Published records should include losses, pass days, exclusions, voids, and
+              Published records include losses, pass days, exclusions, voids, and
               corrections alongside successful results.
             </p>
           </ContentPanel>
@@ -58,14 +58,14 @@ export default function Page() {
           </ContentPanel>
           <ContentPanel title="A target that can be refused">
             <p>
-              Requested odds do not override evidence quality. PlayToday can return a
-              lower total or no selection when the available candidates do not qualify.
+              Requested odds do not override evidence quality. PlayToday returns a lower
+              total or no selection when available candidates do not qualify.
             </p>
           </ContentPanel>
           <ContentPanel title="A result that remains traceable">
             <p>
-              Predictions, odds, model versions, settlement rules, and corrections need
-              records that can be reconstructed after publication.
+              Predictions, odds, model versions, settlement rules, and corrections
+              produce records that can be verified after publication.
             </p>
           </ContentPanel>
         </ContentGrid>

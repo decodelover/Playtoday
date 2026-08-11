@@ -11,17 +11,17 @@ export default function Page() {
         aside={
           <FactList
             items={[
-              { label: "Answers", value: "Published PlayToday content" },
-              { label: "Search", value: "Local Help Centre only" },
-              { label: "AI chatbot", value: "Not used" },
-              { label: "Live support", value: "Unavailable" },
+              { label: "Answers", value: "Verified Knowledgebase" },
+              { label: "Search", value: "Instant client search" },
+              { label: "Method", value: "Documented standards" },
+              { label: "Scope", value: "Product & analysis" },
             ]}
           />
         }
-        description="Search direct answers about the product, its current limits, target odds, Daily Edge, and settlement."
+        description="Search published articles regarding sports intelligence, probability calibration, target odds, Daily Edge, and settlement rules."
         eyebrow="Help Centre"
         marker="H01"
-        title="Find the answer that is actually published."
+        title="Direct answers to common questions."
         visual="pipeline"
       />
       <MarketingSection tone="paper" width="wide">

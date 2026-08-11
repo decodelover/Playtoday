@@ -4,13 +4,17 @@ import { useState } from "react";
 
 import styles from "./home.module.css";
 
-const foundation = [
-  { name: "Next.js", mark: "N" },
-  { name: "React", mark: "R" },
-  { name: "TypeScript", mark: "TS" },
-  { name: "Tailwind CSS", mark: "TW" },
-  { name: "pnpm", mark: "PN" },
-  { name: "Vitest", mark: "V" },
+const sportsCoverage = [
+  { name: "Football.com", icon: "⚽", category: "Football Portal" },
+  { name: "FlashScore", icon: "⚡", category: "Live Scores" },
+  { name: "AiScore", icon: "◈", category: "Match Analytics" },
+  { name: "FotMob", icon: "✦", category: "Match Telemetry" },
+  { name: "SofaScore", icon: "📊", category: "Live Ratings" },
+  { name: "Opta Sports", icon: "◎", category: "Opta Data Feeds" },
+  { name: "Sky Sports", icon: "📺", category: "Broadcasting" },
+  { name: "Sport TV", icon: "📡", category: "Live Sports Media" },
+  { name: "LiveScore", icon: "⏱", category: "Real-Time Tracking" },
+  { name: "Transfermarkt", icon: "📈", category: "Valuations & Form" },
 ] as const;
 
 export function FoundationCarousel() {
@@ -18,7 +22,7 @@ export function FoundationCarousel() {
 
   return (
     <div className={styles.marqueeFrame} data-paused={paused ? true : undefined}>
-      <div className={styles.marquee}>
+      <div className={styles.marquee} tabIndex={0}>
         <div className={styles.marqueeTrack}>
           {[0, 1].map((copy) => (
             <ul
@@ -26,12 +30,15 @@ export function FoundationCarousel() {
               className={styles.foundationList}
               key={copy}
             >
-              {foundation.map((item) => (
+              {sportsCoverage.map((item) => (
                 <li key={`${copy}-${item.name}`}>
                   <span aria-hidden="true" className={styles.foundationMark}>
-                    {item.mark}
+                    {item.icon}
                   </span>
-                  <strong>{item.name}</strong>
+                  <div className={styles.sportsInfo}>
+                    <strong>{item.name}</strong>
+                    <small>{item.category}</small>
+                  </div>
                 </li>
               ))}
             </ul>

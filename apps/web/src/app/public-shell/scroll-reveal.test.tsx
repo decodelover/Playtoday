@@ -39,11 +39,18 @@ describe("ScrollReveal", () => {
 
     render(
       <ScrollReveal>
-        <section data-reveal="up">Evidence</section>
+        <section data-reveal="up" data-stagger>
+          <span>Evidence</span>
+          <span>Confidence</span>
+        </section>
       </ScrollReveal>,
     );
 
-    expect(screen.getByText("Evidence")).toHaveAttribute("data-reveal-visible", "true");
+    expect(screen.getByText("Evidence").parentElement).toHaveAttribute(
+      "data-reveal-visible",
+      "true",
+    );
+    expect(screen.getByText("Confidence")).toBeVisible();
   });
 
   it("shows content immediately when reduced motion is requested", () => {

@@ -18,8 +18,11 @@
   "dependencies": {
     "@playtoday/database-types": "workspace:*",
     "@playtoday/ui": "workspace:*",
+    "@playtoday/validation": "workspace:*",
+    "@supabase/ssr": "catalog:",
     "@supabase/supabase-js": "catalog:",
     "geist": "catalog:",
+    "motion": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",

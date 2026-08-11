@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
 
 import type { PublicRoute } from "./routes";
 import styles from "./shell.module.css";
@@ -28,7 +31,13 @@ export function MarketingSection({
 }>) {
   return (
     <section aria-labelledby={labelledBy} className={styles.section} data-tone={tone}>
-      <div className={styles.container} data-reveal="up" data-width={width}>
+      <div
+        className={styles.container}
+        data-reveal="section"
+        data-stagger
+        data-width={width}
+        suppressHydrationWarning
+      >
         {children}
       </div>
     </section>
@@ -55,15 +64,24 @@ export function PageHero({
   return (
     <section className={styles.pageHero} data-marker={marker} data-visual={visual}>
       <MarketingContainer width="wide">
-        <div className={styles.pageHeroGrid}>
-          <div className={styles.pageHeroCopy}>
+        <div
+          className={styles.pageHeroGrid}
+          data-reveal="hero"
+          data-stagger
+          suppressHydrationWarning
+        >
+          <div className={styles.pageHeroCopy} data-stagger>
             <p className={styles.sectionMarker}>
               <span>{marker}</span>
               {eyebrow}
             </p>
             <h1>{title}</h1>
             <p className={styles.pageHeroDescription}>{description}</p>
-            {actions ? <div className={styles.heroActions}>{actions}</div> : null}
+            {actions ? (
+              <div className={styles.heroActions} data-stagger>
+                {actions}
+              </div>
+            ) : null}
           </div>
           {aside ? <aside className={styles.pageHeroAside}>{aside}</aside> : null}
         </div>
@@ -84,7 +102,7 @@ export function SectionLead({
   description?: string;
 }>) {
   return (
-    <header className={styles.sectionLead}>
+    <header className={styles.sectionLead} data-stagger>
       <p className={styles.sectionMarker}>
         <span>{marker}</span>
         {eyebrow}
@@ -101,7 +119,7 @@ export function StatusNotice({
   children,
 }: Readonly<{ label: string; value: string; children: ReactNode }>) {
   return (
-    <aside className={styles.statusNotice}>
+    <aside className={styles.statusNotice} data-stagger>
       <div>
         <span>{label}</span>
         <strong>{value}</strong>
@@ -115,7 +133,7 @@ export function NumberedList({
   items,
 }: Readonly<{ items: readonly { title: string; body: string }[] }>) {
   return (
-    <ol className={styles.numberedList}>
+    <ol className={styles.numberedList} data-stagger>
       {items.map((item, index) => (
         <li key={item.title}>
           <span>{String(index + 1).padStart(2, "0")}</span>
@@ -133,7 +151,7 @@ export function FactList({
   items,
 }: Readonly<{ items: readonly { label: string; value: string }[] }>) {
   return (
-    <dl className={styles.factList}>
+    <dl className={styles.factList} data-stagger>
       {items.map((item) => (
         <div key={item.label}>
           <dt>{item.label}</dt>
@@ -149,7 +167,7 @@ export function ContentGrid({
   columns = "two",
 }: Readonly<{ children: ReactNode; columns?: "two" | "four" }>) {
   return (
-    <div className={styles.contentGrid} data-columns={columns}>
+    <div className={styles.contentGrid} data-columns={columns} data-stagger>
       {children}
     </div>
   );
@@ -174,7 +192,7 @@ export function EmptyState({
   children,
 }: Readonly<{ title: string; children?: ReactNode }>) {
   return (
-    <section aria-live="polite" className={styles.emptyState}>
+    <section aria-live="polite" className={styles.emptyState} data-stagger>
       <span aria-hidden="true" className={styles.emptyStateMark} />
       <div>
         <h2>{title}</h2>
@@ -193,11 +211,24 @@ export function ActionLink({
   children,
   primary = false,
 }: Readonly<{ href: string; children: ReactNode; primary?: boolean }>) {
+  const shouldReduceMotion = useReducedMotion();
+  const hoverProps = shouldReduceMotion
+    ? {}
+    : {
+        whileHover: { y: -2 },
+        whileTap: { scale: 0.98 },
+      };
   return (
-    <Link className={primary ? styles.primaryAction : styles.textAction} href={href}>
-      <span>{children}</span>
-      <span aria-hidden="true">→</span>
-    </Link>
+    <motion.div
+      style={{ display: "inline-flex" }}
+      {...hoverProps}
+      transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <Link className={primary ? styles.primaryAction : styles.textAction} href={href}>
+        <span>{children}</span>
+        <span aria-hidden="true">→</span>
+      </Link>
+    </motion.div>
   );
 }
 
@@ -205,11 +236,24 @@ export function ActionButton({
   children,
   onClick,
 }: Readonly<{ children: ReactNode; onClick: () => void }>) {
+  const shouldReduceMotion = useReducedMotion();
+  const hoverProps = shouldReduceMotion
+    ? {}
+    : {
+        whileHover: { y: -2 },
+        whileTap: { scale: 0.98 },
+      };
   return (
-    <button className={styles.primaryAction} onClick={onClick} type="button">
+    <motion.button
+      className={styles.primaryAction}
+      onClick={onClick}
+      type="button"
+      {...hoverProps}
+      transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+    >
       <span>{children}</span>
       <span aria-hidden="true">↻</span>
-    </button>
+    </motion.button>
   );
 }
 

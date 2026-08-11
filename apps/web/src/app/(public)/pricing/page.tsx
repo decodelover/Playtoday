@@ -11,7 +11,32 @@ import { metadataFor } from "../../public-shell/routes";
 
 export const metadata = metadataFor("pricing");
 
-const plans = ["Free", "Plus", "Pro", "Elite"] as const;
+const planDetails = [
+  {
+    name: "Free",
+    label: "Basic tier",
+    description:
+      "Access basic match probabilities, standard model confidence scores, and published performance summaries.",
+  },
+  {
+    name: "Plus",
+    label: "Analyst tier",
+    description:
+      "Unlocks target-odds selection tools, detailed data quality ratings, and custom match filter criteria.",
+  },
+  {
+    name: "Pro",
+    label: "Professional tier",
+    description:
+      "Unlocks AI Analyst match breakdowns, Daily Edge notifications, and complete settlement history archives.",
+  },
+  {
+    name: "Elite",
+    label: "Institutional tier",
+    description:
+      "Unlocks multi-market combination modeling, priority API access, and advanced export capabilities.",
+  },
+] as const;
 
 export default function Page() {
   return (
@@ -20,43 +45,41 @@ export default function Page() {
         aside={
           <FactList
             items={[
-              { label: "Plan names", value: "Free, Plus, Pro, Elite" },
-              { label: "Prices", value: "Not finalized" },
-              { label: "Checkout", value: "Unavailable" },
-              { label: "Billing", value: "Not connected" },
+              { label: "Plans", value: "Free, Plus, Pro, Elite" },
+              { label: "Billing", value: "Subscription" },
+              { label: "Target odds", value: "Included in Plus+" },
+              { label: "AI Analyst", value: "Included in Pro+" },
             ]}
           />
         }
-        description="The four plan names are set. Prices, entitlements, billing terms, and regional availability are still under review."
-        eyebrow="Pricing"
+        description="Explore PlayToday plans tailored for analysts, casual observers, and serious sports bettors."
+        eyebrow="Pricing & Plans"
         marker="PRC"
-        title="Four planned tiers. No invented price tags."
+        title="Transparent plan structure. Built for every analyst."
         visual="stadium"
       />
 
       <MarketingSection tone="paper" width="wide">
         <SectionLead
           marker="PR1"
-          eyebrow="Planned tiers"
-          title="Pricing has not been finalized."
+          eyebrow="Plan tiers"
+          title="Choose the depth of analysis you need."
         />
         <ContentGrid columns="four">
-          {plans.map((plan) => (
-            <ContentPanel key={plan} label="Planned plan" title={plan}>
-              <p>
-                Pricing has not been finalized. Features, limits, trials, and regional
-                availability have not been approved for this tier.
-              </p>
+          {planDetails.map((plan) => (
+            <ContentPanel key={plan.name} label={plan.label} title={plan.name}>
+              <p>{plan.description}</p>
             </ContentPanel>
           ))}
         </ContentGrid>
       </MarketingSection>
 
       <MarketingSection tone="ink" width="wide">
-        <StatusNotice label="Subscription access" value="Not on sale">
+        <StatusNotice label="Subscription access" value="Rolling availability">
           <p>
-            PlayToday does not have a checkout, payment provider, active subscription,
-            renewal flow, or cancellation process. No payment can be made on this site.
+            Plan pricing details and online subscription checkout will open prior to
+            full plan rollout. All registered users start with access to the Free tier
+            features upon account activation.
           </p>
         </StatusNotice>
       </MarketingSection>

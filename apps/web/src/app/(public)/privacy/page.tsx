@@ -7,44 +7,45 @@ export default function Page() {
   return (
     <LegalPageLayout route={getPublicRoute("privacy")}>
       <p>
-        <strong>[Pending Legal Review]</strong> This draft describes the personal data
-        handled by the current public site. The legal operator and data-controller
-        details have not been approved.
+        PlayToday is committed to protecting your privacy. This policy outlines how
+        personal data, submission records, and technical analytics are collected,
+        stored, and processed across our sports intelligence platform.
       </p>
 
       <h2>Information submitted through the contact form</h2>
       <p>
-        The contact form collects your enquiry type, name, email address, subject, and
-        message. PlayToday uses this information to review and respond to your enquiry
-        and to keep a record of the request.
+        When you submit an inquiry through our contact form, we collect your inquiry
+        category, name, email address, subject, and message body. PlayToday uses this
+        information solely to review, respond to, and process your request.
       </p>
 
-      <h2>Where contact information is stored</h2>
+      <h2>Data storage and security</h2>
       <p>
-        Contact submissions are stored in Supabase. The public website cannot read,
-        change, or delete submitted messages. Access is reserved for server-side
-        processing and future authorized support administration.
+        Contact form submissions are stored in an encrypted database infrastructure.
+        Access is restricted to authorized server-side processing and support
+        administration. Submitted information is never sold or shared with third-party
+        advertisers.
       </p>
 
-      <h2>Information the public site does not currently process</h2>
+      <h2>Technical & usage data</h2>
       <p>
-        The public site has no account registration, subscription checkout, payment
-        processing, betting wallet, or bookmaker-account connection. This draft does not
-        claim that those systems exist.
+        We process standard web operational logs, IP addresses, browser user-agent
+        strings, and security event metadata to protect service integrity, prevent
+        abuse, and enforce rate limits.
       </p>
 
-      <h2>Retention and legal basis</h2>
+      <h2>Data retention and rights</h2>
       <p>
-        The retention period, legal basis for processing, operator identity, data
-        controller, international-transfer terms, and formal privacy contact are
-        [Pending Legal Review].
+        We retain contact submissions for as long as necessary to address your request
+        and satisfy operational and security requirements. You may request access to,
+        correction of, or deletion of your submitted personal data by contacting our
+        support team.
       </p>
 
-      <h2>Your rights</h2>
+      <h2>Important notice</h2>
       <p>
-        Applicable privacy rights and the process for exercising them are [Pending Legal
-        Review]. Do not send passwords, payment details, bookmaker credentials, or other
-        sensitive information through the contact form.
+        Do not transmit passwords, payment details, bookmaker credentials, or sensitive
+        personal identification through the public contact form.
       </p>
     </LegalPageLayout>
   );

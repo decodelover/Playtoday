@@ -13,7 +13,7 @@ describe("public shell", () => {
         <h1>Page</h1>
       </PublicShell>,
     );
-    expect(screen.getByRole("link", { name: "PlayToday home" })).toHaveAttribute(
+    expect(screen.getAllByRole("link", { name: "PlayToday home" })[0]).toHaveAttribute(
       "href",
       "/",
     );
@@ -25,11 +25,11 @@ describe("public shell", () => {
         .getByRole("navigation", { name: "Primary public navigation" })
         .querySelector('a[href="/pricing"]'),
     ).toHaveAttribute("aria-current", "page");
-    expect(screen.getByRole("link", { name: "Sign in" })).toHaveAttribute(
+    expect(screen.getAllByRole("link", { name: "Sign in" })[0]).toHaveAttribute(
       "href",
       "/sign-in",
     );
-    expect(screen.getByRole("link", { name: "Get started" })).toHaveAttribute(
+    expect(screen.getAllByRole("link", { name: "Get started" })[0]).toHaveAttribute(
       "href",
       "/sign-up",
     );
