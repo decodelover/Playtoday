@@ -178,12 +178,23 @@ function MobileNavDrawer({
 }
 
 function AppHeader({
+  account,
   navigationTriggerRef,
   onOpenNavigation,
 }: Readonly<{
+  account?: { displayName: string | null; email: string | null } | undefined;
   navigationTriggerRef: RefObject<HTMLButtonElement | null>;
   onOpenNavigation: () => void;
 }>) {
+  const identitySource = account?.displayName?.trim() ?? account?.email?.split("@")[0];
+  const accountInitials = identitySource
+    ? identitySource
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((part) => part[0]?.toUpperCase())
+        .join("")
+    : "";
+
   return (
     <header className={styles.header}>
       <button
@@ -205,8 +216,8 @@ function AppHeader({
             <DialogHeader>
               <DialogTitle>Search PlayToday</DialogTitle>
               <DialogDescription id="search-description">
-                Global search will be added in a later product phase. No data is
-                searched from this placeholder.
+                Search is unavailable. Nothing is searched or sent when you open this
+                panel.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
@@ -217,19 +228,35 @@ function AppHeader({
         <Link
           aria-label="Notifications"
           className={styles.headerIconLink}
-          href="/notifications"
+          href="/settings/notifications"
         >
           ○
         </Link>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <IconButton aria-label="Account" variant="ghost">
-              ◉
-            </IconButton>
+            <button
+              aria-label="Account menu"
+              className={styles.accountTrigger}
+              type="button"
+            >
+              <span aria-hidden="true">{accountInitials || "Account"}</span>
+            </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            {account ? (
+              <div className={styles.accountIdentity}>
+                <strong>{account.displayName ?? "Display name not set"}</strong>
+                <span>{account.email ?? "Email unavailable"}</span>
+              </div>
+            ) : null}
             <DropdownMenuItem asChild>
               <Link href="/settings">Account settings</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/settings/profile">Profile</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/settings/security">Security</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href="/support">Help & Support</Link>
@@ -296,7 +323,13 @@ function MobileBottomNav({
   );
 }
 
-export function AppShell({ children }: Readonly<{ children: ReactNode }>) {
+export function AppShell({
+  account,
+  children,
+}: Readonly<{
+  account?: { displayName: string | null; email: string | null } | undefined;
+  children: ReactNode;
+}>) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileTriggerRef = useRef<HTMLButtonElement>(null);
@@ -338,6 +371,7 @@ export function AppShell({ children }: Readonly<{ children: ReactNode }>) {
       </aside>
       <div className={styles.workspace}>
         <AppHeader
+          account={account}
           navigationTriggerRef={mobileTriggerRef}
           onOpenNavigation={() => setMobileOpen(true)}
         />

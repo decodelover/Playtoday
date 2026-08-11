@@ -32,7 +32,8 @@ PlayToday Onboarding provides a multi-step preference setup and responsible-play
 
 ## State Persistence & Resuming
 
-1. Step progress is saved incrementally via `saveOnboardingStepAction` to `public.profiles.onboarding_step`.
-2. Partial and final preferences are saved to `public.user_preferences`.
+1. Step progress is saved through `saveOnboardingStepAction`, which calls `public.save_onboarding_progress(...)` with the authenticated session.
+2. The function derives ownership from `auth.uid()` and writes the current step plus preferences in one transaction.
 3. If a user refreshes or leaves mid-onboarding, opening `/onboarding` resumes from their saved `onboarding_step` with preserved choices.
-4. On final submission, `completeUserOnboarding()` updates `public.user_preferences` and sets `public.profiles.onboarding_completed_at` atomically.
+4. Final submission calls `public.complete_onboarding(...)`. It validates the responsible-play acknowledgement, upserts one preference row, and sets `onboarding_completed_at` plus the `completed` step in one transaction.
+5. Direct member updates to `onboarding_step`, `onboarding_completed_at`, and profile timestamps are denied by column-level grants.

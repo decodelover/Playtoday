@@ -105,13 +105,12 @@ export const shellRoutes = [
   {
     key: "notifications",
     label: "Notifications",
-    path: "/notifications",
+    path: "/settings/notifications",
     icon: "bell",
     group: "Account",
     mobilePrimary: false,
     breadcrumb: "Notifications",
-    description:
-      "A future workspace for notification preferences and delivery history.",
+    description: "Manage supported notification delivery channels.",
   },
   {
     key: "subscription",
@@ -131,7 +130,7 @@ export const shellRoutes = [
     group: "Account",
     mobilePrimary: false,
     breadcrumb: "Responsible Play",
-    description: "A future workspace for responsible-play information and controls.",
+    description: "Review your responsible-play acknowledgement and available controls.",
   },
   {
     key: "settings",
@@ -141,7 +140,7 @@ export const shellRoutes = [
     group: "Account",
     mobilePrimary: false,
     breadcrumb: "Settings",
-    description: "A future workspace for application preferences.",
+    description: "Manage your PlayToday profile, preferences, security and data.",
   },
   {
     key: "support",

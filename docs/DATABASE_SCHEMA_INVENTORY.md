@@ -1,0 +1,46 @@
+# PlayToday database schema inventory
+
+This inventory describes the schema produced by the version-controlled migrations in `supabase/migrations`. The repository is not linked to a remote Supabase project, so remote drift remains unverified.
+
+## Tables
+
+| Table                        | Purpose                                                                    | Domain  | Exposure | Ownership    | Primary key and foreign keys                                        | RLS                                                                        | Realtime                    | Retention                                | Origin                                      |
+| ---------------------------- | -------------------------------------------------------------------------- | ------- | -------- | ------------ | ------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------- | ---------------------------------------- | ------------------------------------------- |
+| `public.contact_submissions` | Stores public contact enquiries submitted by the server action             | Support | Private  | System-owned | UUID `id`; no foreign keys                                          | Enabled and forced; no policies; public API roles have no grants           | Not published by migrations | Business and legal period unresolved     | Phase 2F                                    |
+| `public.profiles`            | Stores member-facing profile fields and server-controlled onboarding state | Account | Private  | User-owned   | UUID `id` references `auth.users(id)` with `ON DELETE CASCADE`      | Enabled and forced; authenticated self-read and column-limited self-update | Not published by migrations | Account lifetime; removed with Auth user | Phase 2G, extended in 2H and hardened in 3A |
+| `public.user_preferences`    | Stores canonical onboarding and Settings preferences                       | Account | Private  | User-owned   | UUID `user_id` references `auth.users(id)` with `ON DELETE CASCADE` | Enabled and forced; authenticated self-read, self-insert, and self-update  | Not published by migrations | Account lifetime; removed with Auth user | Phase 2H, hardened in 3A                    |
+
+## Views and materialized views
+
+None.
+
+## Functions
+
+| Function                        | Schema    | Security                     | Purpose                                                            | Direct callers                |
+| ------------------------------- | --------- | ---------------------------- | ------------------------------------------------------------------ | ----------------------------- |
+| `handle_new_auth_user()`        | `private` | Definer, empty `search_path` | Creates one profile after an Auth user is inserted                 | Auth trigger only             |
+| `validate_user_preferences()`   | `private` | Invoker, empty `search_path` | Rejects unknown IANA timezone identifiers                          | Preference write trigger only |
+| `set_updated_at()`              | `private` | Invoker, empty `search_path` | Applies one timestamp policy to mutable user tables                | Update triggers only          |
+| `save_onboarding_progress(...)` | `public`  | Definer, empty `search_path` | Saves a validated draft and current step in one transaction        | Authenticated server action   |
+| `complete_onboarding(...)`      | `public`  | Definer, empty `search_path` | Persists final preferences and completion state in one transaction | Authenticated server action   |
+
+The two public functions accept no user ID. Both derive ownership from `auth.uid()` and deny anonymous execution.
+
+## Triggers
+
+| Trigger                                  | Relation                  | Timing                  | Purpose                            |
+| ---------------------------------------- | ------------------------- | ----------------------- | ---------------------------------- |
+| `on_auth_user_created`                   | `auth.users`              | After insert            | Idempotent profile creation        |
+| `validate_user_preferences_before_write` | `public.user_preferences` | Before insert or update | IANA timezone validation           |
+| `set_profiles_updated_at`                | `public.profiles`         | Before update           | Canonical `updated_at` maintenance |
+| `set_user_preferences_updated_at`        | `public.user_preferences` | Before update           | Canonical `updated_at` maintenance |
+
+## Enums, indexes, and extensions
+
+- PostgreSQL enums: none. Stable values use application schemas plus database `CHECK` constraints.
+- Explicit application indexes: none. The three primary keys already index the only current ownership lookup columns.
+- Extensions explicitly enabled by application migrations: none. `gen_random_uuid()` relies on the Supabase database baseline.
+
+## Deletion behavior
+
+Profiles and preferences cascade when the corresponding Auth user is deleted. Contact submissions are not tied to an Auth user and require a separate retention decision. No financial, prediction, settlement, or subscription history exists in this schema.

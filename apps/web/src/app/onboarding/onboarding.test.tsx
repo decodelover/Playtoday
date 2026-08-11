@@ -59,13 +59,13 @@ describe("OnboardingWizard Component", () => {
     expect(screen.getByText("Responsible Play Commitment")).toBeInTheDocument();
     const continueBtn = screen.getByRole("button", { name: /continue →/i });
 
-    // Checkbox is checked by default in wizard state, button is enabled
-    expect(continueBtn).not.toBeDisabled();
-
     const checkbox = screen.getByRole("checkbox");
+    expect(checkbox).not.toBeChecked();
+    expect(continueBtn).toBeDisabled();
+
     fireEvent.click(checkbox);
 
-    // Unchecking disables the continue button
-    expect(continueBtn).toBeDisabled();
+    expect(checkbox).toBeChecked();
+    expect(continueBtn).not.toBeDisabled();
   });
 });

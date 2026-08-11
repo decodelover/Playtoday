@@ -14,3 +14,4 @@ node_modules/
 pnpm-lock.yaml
 .agents/
 skills-lock.json
+supabase/.temp/

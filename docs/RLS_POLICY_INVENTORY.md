@@ -1,0 +1,19 @@
+# PlayToday RLS policy inventory
+
+RLS and PostgreSQL grants are separate controls. Every private table is protected by both.
+
+| Table                        | RLS                | SELECT                                           | INSERT                                         | UPDATE                                                                     | DELETE             | Anonymous           | Service role                  | Notes                                                                                                        |
+| ---------------------------- | ------------------ | ------------------------------------------------ | ---------------------------------------------- | -------------------------------------------------------------------------- | ------------------ | ------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `public.contact_submissions` | Enabled and forced | No policy                                        | No policy                                      | No policy                                                                  | No policy          | No table privileges | Insert grant only             | Public contact writes pass through the server-only contact client. No application role can list submissions. |
+| `public.profiles`            | Enabled and forced | `authenticated`, own row where `auth.uid() = id` | No policy or grant                             | `authenticated`, own row; grant limited to `display_name` and `avatar_url` | No policy or grant | No privileges       | No explicit application grant | Onboarding fields and timestamps cannot be directly changed by members.                                      |
+| `public.user_preferences`    | Enabled and forced | `authenticated`, own row                         | `authenticated`, owner must equal `auth.uid()` | `authenticated`, existing and resulting owner must equal `auth.uid()`      | No policy or grant | No privileges       | No explicit application grant | Insert and update grants exclude server-managed timestamps.                                                  |
+
+## Function execution
+
+- `public.save_onboarding_progress(...)`: `EXECUTE` only for `authenticated`.
+- `public.complete_onboarding(...)`: `EXECUTE` only for `authenticated`.
+- Trigger helpers in `private`: no schema usage or function execution for `anon` or `authenticated`.
+
+## Required tests
+
+`supabase/tests/database/phase_3a_security.test.sql` covers anonymous denial, self access, User A to User B denial, forged ownership, completion-field mutation, RPC authorization, contact privacy, service-role grants, and Realtime publication state. It must run against an isolated local Supabase database before deployment.

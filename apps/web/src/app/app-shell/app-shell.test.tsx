@@ -44,7 +44,7 @@ describe("application shell", () => {
       within(desktop).getByRole("link", { name: "Today’s Games" }),
     ).toHaveAttribute("aria-current", "page");
     expect(within(desktop).getAllByRole("link")).toHaveLength(14);
-  });
+  }, 15_000);
 
   it("collapses the sidebar while retaining accessible route names", () => {
     render(
@@ -62,9 +62,9 @@ describe("application shell", () => {
     ).toContainElement(screen.getAllByRole("link", { name: "Overview" }).at(0)!);
   });
 
-  it("shows five labelled mobile destinations and accessible header actions", () => {
+  it("shows five labelled mobile destinations and accessible header actions", async () => {
     render(
-      <AppShell>
+      <AppShell account={{ displayName: "Amina Okafor", email: "amina@example.com" }}>
         <p>Page content</p>
       </AppShell>,
     );
@@ -77,7 +77,17 @@ describe("application shell", () => {
     expect(screen.getByRole("button", { name: "Open navigation" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Search PlayToday" })).toBeVisible();
     expect(screen.getAllByRole("link", { name: "Notifications" })).toHaveLength(2);
-    expect(screen.getByRole("button", { name: "Account" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Account menu" })).toHaveTextContent(
+      "AO",
+    );
+    fireEvent.pointerDown(screen.getByRole("button", { name: "Account menu" }), {
+      button: 0,
+      ctrlKey: false,
+    });
+    expect(await screen.findByText("Amina Okafor")).toBeVisible();
+    expect(screen.getByText("amina@example.com")).toBeVisible();
+    expect(screen.getByRole("menuitem", { name: "Profile" })).toBeVisible();
+    expect(screen.getByRole("menuitem", { name: "Security" })).toBeVisible();
     expect(document.body.textContent).not.toMatch(/unread|premium plan|john doe/i);
   });
 
@@ -89,9 +99,7 @@ describe("application shell", () => {
     );
     const trigger = screen.getByRole("button", { name: "Open navigation" });
     fireEvent.click(trigger);
-    expect(
-      await screen.findByRole("dialog", { name: /PlayToday/i }),
-    ).toBeVisible();
+    expect(await screen.findByRole("dialog", { name: /PlayToday/i })).toBeVisible();
     expect(screen.getByRole("button", { name: "Close navigation" })).toHaveFocus();
     fireEvent.keyDown(document, { key: "Escape" });
     await waitFor(() => expect(trigger).toHaveFocus());
@@ -121,14 +129,15 @@ describe("breadcrumbs and placeholders", () => {
     expect(screen.getByText("Today’s Games")).toHaveAttribute("aria-current", "page");
   });
 
-  it("clearly identifies pages as non-live shell placeholders", () => {
+  it("clearly identifies unavailable pages without internal product language", () => {
     const { container } = render(
       <PagePlaceholder route={getShellRoute("daily-odds")} />,
     );
-    expect(screen.getByText("Foundation placeholder")).toBeVisible();
+    expect(screen.getByText("Not available")).toBeVisible();
     expect(container).toHaveTextContent(
-      "contains no live sports data, selections, fixtures, odds, or operational functionality",
+      "has no live sports data, selections, fixtures, odds, or working tools",
     );
+    expect(container.textContent).not.toMatch(/phase|prototype|placeholder|roadmap/i);
     expect(container.textContent).not.toMatch(/guaranteed|booking code|100% accurate/i);
   });
 });

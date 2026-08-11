@@ -9,11 +9,6 @@ import {
   ANALYSIS_STRATEGIES,
   RISK_PREFERENCES,
   type UserPreferencesInput,
-  type SportId,
-  type BookmakerId,
-  type MarketId,
-  type StrategyId,
-  type RiskId,
 } from "@playtoday/validation";
 import {
   completeOnboardingAction,
@@ -67,7 +62,7 @@ export function OnboardingWizard({
         email: true,
         in_app: true,
       },
-      responsible_play_ack: true,
+      responsible_play_ack: initialPreferences?.responsible_play_ack ?? false,
       timezone: initialPreferences?.timezone ?? userTz ?? "UTC",
     };
   });
@@ -141,7 +136,11 @@ export function OnboardingWizard({
           </div>
         </div>
 
-        <button className={styles.signOutBtn} onClick={handleSignOut} type="button">
+        <button
+          className={styles.signOutBtn}
+          onClick={() => void handleSignOut()}
+          type="button"
+        >
           Sign Out
         </button>
       </header>
@@ -209,9 +208,7 @@ export function OnboardingWizard({
                 </div>
                 <div className={styles.optionsGrid}>
                   {SUPPORTED_SPORTS.map((sport) => {
-                    const isSelected = preferences.preferred_sports.includes(
-                      sport.id as SportId,
-                    );
+                    const isSelected = sport.id === "football";
                     return (
                       <button
                         className={styles.optionCard}
@@ -222,9 +219,7 @@ export function OnboardingWizard({
                           if (sport.available) {
                             setPreferences((prev: UserPreferencesInput) => ({
                               ...prev,
-                              preferred_sports: isSelected
-                                ? prev.preferred_sports
-                                : [...prev.preferred_sports, sport.id as SportId],
+                              preferred_sports: ["football"],
                             }));
                           }
                         }}
@@ -266,9 +261,7 @@ export function OnboardingWizard({
                 </div>
                 <div className={styles.optionsGridSingle}>
                   {SUPPORTED_BOOKMAKERS.map((bm) => {
-                    const isSelected = preferences.preferred_bookmakers.includes(
-                      bm.id as BookmakerId,
-                    );
+                    const isSelected = preferences.preferred_bookmakers.includes(bm.id);
                     return (
                       <button
                         className={styles.optionCard}
@@ -276,18 +269,14 @@ export function OnboardingWizard({
                         key={bm.id}
                         onClick={() => {
                           setPreferences((prev: UserPreferencesInput) => {
-                            const exists = prev.preferred_bookmakers.includes(
-                              bm.id as BookmakerId,
-                            );
+                            const exists = prev.preferred_bookmakers.includes(bm.id);
                             const updated = exists
-                              ? prev.preferred_bookmakers.filter(
-                                  (id: BookmakerId) => id !== bm.id,
-                                )
-                              : [...prev.preferred_bookmakers, bm.id as BookmakerId];
+                              ? prev.preferred_bookmakers.filter((id) => id !== bm.id)
+                              : [...prev.preferred_bookmakers, bm.id];
                             return {
                               ...prev,
                               preferred_bookmakers:
-                                updated.length > 0 ? updated : [bm.id as BookmakerId],
+                                updated.length > 0 ? updated : [bm.id],
                             };
                           });
                         }}
@@ -319,7 +308,7 @@ export function OnboardingWizard({
                 <div className={styles.optionsGrid}>
                   {SUPPORTED_MARKETS.map((market) => {
                     const isSelected = preferences.preferred_markets.includes(
-                      market.id as MarketId,
+                      market.id,
                     );
                     return (
                       <button
@@ -328,18 +317,14 @@ export function OnboardingWizard({
                         key={market.id}
                         onClick={() => {
                           setPreferences((prev: UserPreferencesInput) => {
-                            const exists = prev.preferred_markets.includes(
-                              market.id as MarketId,
-                            );
+                            const exists = prev.preferred_markets.includes(market.id);
                             const updated = exists
-                              ? prev.preferred_markets.filter(
-                                  (id: MarketId) => id !== market.id,
-                                )
-                              : [...prev.preferred_markets, market.id as MarketId];
+                              ? prev.preferred_markets.filter((id) => id !== market.id)
+                              : [...prev.preferred_markets, market.id];
                             return {
                               ...prev,
                               preferred_markets:
-                                updated.length > 0 ? updated : [market.id as MarketId],
+                                updated.length > 0 ? updated : [market.id],
                             };
                           });
                         }}
@@ -401,7 +386,7 @@ export function OnboardingWizard({
                         onClick={() =>
                           setPreferences((prev: UserPreferencesInput) => ({
                             ...prev,
-                            default_strategy: strat.id as StrategyId,
+                            default_strategy: strat.id,
                           }))
                         }
                         type="button"
@@ -424,7 +409,7 @@ export function OnboardingWizard({
                         onClick={() =>
                           setPreferences((prev: UserPreferencesInput) => ({
                             ...prev,
-                            risk_preference: risk.id as RiskId,
+                            risk_preference: risk.id,
                           }))
                         }
                         type="button"
@@ -595,7 +580,7 @@ export function OnboardingWizard({
                   (activeStep.id === "responsible_play" &&
                     !preferences.responsible_play_ack)
                 }
-                onClick={handleNext}
+                onClick={() => void handleNext()}
                 type="button"
               >
                 {isSubmitting

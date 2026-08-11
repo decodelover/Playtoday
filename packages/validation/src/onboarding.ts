@@ -129,16 +129,17 @@ export type RiskId = (typeof RISK_PREFERENCES)[number]["id"];
 /**
  * Zod Validation Schema for User Onboarding Preferences
  */
-export const UserPreferencesSchema = z.object({
+export const UserPreferencesDraftSchema = z.object({
   preferred_sports: z
-    .array(z.enum(["football", "basketball", "tennis"]))
-    .min(1, "At least one sport must be selected.")
-    .refine((sports: string[]) => sports.includes("football"), {
-      message: "Football is currently the primary supported sport.",
-    }),
+    .array(z.literal("football"))
+    .length(1, "Football is the only sport available right now."),
   preferred_bookmakers: z
     .array(z.enum(["sportybet", "bet9ja", "msport"]))
-    .min(1, "Select at least one preferred bookmaker."),
+    .min(1, "Choose at least one bookmaker.")
+    .max(3)
+    .refine((values) => new Set(values).size === values.length, {
+      message: "Choose each bookmaker only once.",
+    }),
   preferred_markets: z
     .array(
       z.enum([
@@ -151,22 +152,48 @@ export const UserPreferencesSchema = z.object({
         "handicap",
       ]),
     )
-    .min(1, "Select at least one preferred betting market."),
+    .min(1, "Choose at least one market.")
+    .max(7)
+    .refine((values) => new Set(values).size === values.length, {
+      message: "Choose each market only once.",
+    }),
   target_odds: z
     .number({ message: "Target odds must be a number." })
     .min(1.05, "Target odds must be at least 1.05.")
     .max(1000.0, "Target odds cannot exceed 1000.00."),
   default_strategy: z.enum(["conservative", "balanced", "aggressive"]),
   risk_preference: z.enum(["conservative", "moderate", "higher_risk"]),
-  notification_channels: z.object({
-    email: z.boolean(),
-    in_app: z.boolean(),
-  }),
+  notification_channels: z
+    .object({
+      email: z.boolean(),
+      in_app: z.boolean(),
+    })
+    .strict(),
   responsible_play_ack: z.boolean(),
-  timezone: z.string().min(1, "Timezone is required."),
+  timezone: z
+    .string()
+    .trim()
+    .min(1, "Choose a timezone.")
+    .max(64, "Choose a valid timezone.")
+    .refine((timezone) => {
+      try {
+        new Intl.DateTimeFormat("en", { timeZone: timezone }).format();
+        return true;
+      } catch {
+        return false;
+      }
+    }, "Choose a valid timezone."),
 });
 
-export type UserPreferencesInput = z.infer<typeof UserPreferencesSchema>;
+export const UserPreferencesSchema = UserPreferencesDraftSchema.refine(
+  (preferences) => preferences.responsible_play_ack,
+  {
+    message: "Confirm the responsible-play statement before you finish.",
+    path: ["responsible_play_ack"],
+  },
+);
+
+export type UserPreferencesInput = z.infer<typeof UserPreferencesDraftSchema>;
 
 export const OnboardingStepSchema = z.enum([
   "welcome",

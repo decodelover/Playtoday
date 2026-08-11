@@ -1,9 +1,14 @@
 "use server";
 
-import type { UserPreferencesInput } from "@playtoday/validation";
-import { UserPreferencesSchema } from "@playtoday/validation";
+import {
+  OnboardingStepSchema,
+  UserPreferencesDraftSchema,
+  UserPreferencesSchema,
+  type UserPreferencesInput,
+} from "@playtoday/validation";
 import {
   completeUserOnboarding,
+  OnboardingPersistenceError,
   saveOnboardingProgress,
 } from "../../lib/onboarding-service";
 import { getAuthenticatedUser } from "../../lib/supabase/server";
@@ -15,7 +20,7 @@ export interface SaveStepActionResult {
 
 export async function saveOnboardingStepAction(
   step: string,
-  partialPreferences?: Partial<UserPreferencesInput>,
+  preferences: UserPreferencesInput,
 ): Promise<SaveStepActionResult> {
   try {
     const user = await getAuthenticatedUser();
@@ -23,18 +28,35 @@ export async function saveOnboardingStepAction(
     if (!user) {
       return {
         success: false,
-        error: "Your authentication session expired. Please sign in again.",
+        error: "Your session has ended. Sign in again to continue.",
       };
     }
 
-    await saveOnboardingProgress(user.id, step, partialPreferences);
+    const parsedStep = OnboardingStepSchema.safeParse(step);
+    const parsedPreferences = UserPreferencesDraftSchema.safeParse(preferences);
+
+    if (!parsedStep.success || !parsedPreferences.success) {
+      const preferenceIssue = parsedPreferences.success
+        ? undefined
+        : parsedPreferences.error.issues[0]?.message;
+      return {
+        success: false,
+        error: preferenceIssue ?? "Check your choices and try again.",
+      };
+    }
+
+    await saveOnboardingProgress(parsedStep.data, parsedPreferences.data);
     return { success: true };
   } catch (err: unknown) {
-    const message =
-      err instanceof Error
-        ? err.message
-        : "An unexpected error occurred while saving progress.";
-    return { success: false, error: message };
+    if (err instanceof OnboardingPersistenceError) {
+      process.stderr.write(
+        `${JSON.stringify({ event: "onboarding_progress_save_failed", operation: err.operation, databaseCode: err.databaseCode })}\n`,
+      );
+    }
+    return {
+      success: false,
+      error: "We couldn't save your progress. Check your connection and try again.",
+    };
   }
 }
 
@@ -47,7 +69,7 @@ export async function completeOnboardingAction(
     if (!user) {
       return {
         success: false,
-        error: "Authentication session required to complete setup.",
+        error: "Your session has ended. Sign in again to finish setup.",
       };
     }
 
@@ -55,17 +77,21 @@ export async function completeOnboardingAction(
 
     if (!parseResult.success) {
       const firstIssue =
-        parseResult.error.issues[0]?.message ?? "Invalid preferences configuration.";
+        parseResult.error.issues[0]?.message ?? "Check your choices and try again.";
       return { success: false, error: firstIssue };
     }
 
-    await completeUserOnboarding(user.id, parseResult.data);
+    await completeUserOnboarding(parseResult.data);
     return { success: true };
   } catch (err: unknown) {
-    const message =
-      err instanceof Error
-        ? err.message
-        : "Failed to finalize your setup. Please try again.";
-    return { success: false, error: message };
+    if (err instanceof OnboardingPersistenceError) {
+      process.stderr.write(
+        `${JSON.stringify({ event: "onboarding_completion_failed", operation: err.operation, databaseCode: err.databaseCode })}\n`,
+      );
+    }
+    return {
+      success: false,
+      error: "We couldn't finish setting up your account. Try again in a moment.",
+    };
   }
 }

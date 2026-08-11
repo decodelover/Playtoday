@@ -6,7 +6,7 @@ export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
   const tokenHash = searchParams.get("token_hash");
-  const type = searchParams.get("type") as EmailOtpType | null;
+  const type: EmailOtpType | null = searchParams.get("type");
   const next = searchParams.get("next");
 
   // Validate target redirect URL to prevent open redirect vulnerabilities

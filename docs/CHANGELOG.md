@@ -1,5 +1,51 @@
 # PlayToday Changelog
 
+## [Phase 3B] - 2026-08-11
+
+### Added
+
+- Canonical authenticated Settings routes for profile, preferences, notifications, security, Responsible Play, and privacy data.
+- Real display-name and timezone persistence, signed-in password changes, supported Supabase Auth session-revocation scopes, and authenticated JSON data export.
+- Shared settings validation, focused security and export tests, and account-settings architecture, security, deletion, and data-management documentation.
+
+### Changed
+
+- The application account menu now uses the signed-in member's real display name, email, and initials.
+- Settings edit the existing onboarding preference record and canonical identifiers.
+- `/notifications` redirects to `/settings/notifications`, and subscription content no longer implies billing data exists.
+
+### Security and scope note
+
+- Normal settings and export paths use the member session and RLS; Phase 3B adds no service-role use.
+- MFA, device history, security activity, push delivery, enforced cooling-off, self-exclusion, email change, and account deletion are not exposed without complete supporting systems.
+
+### Verification note
+
+- Local CI passes, including the repository guard, environment checks, formatting, lint, typecheck, tests, coverage, and production build.
+- Local Supabase replay and pgTAP still require a Docker-compatible runtime.
+- Remote drift and authenticated persistence checks require Supabase CLI authentication and an explicitly selected project.
+
+## [Phase 3A] - 2026-08-11
+
+### Added
+
+- Additive Supabase hardening migration with explicit grants, constrained preferences, safe trigger functions, timestamp triggers, and atomic onboarding RPCs.
+- pgTAP attack matrix for anonymous access, cross-user isolation, forged ownership, privileged profile fields, contact privacy, function execution, and Realtime publication state.
+- Database security, schema, RLS, migration, service-role, and retention documentation.
+
+### Changed
+
+- Profile creation now uses one private idempotent Auth trigger.
+- Signup no longer creates a preference row or pre-fills responsible-play acknowledgement.
+- Onboarding save and completion derive ownership from `auth.uid()` and complete related writes in one database transaction.
+- User-facing onboarding failures no longer include raw database messages.
+
+### Verification note
+
+- Repository baseline tests passed before editing.
+- Local Supabase replay and pgTAP are pending because Docker and Podman are unavailable.
+- Remote migration drift is pending because the repository is not linked to an identified Supabase project.
+
 ## [Phase 2H] - 2026-08-11
 
 ### Added

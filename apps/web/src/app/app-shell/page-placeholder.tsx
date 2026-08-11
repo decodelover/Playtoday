@@ -16,20 +16,18 @@ export function PagePlaceholder({ route }: Readonly<{ route: ShellRoute }>) {
     <Stack gap="large">
       <PageHeader
         description={route.description}
-        metadata={<Badge variant="accent">Foundation placeholder</Badge>}
+        metadata={<Badge variant="accent">Not available</Badge>}
         title={route.label}
       />
       <Card>
         <CardHeader>
-          <CardTitle>Workspace foundation</CardTitle>
-          <CardDescription>
-            This route is ready for a future product phase.
-          </CardDescription>
+          <CardTitle>No live data</CardTitle>
+          <CardDescription>This area is not available.</CardDescription>
         </CardHeader>
         <CardContent>
           <p className="shell-placeholder-notice">
-            This page is part of the application-shell foundation and contains no live
-            sports data, selections, fixtures, odds, or operational functionality.
+            PlayToday has no live sports data, selections, fixtures, odds, or working
+            tools to show here.
           </p>
         </CardContent>
       </Card>

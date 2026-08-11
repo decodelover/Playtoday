@@ -1,5 +1,5 @@
-import { PagePlaceholder } from "../../app-shell/page-placeholder";
-import { getShellRoute } from "../../app-shell/routes";
-export default function Page() {
-  return <PagePlaceholder route={getShellRoute("notifications")} />;
+import { redirect } from "next/navigation";
+
+export default function NotificationsRedirectPage() {
+  redirect("/settings/notifications");
 }

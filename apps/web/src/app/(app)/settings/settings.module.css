@@ -1,0 +1,447 @@
+.settingsShell {
+  display: grid;
+  grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr);
+  gap: clamp(var(--pt-space-6), 4vw, var(--pt-space-10));
+  align-items: start;
+}
+
+.settingsNav {
+  position: sticky;
+  top: 6rem;
+  display: grid;
+  gap: var(--pt-space-1);
+  padding: var(--pt-space-2);
+  border: var(--pt-border-width-subtle) solid var(--pt-border-divider);
+  border-radius: var(--pt-radius-card);
+  background: color-mix(in srgb, var(--pt-background-panel) 92%, transparent);
+}
+
+.settingsNav a {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  padding: var(--pt-space-2) var(--pt-space-3);
+  border-radius: var(--pt-radius-control);
+  color: var(--pt-text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.settingsNav a:hover {
+  background: var(--pt-background-interactive);
+  color: var(--pt-text-primary);
+}
+
+.settingsNav a[data-active] {
+  background: var(--pt-brand-muted);
+  color: var(--pt-brand-primary);
+}
+
+.settingsNav a:focus-visible,
+.routeLink:focus-visible,
+.textLink:focus-visible,
+.button:focus-visible,
+.dangerButton:focus-visible,
+.passwordToggle:focus-visible {
+  outline: var(--pt-border-width-focus) solid var(--pt-border-focus);
+  outline-offset: 2px;
+}
+
+.settingsContent {
+  min-width: 0;
+}
+
+.page {
+  display: grid;
+  gap: var(--pt-space-7);
+  width: min(100%, 58rem);
+}
+
+.pageHeader {
+  display: grid;
+  gap: var(--pt-space-2);
+}
+
+.pageHeader h1 {
+  margin: 0;
+  font: 700 clamp(2rem, 5vw, 3.25rem) / 1.05 var(--pt-font-sans);
+  letter-spacing: -0.045em;
+}
+
+.pageHeader p {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--pt-text-secondary);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.identityLine {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--pt-space-4);
+  padding: var(--pt-space-5) 0;
+  border-bottom: var(--pt-border-width-subtle) solid var(--pt-border-divider);
+}
+
+.initials {
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: var(--pt-radius-card);
+  background: var(--pt-brand-muted);
+  color: var(--pt-brand-primary);
+  font-weight: 800;
+}
+
+.identityLine strong,
+.identityLine span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.identityLine span {
+  margin-top: var(--pt-space-1);
+  color: var(--pt-text-muted);
+}
+
+.sectionGroup {
+  display: grid;
+  gap: var(--pt-space-3);
+}
+
+.sectionGroup h2,
+.panel h2,
+.formSection h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.35;
+}
+
+.sectionGroup > p,
+.panelHeader p,
+.formSection > p {
+  margin: 0;
+  color: var(--pt-text-secondary);
+  line-height: 1.6;
+}
+
+.routeList {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: var(--pt-border-width-subtle) solid var(--pt-border-divider);
+  list-style: none;
+}
+
+.routeLink {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--pt-space-4);
+  align-items: center;
+  min-height: 4.75rem;
+  padding: var(--pt-space-3) var(--pt-space-1);
+  border-bottom: var(--pt-border-width-subtle) solid var(--pt-border-divider);
+  color: inherit;
+  text-decoration: none;
+}
+
+.routeLink:hover strong {
+  color: var(--pt-brand-primary);
+}
+
+.routeLink strong,
+.routeLink span {
+  display: block;
+}
+
+.routeLink span {
+  margin-top: var(--pt-space-1);
+  color: var(--pt-text-muted);
+  line-height: 1.45;
+}
+
+.routeLink b {
+  color: var(--pt-brand-primary);
+  font-size: 1.25rem;
+}
+
+.panel,
+.formSection {
+  display: grid;
+  gap: var(--pt-space-5);
+  padding: clamp(var(--pt-space-5), 4vw, var(--pt-space-7));
+  border: var(--pt-border-width-subtle) solid var(--pt-border-divider);
+  border-radius: var(--pt-radius-card);
+  background: var(--pt-background-panel);
+}
+
+.panelHeader {
+  display: grid;
+  gap: var(--pt-space-2);
+}
+
+.form {
+  display: grid;
+  gap: var(--pt-space-5);
+}
+
+.field {
+  display: grid;
+  gap: var(--pt-space-2);
+}
+
+.field label,
+.fieldset legend {
+  color: var(--pt-text-primary);
+  font-weight: 650;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0 var(--pt-space-3);
+  border: var(--pt-border-width-subtle) solid var(--pt-border-default);
+  border-radius: var(--pt-radius-control);
+  background: var(--pt-background-input);
+  color: var(--pt-text-primary);
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.choice:focus-within {
+  outline: var(--pt-border-width-focus) solid var(--pt-border-focus);
+  outline-offset: 2px;
+}
+
+.helper,
+.readOnlyValue {
+  margin: 0;
+  color: var(--pt-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.readOnlyValue {
+  overflow-wrap: anywhere;
+  color: var(--pt-text-primary);
+  font-size: 1rem;
+}
+
+.fieldError,
+.formError,
+.formSuccess {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.fieldError,
+.formError {
+  color: var(--pt-semantic-danger);
+}
+
+.formSuccess {
+  color: var(--pt-semantic-success);
+}
+
+.buttonRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pt-space-3);
+  align-items: center;
+}
+
+.button,
+.dangerButton,
+.passwordToggle {
+  min-height: 2.75rem;
+  padding: var(--pt-space-2) var(--pt-space-4);
+  border: var(--pt-border-width-subtle) solid transparent;
+  border-radius: var(--pt-radius-control);
+  font: 650 0.9rem / 1 var(--pt-font-sans);
+  cursor: pointer;
+}
+
+.button {
+  background: var(--pt-brand-primary);
+  color: var(--pt-text-inverse);
+}
+
+.button[data-secondary],
+.passwordToggle {
+  border-color: var(--pt-border-default);
+  background: var(--pt-background-interactive);
+  color: var(--pt-text-primary);
+}
+
+.button:disabled,
+.dangerButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.dangerButton {
+  border-color: color-mix(in srgb, var(--pt-semantic-danger) 55%, transparent);
+  background: var(--pt-semantic-danger-muted);
+  color: var(--pt-semantic-danger);
+}
+
+.fieldset {
+  display: grid;
+  gap: var(--pt-space-3);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.fieldset legend {
+  margin-bottom: var(--pt-space-1);
+}
+
+.choiceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--pt-space-3);
+}
+
+.choice {
+  display: flex;
+  min-height: 3.5rem;
+  align-items: flex-start;
+  gap: var(--pt-space-3);
+  padding: var(--pt-space-3);
+  border: var(--pt-border-width-subtle) solid var(--pt-border-default);
+  border-radius: var(--pt-radius-control);
+  background: var(--pt-background-interactive);
+}
+
+.choice input {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: 0 0 auto;
+  margin-top: 0.15rem;
+  accent-color: var(--pt-brand-primary);
+}
+
+.choice span,
+.choice small {
+  display: block;
+}
+
+.choice small {
+  margin-top: var(--pt-space-1);
+  color: var(--pt-text-muted);
+  line-height: 1.4;
+}
+
+.dataList {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.45fr) minmax(0, 1fr);
+  gap: var(--pt-space-3) var(--pt-space-5);
+  margin: 0;
+}
+
+.dataList dt {
+  color: var(--pt-text-muted);
+}
+
+.dataList dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.notice {
+  padding: var(--pt-space-4);
+  border-left: 3px solid var(--pt-semantic-information);
+  background: var(--pt-semantic-information-muted);
+  color: var(--pt-text-secondary);
+  line-height: 1.6;
+}
+
+.notice strong {
+  color: var(--pt-text-primary);
+}
+
+.dangerZone {
+  padding-top: var(--pt-space-6);
+  border-top: var(--pt-border-width-subtle) solid var(--pt-border-divider);
+}
+
+.textLink {
+  color: var(--pt-brand-primary);
+  font-weight: 650;
+  text-underline-offset: 0.2em;
+}
+
+.passwordWrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--pt-space-2);
+}
+
+.passwordToggle {
+  min-width: 4.75rem;
+}
+
+@media (max-width: 64rem) {
+  .settingsShell {
+    grid-template-columns: 1fr;
+    gap: var(--pt-space-6);
+  }
+
+  .settingsNav {
+    position: static;
+    display: flex;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+}
+
+@media (max-width: 40rem) {
+  .choiceGrid,
+  .dataList {
+    grid-template-columns: 1fr;
+  }
+
+  .dataList {
+    gap: var(--pt-space-1);
+  }
+
+  .dataList dd + dt {
+    margin-top: var(--pt-space-3);
+  }
+
+  .buttonRow > * {
+    width: 100%;
+  }
+
+  .routeLink {
+    min-height: 5.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settingsNav a,
+  .routeLink,
+  .button,
+  .dangerButton {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .settingsNav a[data-active],
+  .choice {
+    outline: 1px solid CanvasText;
+  }
+}

@@ -1,7 +1,9 @@
 export type Json =
   string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
-export interface Database {
+// Supabase's client generic requires this generated-style structural alias.
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type Database = {
   public: {
     Tables: {
       contact_submissions: {
@@ -114,8 +116,38 @@ export interface Database {
       };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      complete_onboarding: {
+        Args: {
+          p_default_strategy: string;
+          p_notification_channels: Json;
+          p_preferred_bookmakers: string[];
+          p_preferred_markets: string[];
+          p_preferred_sports: string[];
+          p_responsible_play_ack: boolean;
+          p_risk_preference: string;
+          p_target_odds: number;
+          p_timezone: string;
+        };
+        Returns: string;
+      };
+      save_onboarding_progress: {
+        Args: {
+          p_default_strategy: string;
+          p_notification_channels: Json;
+          p_preferred_bookmakers: string[];
+          p_preferred_markets: string[];
+          p_preferred_sports: string[];
+          p_responsible_play_ack: boolean;
+          p_risk_preference: string;
+          p_step: string;
+          p_target_odds: number;
+          p_timezone: string;
+        };
+        Returns: undefined;
+      };
+    };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;
   };
-}
+};

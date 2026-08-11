@@ -194,6 +194,38 @@
   outline: var(--pt-border-width-focus) solid var(--pt-border-focus);
   outline-offset: 2px;
 }
+.accountTrigger {
+  display: grid;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  padding-inline: var(--pt-space-2);
+  border: var(--pt-border-width-subtle) solid var(--pt-border-default);
+  border-radius: var(--pt-radius-control);
+  background: var(--pt-brand-muted);
+  color: var(--pt-brand-primary);
+  font: 750 0.75rem / 1 var(--pt-font-sans);
+  cursor: pointer;
+}
+.accountTrigger:focus-visible {
+  outline: var(--pt-border-width-focus) solid var(--pt-border-focus);
+  outline-offset: 2px;
+}
+.accountIdentity {
+  display: grid;
+  min-width: 15rem;
+  gap: var(--pt-space-1);
+  padding: var(--pt-space-3);
+  border-bottom: var(--pt-border-width-subtle) solid var(--pt-border-divider);
+}
+.accountIdentity strong,
+.accountIdentity span {
+  overflow-wrap: anywhere;
+}
+.accountIdentity span {
+  color: var(--pt-text-muted);
+  font-size: 0.8rem;
+}
 .breadcrumbs ol {
   display: flex;
   align-items: center;
