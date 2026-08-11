@@ -151,11 +151,17 @@ function MobileNavDrawer({
         side="left"
       >
         <div className={styles.drawerHeader}>
-          <div>
-            <SheetTitle>PlayToday navigation</SheetTitle>
-            <SheetDescription id="mobile-nav-description">
-              All application-shell destinations.
-            </SheetDescription>
+          <div className={styles.brandLogo}>
+            <div className={styles.brandMark} aria-hidden="true">
+              <i>/</i>
+              <i>/</i>
+            </div>
+            <div className={styles.brandText}>
+              <SheetTitle className={styles.brandName}>PLAYTODAY</SheetTitle>
+              <SheetDescription id="mobile-nav-description" className={styles.brandSub}>
+                Sports intelligence
+              </SheetDescription>
+            </div>
           </div>
           <SheetClose asChild>
             <IconButton aria-label="Close navigation" variant="ghost">
@@ -305,10 +311,14 @@ export function AppShell({ children }: Readonly<{ children: ReactNode }>) {
           className={styles.wordmark}
           href="/overview"
         >
-          <span aria-hidden="true">P</span>
-          <strong className={collapsed ? styles.visuallyHidden : undefined}>
-            PlayToday
-          </strong>
+          <span className={styles.brandMark} aria-hidden="true">
+            <i>/</i>
+            <i>/</i>
+          </span>
+          <span className={collapsed ? styles.visuallyHidden : styles.brandText}>
+            <strong className={styles.brandName}>PLAYTODAY</strong>
+            <small className={styles.brandSub}>Sports intelligence</small>
+          </span>
         </Link>
         <nav aria-label="Desktop application navigation" className={styles.desktopNav}>
           <NavigationList collapsed={collapsed} />

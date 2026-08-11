@@ -3,6 +3,13 @@
   --shell-sidebar-collapsed: 4.75rem;
   --shell-bottom-nav: 4.75rem;
   min-height: 100dvh;
+  background-color: #03060d;
+  background-image:
+    radial-gradient(ellipse at 15% 0%, rgba(0, 0, 60, 0.7) 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 10%, rgba(234, 51, 35, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(13, 22, 38, 0.9) 0%, transparent 80%);
+  background-attachment: fixed;
+  color: var(--pt-text-primary);
 }
 .sidebar {
   position: fixed;
@@ -12,8 +19,10 @@
   width: var(--shell-sidebar);
   flex-direction: column;
   overflow: hidden;
-  border-right: var(--pt-border-width-subtle) solid var(--pt-border-divider);
-  background: var(--pt-background-elevated);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background: color-mix(in srgb, #070d19 88%, transparent);
+  backdrop-filter: blur(16px);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
   transition: width var(--pt-motion-duration-moderate) var(--pt-motion-easing-standard);
 }
 .shell[data-collapsed] .sidebar {
@@ -38,21 +47,48 @@
   color: var(--pt-text-primary);
   text-decoration: none;
 }
-.wordmark > span {
-  display: grid;
-  width: 2.5rem;
-  height: 2.5rem;
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: var(--pt-radius-control);
-  background: var(--pt-brand-primary);
-  color: var(--pt-text-inverse);
-  font-weight: 750;
+.brandLogo {
+  display: flex;
+  align-items: center;
+  gap: var(--pt-space-3);
 }
-.wordmark strong {
-  font-size: 1rem;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
+.brandMark {
+  display: inline-flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1875rem;
+  border-radius: var(--pt-radius-small);
+  background: var(--pt-public-red, #ea3323);
+  color: #ffffff;
+  box-shadow: 0 0 1rem rgba(234, 51, 35, 0.4);
+}
+.brandMark i {
+  font-size: 1.125rem;
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
+}
+.brandText {
+  display: flex;
+  flex-direction: column;
+}
+.brandName {
+  color: #ffffff !important;
+  font-size: 1.05rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.1 !important;
+  text-transform: uppercase;
+}
+.brandSub {
+  color: var(--pt-text-muted) !important;
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
 }
 .desktopNav,
 .drawerNav {
