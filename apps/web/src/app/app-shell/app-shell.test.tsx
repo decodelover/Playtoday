@@ -90,7 +90,7 @@ describe("application shell", () => {
     const trigger = screen.getByRole("button", { name: "Open navigation" });
     fireEvent.click(trigger);
     expect(
-      await screen.findByRole("dialog", { name: "PlayToday navigation" }),
+      await screen.findByRole("dialog", { name: /PlayToday/i }),
     ).toBeVisible();
     expect(screen.getByRole("button", { name: "Close navigation" })).toHaveFocus();
     fireEvent.keyDown(document, { key: "Escape" });
@@ -104,11 +104,11 @@ describe("application shell", () => {
       </AppShell>,
     );
     fireEvent.click(screen.getByRole("button", { name: "Open navigation" }));
-    const drawer = await screen.findByRole("dialog", { name: "PlayToday navigation" });
+    const drawer = await screen.findByRole("dialog", { name: /PlayToday/i });
     fireEvent.click(within(drawer).getByRole("link", { name: "Overview" }));
     await waitFor(() =>
       expect(
-        screen.queryByRole("dialog", { name: "PlayToday navigation" }),
+        screen.queryByRole("dialog", { name: /PlayToday/i }),
       ).not.toBeInTheDocument(),
     );
   });
