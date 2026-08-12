@@ -10,7 +10,9 @@
   --public-slate: #4d4c68;
   --public-white: #ffffff;
   min-height: 100dvh;
-  overflow: clip;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   background: var(--public-white);
   color: var(--public-navy);
   color-scheme: light;

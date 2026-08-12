@@ -30,6 +30,9 @@
 }
 .workspace {
   min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   min-height: 100dvh;
   margin-left: var(--shell-sidebar);
   transition: margin-left var(--pt-motion-duration-moderate)
@@ -265,6 +268,8 @@
 .main {
   width: 100%;
   max-width: 96rem;
+  box-sizing: border-box;
+  overflow-x: hidden;
   margin-inline: auto;
   padding: clamp(var(--pt-space-5), 3vw, var(--pt-space-10))
     var(--pt-layout-gutter-dashboard);

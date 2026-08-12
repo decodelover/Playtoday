@@ -2,9 +2,12 @@
   position: relative;
   display: grid;
   min-height: 100dvh;
+  width: 100%;
+  max-width: 100%;
   place-items: center;
   padding: 3rem 1.5rem;
-  overflow: hidden;
+  overflow-x: hidden;
+  box-sizing: border-box;
   background-color: #01002c;
   background-image:
     radial-gradient(circle at 10% 15%, rgb(78 216 160 / 16%), transparent 30rem),
@@ -263,12 +266,15 @@
 
 @media (max-width: 480px) {
   .authShell {
-    padding: 1.5rem 1rem;
+    padding: 1.25rem 0.85rem;
   }
 
   .authCard {
-    padding: 1.75rem 1.25rem;
-    border-radius: 1.35rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 1.5rem 1rem;
+    border-radius: 1.25rem;
   }
 }
 

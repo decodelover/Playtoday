@@ -5,10 +5,19 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+}
+
 html {
   min-width: 20rem;
   min-height: 100%;
   background: var(--pt-background-app);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -24,6 +33,29 @@ body {
   color: var(--pt-text-primary);
   font-family: var(--pt-font-sans);
   text-rendering: optimizeLegibility;
+}
+
+img,
+video,
+iframe,
+svg,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+label,
+td,
+th {
+  overflow-wrap: break-word;
 }
 
 button,
