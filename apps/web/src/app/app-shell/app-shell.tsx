@@ -13,7 +13,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  IconButton,
   Sheet,
   SheetClose,
   SheetContent,
@@ -31,6 +30,9 @@ import { useRef, useState, type ReactNode, type RefObject } from "react";
 import styles from "./shell.module.css";
 import { findShellRoute, isRouteActive, routeGroups, shellRoutes } from "./routes";
 
+/* ----------------------------------------------------------------
+   Route Icon — uses CSS icon squares, no emoji
+   ---------------------------------------------------------------- */
 const iconGlyphs: Record<string, string> = {
   home: "⌂",
   spark: "✦",
@@ -56,6 +58,9 @@ function RouteIcon({ name }: Readonly<{ name: string }>) {
   );
 }
 
+/* ----------------------------------------------------------------
+   Navigation List — shared between sidebar + drawer
+   ---------------------------------------------------------------- */
 function NavigationList({
   collapsed = false,
   onNavigate,
@@ -109,6 +114,9 @@ function NavigationList({
   );
 }
 
+/* ----------------------------------------------------------------
+   Breadcrumbs
+   ---------------------------------------------------------------- */
 export function RouteBreadcrumbs() {
   const route = findShellRoute(usePathname());
   return (
@@ -123,16 +131,20 @@ export function RouteBreadcrumbs() {
   );
 }
 
+/* ----------------------------------------------------------------
+   Mobile Drawer — compact, matches public homepage quality
+   Logo uses CSS lines (same as public homepage), not text chars
+   ---------------------------------------------------------------- */
 function MobileNavDrawer({
+  account,
   open,
   onOpenChange,
   returnFocusRef,
-  trigger,
 }: Readonly<{
+  account?: { displayName: string | null; email: string | null } | undefined;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   returnFocusRef: RefObject<HTMLButtonElement | null>;
-  trigger?: ReactNode;
 }>) {
   return (
     <Sheet
@@ -144,39 +156,72 @@ function MobileNavDrawer({
       }}
       open={open}
     >
-      {trigger}
       <SheetContent
         aria-describedby="mobile-nav-description"
         className={styles.drawer}
         side="left"
       >
+        {/* Drawer Header — compact brand + close */}
         <div className={styles.drawerHeader}>
-          <div className={styles.brandLogo}>
-            <div className={styles.brandMark} aria-hidden="true">
-              <i>/</i>
-              <i>/</i>
-            </div>
-            <div className={styles.brandText}>
-              <SheetTitle className={styles.brandName}>PLAYTODAY</SheetTitle>
-              <SheetDescription id="mobile-nav-description" className={styles.brandSub}>
+          <div className={styles.drawerBrand}>
+            <span className={styles.drawerMark} aria-hidden="true">
+              <i />
+              <i />
+            </span>
+            <div className={styles.drawerBrandText}>
+              <SheetTitle className={styles.drawerBrandName}>PLAYTODAY</SheetTitle>
+              <SheetDescription
+                id="mobile-nav-description"
+                className={styles.drawerBrandSub}
+              >
                 Sports intelligence
               </SheetDescription>
             </div>
           </div>
           <SheetClose asChild>
-            <IconButton aria-label="Close navigation" variant="ghost">
-              ×
-            </IconButton>
+            <button
+              aria-label="Close navigation"
+              className={styles.drawerClose}
+              type="button"
+            >
+              <span className={styles.closeIcon} aria-hidden="true">
+                <i />
+                <i />
+              </span>
+            </button>
           </SheetClose>
         </div>
+
+        {/* Account card — compact */}
+        {account ? (
+          <div className={styles.drawerAccountCard}>
+            <span className={styles.drawerAvatar}>
+              {(account.displayName ?? account.email ?? "U").slice(0, 2).toUpperCase()}
+            </span>
+            <div className={styles.drawerAccountInfo}>
+              <strong>{account.displayName ?? "Signed in user"}</strong>
+              <small>{account.email}</small>
+            </div>
+          </div>
+        ) : null}
+
+        {/* Navigation — scrollable */}
         <nav aria-label="Mobile full navigation" className={styles.drawerNav}>
           <NavigationList onNavigate={() => onOpenChange(false)} />
         </nav>
+
+        {/* Drawer footer tagline */}
+        <div className={styles.drawerFooter}>
+          <span>PT // SPORTS INTELLIGENCE</span>
+        </div>
       </SheetContent>
     </Sheet>
   );
 }
 
+/* ----------------------------------------------------------------
+   Header — ☰ | breadcrumbs | 🔍 🔔 👤
+   ---------------------------------------------------------------- */
 function AppHeader({
   account,
   navigationTriggerRef,
@@ -197,6 +242,7 @@ function AppHeader({
 
   return (
     <header className={styles.header}>
+      {/* Hamburger — proper 3-line CSS icon */}
       <button
         aria-label="Open navigation"
         className={styles.menuTrigger}
@@ -204,14 +250,30 @@ function AppHeader({
         ref={navigationTriggerRef}
         type="button"
       >
-        ☰
+        <span className={styles.hamburgerIcon} aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </span>
       </button>
+
+      {/* Breadcrumbs fill middle */}
       <div className={styles.headerContext}>
         <RouteBreadcrumbs />
       </div>
+
+      {/* Actions: search, notifications, profile */}
       <div className={styles.headerActions}>
         <Dialog>
-          <DialogTriggerButton />
+          <DialogTrigger asChild>
+            <button
+              aria-label="Search PlayToday"
+              className={styles.headerIconBtn}
+              type="button"
+            >
+              ⌕
+            </button>
+          </DialogTrigger>
           <DialogContent aria-describedby="search-description">
             <DialogHeader>
               <DialogTitle>Search PlayToday</DialogTitle>
@@ -225,13 +287,15 @@ function AppHeader({
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
         <Link
           aria-label="Notifications"
-          className={styles.headerIconLink}
+          className={styles.headerIconBtn}
           href="/settings/notifications"
         >
           ○
         </Link>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button
@@ -239,7 +303,7 @@ function AppHeader({
               className={styles.accountTrigger}
               type="button"
             >
-              <span aria-hidden="true">{accountInitials || "Account"}</span>
+              <span aria-hidden="true">{accountInitials || "PT"}</span>
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -259,7 +323,7 @@ function AppHeader({
               <Link href="/settings/security">Security</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/support">Help & Support</Link>
+              <Link href="/support">Help &amp; Support</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href="/auth/sign-out">Sign out</Link>
@@ -271,58 +335,9 @@ function AppHeader({
   );
 }
 
-function DialogTriggerButton() {
-  return (
-    <DialogTrigger asChild>
-      <Button className={styles.searchButton} variant="ghost">
-        <span aria-hidden="true">⌕</span>
-        <span className={styles.searchLabel}>Search PlayToday</span>
-      </Button>
-    </DialogTrigger>
-  );
-}
-
-function MobileBottomNav({
-  onOpenNavigation,
-}: Readonly<{ onOpenNavigation: () => void }>) {
-  const pathname = usePathname();
-  const mobileRoutes = shellRoutes.filter((route) => route.mobilePrimary);
-  return (
-    <nav aria-label="Mobile primary navigation" className={styles.bottomNav}>
-      {mobileRoutes.map((route) => {
-        const active = isRouteActive(pathname, route.path);
-        if (route.key === "support") {
-          return (
-            <button
-              aria-label="Account and full navigation"
-              className={styles.bottomLink}
-              data-active={active || undefined}
-              key={route.key}
-              onClick={onOpenNavigation}
-              type="button"
-            >
-              <RouteIcon name={route.icon} />
-              <span>{route.mobileLabel}</span>
-            </button>
-          );
-        }
-        return (
-          <Link
-            aria-current={active ? "page" : undefined}
-            className={styles.bottomLink}
-            data-active={active || undefined}
-            href={route.path}
-            key={route.key}
-          >
-            <RouteIcon name={route.icon} />
-            <span>{route.mobileLabel}</span>
-          </Link>
-        );
-      })}
-    </nav>
-  );
-}
-
+/* ----------------------------------------------------------------
+   App Shell — root layout
+   ---------------------------------------------------------------- */
 export function AppShell({
   account,
   children,
@@ -333,11 +348,14 @@ export function AppShell({
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileTriggerRef = useRef<HTMLButtonElement>(null);
+
   return (
     <div className={styles.shell} data-collapsed={collapsed || undefined}>
       <a className={styles.skipLink} href="#main-content">
         Skip to main content
       </a>
+
+      {/* Desktop Sidebar */}
       <aside aria-label="Application sidebar" className={styles.sidebar}>
         <Link
           aria-label="PlayToday overview"
@@ -345,8 +363,8 @@ export function AppShell({
           href="/overview"
         >
           <span className={styles.brandMark} aria-hidden="true">
-            <i>/</i>
-            <i>/</i>
+            <i />
+            <i />
           </span>
           <span className={collapsed ? styles.visuallyHidden : styles.brandText}>
             <strong className={styles.brandName}>PLAYTODAY</strong>
@@ -369,6 +387,8 @@ export function AppShell({
           </span>
         </Button>
       </aside>
+
+      {/* Main content area */}
       <div className={styles.workspace}>
         <AppHeader
           account={account}
@@ -379,8 +399,10 @@ export function AppShell({
           {children}
         </main>
       </div>
-      <MobileBottomNav onOpenNavigation={() => setMobileOpen(true)} />
+
+      {/* Mobile drawer */}
       <MobileNavDrawer
+        account={account}
         onOpenChange={setMobileOpen}
         open={mobileOpen}
         returnFocusRef={mobileTriggerRef}

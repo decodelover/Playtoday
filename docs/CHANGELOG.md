@@ -1,5 +1,18 @@
 # PlayToday Changelog
 
+## [Phase 4A] - 2026-08-12
+
+### Added
+
+- **Canonical Sports Data Foundation**: Created `supabase/migrations/20260812150000_phase_4a_sports_foundation.sql` defining `sports`, `areas`, `competitions`, `seasons`, `teams`, `venues`, `fixtures`, `provider_entity_mappings`, `provider_payloads`, `sports_ingestion_runs`, `sports_provider_health`, and `v_public_fixtures`.
+- **Decoupled Ingestion Engine (`@playtoday/sports-domain`)**: Implemented provider-independent TypeScript architecture featuring `SportsProviderHttpClient` (with exponential backoff and rate-limiting), `SportsProviderAdapter` (API-Football adapter), Zod normalization schemas, and `SportsIngestionPersistence` with idempotent entity resolution and PostgreSQL upserts.
+- **Provider Research & Evaluation Suite**: Created `SPORTS_DATA_PROVIDER_EVALUATION.md`, `ADR_SPORTS_DATA_PROVIDER.md`, `SPORTS_DATA_ARCHITECTURE.md`, `SPORTS_CANONICAL_MODEL.md`, `SPORTS_INGESTION_ARCHITECTURE.md`, `SPORTS_DATA_FRESHNESS.md`, `SPORTS_DATA_SECURITY.md`, `SPORTS_PROVIDER_CAPABILITIES.md`, and `SPORTS_DATA_OPERATIONS.md`.
+
+### Changed
+
+- Enforced absolute data honesty across public and authenticated user routes—all demo/mock fixture objects removed in favor of canonical database models and truthful empty states.
+- Extended `DEVELOPMENT_RULES.md` with 25 mandatory Phase 4A sports data rules.
+
 ## [Phase 3B] - 2026-08-11
 
 ### Added

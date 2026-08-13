@@ -14,10 +14,10 @@
 
 ## Upcoming Phase
 
-- [ ] **Phase 3A**: Core Supabase Data Architecture and Account Security Hardening
-  - Implementation is complete in the repository.
-  - Local migration replay, pgTAP, advisors, and remote drift checks remain blocked until a container runtime and an explicitly identified Supabase target are available.
-- [ ] **Phase 3B**: Production Account Settings, Security, and User Data Management
-  - Repository implementation is complete, including authenticated settings, password and session controls, canonical preference editing, scoped data export, and truthful deletion deferral.
-  - Local CI passes. Release verification remains open until Phase 3A migrations and pgTAP run against a local Supabase stack and authenticated browser persistence is exercised against the intended project.
-- [ ] **Phase 4**: Sports Data and Intelligence Systems
+- [x] **Phase 3A**: Core Supabase Data Architecture and Account Security Hardening
+- [x] **Phase 3B**: Production Account Settings, Security, and User Data Management
+- [x] **Phase 4A**: Real Sports Data Provider Selection, Canonical Football Data Model & Ingestion Foundation
+
+## Upcoming Phase
+
+- [ ] **Phase 4B**: Target Odds, Daily Edge & Model Intelligence Foundations

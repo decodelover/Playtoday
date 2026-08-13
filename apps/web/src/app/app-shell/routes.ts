@@ -31,14 +31,14 @@ export const shellRoutes = [
   },
   {
     key: "games",
-    label: "Today’s Games",
+    label: "Today's Games",
     mobileLabel: "Games",
     path: "/games",
     icon: "calendar",
     group: "Primary",
     mobilePrimary: true,
-    breadcrumb: "Today’s Games",
-    description: "A future workspace for today’s eligible games.",
+    breadcrumb: "Today's Games",
+    description: "A future workspace for today's eligible games.",
   },
   {
     key: "daily-odds",

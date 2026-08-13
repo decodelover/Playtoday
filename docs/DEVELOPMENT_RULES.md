@@ -61,3 +61,31 @@
 18. Data-retention and deletion behaviour must be documented.
 19. Settings changes must survive refresh and reflect canonical persisted state.
 20. No production dummy account data.
+
+## Phase 4A Sports Data Development Rules
+
+1. Production sports data must come from approved real providers.
+2. Provider payloads must be normalized before entering domain logic.
+3. Provider IDs must not become PlayToday’s canonical primary keys.
+4. External provider credentials are server-only.
+5. Browser components must not call secret sports APIs directly.
+6. Production mock fixture/odds data is prohibited.
+7. Missing sports data must produce real unavailable/empty states.
+8. Provider ingestion must be idempotent.
+9. Provider rate limits must be respected.
+10. Live polling must use evidence-based cadence.
+11. Upstream provider failures must never trigger fabricated fallback data.
+12. All important dynamic sports records require freshness information.
+13. Provider status mappings must normalize into PlayToday canonical statuses.
+14. Provider-specific logic belongs inside adapters.
+15. Core application logic must remain provider-independent.
+16. Sports ingestion writes come only from trusted server infrastructure.
+17. Normal users cannot mutate canonical sports reference data.
+18. Bookmaker websites must not be scraped for odds or booking codes.
+19. Official bookmaker integrations require authorized access.
+20. Sports-provider terms/data rights must be reviewed before broad production use.
+21. Realtime is reserved for genuinely changing data.
+22. Tests may use isolated fixtures; production UI may not.
+23. User-facing sports-data messages require Humanizer.
+24. UI changes continue to require Taste Skill + UI/UX Pro Max.
+25. Production maturity in presentation and absolute honesty in data remain permanent.

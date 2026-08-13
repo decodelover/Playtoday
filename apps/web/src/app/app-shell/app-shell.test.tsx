@@ -41,7 +41,7 @@ describe("application shell", () => {
       name: "Desktop application navigation",
     });
     expect(
-      within(desktop).getByRole("link", { name: "Today’s Games" }),
+      within(desktop).getByRole("link", { name: "Today's Games" }),
     ).toHaveAttribute("aria-current", "page");
     expect(within(desktop).getAllByRole("link")).toHaveLength(14);
   }, 15_000);
@@ -62,21 +62,15 @@ describe("application shell", () => {
     ).toContainElement(screen.getAllByRole("link", { name: "Overview" }).at(0)!);
   });
 
-  it("shows five labelled mobile destinations and accessible header actions", async () => {
+  it("shows clean mobile header with hamburger, search and profile", async () => {
     render(
       <AppShell account={{ displayName: "Amina Okafor", email: "amina@example.com" }}>
         <p>Page content</p>
       </AppShell>,
     );
-    const mobile = screen.getByRole("navigation", {
-      name: "Mobile primary navigation",
-    });
-    expect(
-      within(mobile).getAllByText(/Home|Games|AI Analyst|Daily Odds|Account/),
-    ).toHaveLength(5);
     expect(screen.getByRole("button", { name: "Open navigation" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Search PlayToday" })).toBeVisible();
-    expect(screen.getAllByRole("link", { name: "Notifications" })).toHaveLength(2);
+    expect(screen.getAllByRole("link", { name: "Notifications" })[0]).toBeVisible();
     expect(screen.getByRole("button", { name: "Account menu" })).toHaveTextContent(
       "AO",
     );
@@ -126,7 +120,7 @@ describe("breadcrumbs and placeholders", () => {
   it("announces the current breadcrumb", () => {
     render(<RouteBreadcrumbs />);
     expect(screen.getByRole("navigation", { name: "Breadcrumb" })).toBeVisible();
-    expect(screen.getByText("Today’s Games")).toHaveAttribute("aria-current", "page");
+    expect(screen.getByText("Today's Games")).toHaveAttribute("aria-current", "page");
   });
 
   it("clearly identifies unavailable pages without internal product language", () => {
