@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "sports:sync": "node --env-file=.env.local --import tsx services/ingestion-worker/src/cli.ts",
     "env:check": "tsx scripts/env-check.mjs current",
     "env:check:test": "tsx scripts/env-check.mjs test",
     "env:example:check": "tsx scripts/env-check.mjs example",

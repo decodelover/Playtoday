@@ -84,24 +84,26 @@ export default async function SettingsPage() {
         </div>
       </div>
 
-      {groups.map((group) => (
-        <section className={styles.sectionGroup} key={group.title}>
-          <h2>{group.title}</h2>
-          <ul className={styles.routeList}>
-            {group.routes.map((route) => (
-              <li key={route.href}>
-                <Link className={styles.routeLink} href={route.href}>
-                  <span>
-                    <strong>{route.label}</strong>
-                    <span>{route.description}</span>
-                  </span>
-                  <b aria-hidden="true">→</b>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
+      <div className={styles.settingsOverviewGrid}>
+        {groups.map((group) => (
+          <section className={styles.sectionGroup} key={group.title}>
+            <h2>{group.title}</h2>
+            <ul className={styles.routeList}>
+              {group.routes.map((route) => (
+                <li key={route.href}>
+                  <Link className={styles.routeLink} href={route.href}>
+                    <span>
+                      <strong>{route.label}</strong>
+                      <span>{route.description}</span>
+                    </span>
+                    <b aria-hidden="true">→</b>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
     </div>
   );
 }

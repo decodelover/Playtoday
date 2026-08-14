@@ -26,6 +26,12 @@ export const serverEnvironmentSchema = z.object({
   APP_ENV: appEnvironmentSchema,
   LOG_LEVEL: logLevelSchema,
   SUPABASE_SERVICE_ROLE_KEY: z.string().trim().min(20),
+  SPORTS_PROVIDER: z.literal("api-football"),
+  SPORTS_PROVIDER_API_KEY: z.string().trim().min(20),
+  SPORTS_PROVIDER_BASE_URL: applicationUrlSchema,
+  SPORTS_SYNC_MAX_REQUESTS: z.coerce.number().int().min(2).max(20).default(4),
+  SPORTS_SYNC_MAX_FIXTURES: z.coerce.number().int().min(1).max(200).default(60),
+  CRON_SECRET: z.string().trim().min(16),
 });
 
 export const contactSupabaseEnvironmentSchema = z.object({

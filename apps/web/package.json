@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@playtoday/database-types": "workspace:*",
+    "@playtoday/ingestion-worker": "workspace:*",
+    "@playtoday/sports-domain": "workspace:*",
     "@playtoday/ui": "workspace:*",
     "@playtoday/validation": "workspace:*",
     "@supabase/ssr": "catalog:",

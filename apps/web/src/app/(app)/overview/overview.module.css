@@ -1,0 +1,940 @@
+/* ================================================================
+   PlayToday — Overview Dashboard (Executive Sports Intelligence)
+   Design: Clean Warm Milk & Emerald Luxury
+   Palette: Warm Milk (#fbf9f4), Pure White (#ffffff),
+            Warm Stone Slate (#1c1917, #57534e, #78716c),
+            Botanical Forest Emerald (#047857, #059669, #ecfdf5),
+            Warm Champagne Gold (#d97706, #fef3c7).
+   ================================================================ */
+
+.overviewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 1.8vw, 1.5rem);
+  width: 100%;
+  max-width: 96rem;
+  margin-inline: auto;
+  padding: clamp(1rem, 2vw, 1.75rem);
+  box-sizing: border-box;
+}
+
+/* ================================================================
+   1. EXECUTIVE HERO COMMAND BANNER
+   ================================================================ */
+.heroBanner {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  border: 1px solid var(--pt-border-default);
+  border-radius: 1rem;
+  background: var(--pt-bg-surface);
+  box-shadow: var(--pt-shadow-sm);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.heroMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  max-width: 44rem;
+}
+
+.heroBadgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.22rem 0.6rem;
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  border-radius: 99px;
+  background: var(--pt-emerald-50);
+  color: var(--pt-emerald-700);
+  font: 750 0.68rem/1 var(--pt-font-data);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pulseDot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 99px;
+  background: var(--pt-emerald-600);
+  box-shadow: 0 0 5px rgba(5, 150, 105, 0.6);
+  animation: pulseAnim 2s infinite ease-in-out;
+}
+
+@keyframes pulseAnim {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.7;
+  }
+}
+
+.timezonePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.6rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 99px;
+  background: var(--pt-bg-surface-muted);
+  color: var(--pt-stone-600);
+  font: 600 0.7rem/1 var(--pt-font-data);
+}
+
+.heroTitle {
+  margin: 0;
+  color: var(--pt-stone-900);
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.heroSubtitle {
+  max-width: 65ch;
+  margin: 0;
+  color: var(--pt-stone-600);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.actionPrimary {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0 1.25rem;
+  border-radius: 0.65rem;
+  background: var(--pt-emerald-600);
+  color: #ffffff !important;
+  font-size: 0.85rem;
+  font-weight: 680;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(4, 120, 87, 0.25);
+  transition: all 140ms ease-out;
+}
+
+.actionPrimary:hover {
+  background: var(--pt-emerald-700);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(4, 120, 87, 0.3);
+}
+
+.actionSecondary {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0 1.15rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 0.65rem;
+  background: var(--pt-bg-surface);
+  color: var(--pt-stone-700) !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--pt-shadow-xs);
+  transition: all 140ms;
+}
+
+.actionSecondary:hover {
+  border-color: var(--pt-border-strong);
+  background: var(--pt-bg-surface-muted);
+  color: var(--pt-stone-900) !important;
+}
+
+/* ================================================================
+   2. KPI METRICS (Desktop: Left/Right Scrolling, Mobile: 4-Square Pattern)
+   ================================================================ */
+.kpiScrollContainer {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  padding-bottom: 0.35rem;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pt-border-strong) transparent;
+}
+
+.kpiScrollContainer::-webkit-scrollbar {
+  height: 5px;
+}
+
+.kpiScrollContainer::-webkit-scrollbar-thumb {
+  background: var(--pt-border-strong);
+  border-radius: 99px;
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(13.5rem, 1fr));
+  gap: 0.85rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.kpiCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 13.5rem;
+  padding: 1.15rem 1.25rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 0.95rem;
+  background: var(--pt-bg-surface);
+  box-shadow: var(--pt-shadow-xs);
+  text-decoration: none;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+  transition: all 140ms ease-out;
+}
+
+.kpiCard:focus-visible,
+.actionPrimary:focus-visible,
+.actionSecondary:focus-visible,
+.sectionActionLink:focus-visible,
+.matchRow:focus-visible,
+.promptChip:focus-visible,
+.matrixLink:focus-visible,
+.monitorLink:focus-visible {
+  outline: 3px solid rgba(5, 150, 105, 0.28);
+  outline-offset: 3px;
+}
+
+.kpiCard:hover {
+  border-color: var(--pt-border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--pt-shadow-md);
+}
+
+.kpiTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+}
+
+.kpiIconWrapper {
+  display: grid;
+  width: 2.15rem;
+  height: 2.15rem;
+  place-items: center;
+  border-radius: 0.55rem;
+  background: var(--pt-emerald-50);
+  color: var(--pt-emerald-700);
+}
+
+.kpiTag {
+  color: var(--pt-stone-500);
+  font: 700 0.65rem/1 var(--pt-font-data);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.kpiValueRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin-bottom: 0.2rem;
+  min-width: 0;
+}
+
+.kpiValue {
+  color: var(--pt-stone-900);
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kpiSublabel {
+  color: var(--pt-stone-500);
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+.kpiFootnote {
+  margin: 0;
+  color: var(--pt-stone-500);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ================================================================
+   3. TODAY'S MATCH RADAR / ACTIVITY FEED
+   ================================================================ */
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(19rem, 0.75fr);
+  gap: clamp(1rem, 1.8vw, 1.5rem);
+  align-items: stretch;
+}
+
+.sectionCard {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 1rem;
+  background: var(--pt-bg-surface);
+  box-shadow: var(--pt-shadow-xs);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--pt-border-subtle);
+}
+
+.sectionTitleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.sectionTitle {
+  margin: 0;
+  color: var(--pt-stone-900);
+  font-size: 1.05rem;
+  font-weight: 780;
+  letter-spacing: -0.02em;
+}
+
+.sectionSubtitle {
+  margin: 0;
+  color: var(--pt-stone-500);
+  font-size: 0.78rem;
+}
+
+.sectionActionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--pt-emerald-600);
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color 120ms;
+}
+
+.sectionActionLink:hover {
+  color: var(--pt-emerald-700);
+}
+
+/* Match Rows */
+.matchList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.matchEmpty {
+  flex: 1;
+}
+
+.matchRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 0.75rem;
+  background: var(--pt-bg-surface-subtle);
+  text-decoration: none;
+  transition: all 120ms ease-out;
+}
+
+.matchRow:hover {
+  border-color: var(--pt-border-strong);
+  background: var(--pt-bg-surface);
+  box-shadow: var(--pt-shadow-xs);
+  transform: translateX(2px);
+}
+
+.matchLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.matchIconBadge {
+  display: grid;
+  width: 2.15rem;
+  height: 2.15rem;
+  flex: 0 0 2.15rem;
+  place-items: center;
+  border-radius: 0.55rem;
+  background: var(--pt-emerald-50);
+  color: var(--pt-emerald-700);
+}
+
+.matchInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.matchCompName {
+  color: var(--pt-stone-500);
+  font: 700 0.65rem/1 var(--pt-font-data);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.matchTeams {
+  color: var(--pt-stone-900);
+  font-size: 0.88rem;
+  font-weight: 680;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.matchRight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.matchScoreGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+}
+
+.matchScore {
+  color: var(--pt-stone-900);
+  font: 780 0.92rem/1 var(--pt-font-data);
+}
+
+.matchStatusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 99px;
+  background: var(--pt-bg-surface-muted);
+  color: var(--pt-stone-600);
+  font: 700 0.62rem/1 var(--pt-font-data);
+  text-transform: uppercase;
+}
+
+.matchStatusPill[data-live="true"] {
+  background: var(--pt-emerald-50);
+  color: var(--pt-emerald-700);
+}
+
+/* Empty Match State */
+.matchEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.25rem 1.25rem;
+}
+
+.matchEmptyIcon {
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  place-items: center;
+  margin-bottom: 0.75rem;
+  border-radius: 99px;
+  background: var(--pt-emerald-50);
+  color: var(--pt-emerald-700);
+}
+
+.matchEmptyTitle {
+  margin: 0 0 0.35rem;
+  color: var(--pt-stone-900);
+  font-size: 1.05rem;
+  font-weight: 750;
+}
+
+.matchEmptyText {
+  max-width: 28rem;
+  margin: 0 0 1.15rem;
+  color: var(--pt-stone-500);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* ================================================================
+   4. INTELLIGENCE MATRIX (Desktop: Drag Scrollable, Mobile: Vertical Grid)
+   ================================================================ */
+.intelligencePanel {
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 1rem;
+  background: var(--pt-bg-surface);
+  box-shadow: var(--pt-shadow-xs);
+}
+
+.intelligenceHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--pt-border-subtle);
+  color: var(--pt-emerald-700);
+}
+
+.intelligenceEyebrow {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--pt-stone-500);
+  font: 700 0.64rem/1 var(--pt-font-data);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.intelligenceTitle {
+  margin: 0;
+  color: var(--pt-stone-900);
+  font-size: 1.05rem;
+  font-weight: 780;
+  letter-spacing: -0.02em;
+}
+
+.matrixScrollContainer {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  padding-bottom: 0.35rem;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pt-border-strong) transparent;
+}
+
+.matrixScrollContainer::-webkit-scrollbar {
+  height: 5px;
+}
+
+.matrixScrollContainer::-webkit-scrollbar-thumb {
+  background: var(--pt-border-strong);
+  border-radius: 99px;
+}
+
+.matrixGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.matrixCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 0.95rem;
+  background: var(--pt-bg-surface);
+  box-shadow: var(--pt-shadow-xs);
+  box-sizing: border-box;
+  scroll-snap-align: start;
+  transition: all 140ms ease-out;
+}
+
+.matrixCard:hover {
+  border-color: var(--pt-border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--pt-shadow-md);
+}
+
+.matrixHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 0.65rem;
+}
+
+.matrixIcon {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: 0 0 2.25rem;
+  place-items: center;
+  border-radius: 0.55rem;
+  background: var(--pt-emerald-50);
+  color: var(--pt-emerald-700);
+}
+
+.matrixTitle {
+  margin: 0 0 0.15rem;
+  color: var(--pt-stone-900);
+  font-size: 0.96rem;
+  font-weight: 750;
+}
+
+.matrixTag {
+  color: var(--pt-stone-500);
+  font: 680 0.65rem/1 var(--pt-font-data);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.matrixBody {
+  margin: 0 0 0.9rem;
+  color: var(--pt-stone-600);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.promptChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.65rem;
+}
+
+.promptChip {
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 99px;
+  background: var(--pt-bg-surface-muted);
+  color: var(--pt-stone-700);
+  font-size: 0.72rem;
+  font-weight: 560;
+  text-decoration: none;
+  transition: all 120ms;
+}
+
+.promptChip:hover {
+  border-color: var(--pt-emerald-600);
+  background: var(--pt-emerald-50);
+  color: var(--pt-emerald-700);
+}
+
+.matrixFooter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.matrixLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--pt-emerald-600);
+  font-size: 0.82rem;
+  font-weight: 680;
+  text-decoration: none;
+}
+
+.matrixLink:hover {
+  color: var(--pt-emerald-700);
+}
+
+/* ================================================================
+   5. RESPONSIBLE PLAY & MONITOR
+   ================================================================ */
+.monitorBanner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 0.85rem;
+  background: var(--pt-bg-surface);
+  box-shadow: var(--pt-shadow-xs);
+  box-sizing: border-box;
+}
+
+.monitorInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.monitorIcon {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 2rem;
+  place-items: center;
+  border-radius: 0.45rem;
+  background: var(--pt-amber-50);
+  color: var(--pt-amber-700);
+}
+
+.monitorText {
+  margin: 0;
+  color: var(--pt-stone-600);
+  font-size: 0.82rem;
+}
+
+.monitorText strong {
+  color: var(--pt-stone-900);
+}
+
+.monitorLink {
+  color: var(--pt-stone-700);
+  font-size: 0.8rem;
+  font-weight: 620;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 70rem) {
+  .dashboardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .kpiScrollContainer {
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+
+  .kpiGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kpiCard {
+    min-width: 0;
+  }
+
+  .matrixGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ================================================================
+   RESPONSIVE BREAKPOINTS (Mobile 4-Square Pattern)
+   ================================================================ */
+@media (max-width: 48rem) {
+  .overviewContainer {
+    gap: 1rem;
+    padding: 0.85rem;
+  }
+
+  .heroBanner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.15rem;
+  }
+
+  .heroSubtitle {
+    font-size: 0.84rem;
+  }
+
+  .heroActions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .actionPrimary,
+  .actionSecondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Four compact, readable metrics in a stable 2 × 2 arrangement. */
+  .kpiScrollContainer {
+    width: 100%;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+  }
+
+  .kpiGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    width: 100%;
+  }
+
+  .kpiCard {
+    min-width: 0;
+    min-height: 8.25rem;
+    padding: 0.85rem;
+    border-radius: 0.85rem;
+  }
+
+  .kpiTop {
+    margin-bottom: 0.45rem;
+  }
+
+  .kpiIconWrapper {
+    width: 1.85rem;
+    height: 1.85rem;
+    border-radius: 0.45rem;
+  }
+
+  .kpiTag {
+    font-size: 0.6rem;
+  }
+
+  .kpiValue {
+    max-width: 100%;
+    font-size: clamp(1.05rem, 5vw, 1.3rem);
+  }
+
+  .kpiSublabel {
+    font-size: 0.68rem;
+  }
+
+  .kpiFootnote {
+    font-size: 0.7rem;
+    line-height: 1.25;
+    margin-top: 0.15rem;
+    white-space: normal;
+    text-wrap: pretty;
+  }
+
+  .sectionCard,
+  .intelligencePanel {
+    padding: 1rem;
+  }
+
+  .sectionHeader {
+    align-items: flex-start;
+  }
+
+  .sectionSubtitle {
+    display: none;
+  }
+
+  .matchRow {
+    padding: 0.8rem;
+  }
+
+  .matchIconBadge {
+    width: 1.9rem;
+    height: 1.9rem;
+    flex-basis: 1.9rem;
+  }
+
+  .matchCompName {
+    max-width: 10rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .matchRight {
+    gap: 0.35rem;
+  }
+
+  /* Keep tools concise on phones while leaving the next card visibly within reach. */
+  .matrixScrollContainer {
+    width: calc(100% + 1rem);
+    margin-right: -1rem;
+    padding-right: 1rem;
+  }
+
+  .matrixGrid {
+    grid-template-columns: repeat(3, minmax(16rem, 82vw));
+    gap: 0.75rem;
+    width: max-content;
+  }
+
+  .matrixCard {
+    min-width: 0;
+    padding: 1rem;
+  }
+
+  .monitorBanner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .monitorInfo {
+    align-items: flex-start;
+  }
+
+  .monitorLink {
+    margin-left: 2.75rem;
+  }
+}
+
+@media (max-width: 24rem) {
+  .heroBadgeRow {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .matchIconBadge {
+    display: none;
+  }
+
+  .sectionActionLink span {
+    font-size: 0;
+  }
+
+  .sectionActionLink span::after {
+    font-size: 0.8rem;
+    content: "View all";
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulseDot {
+    animation: none;
+  }
+
+  .kpiCard:hover,
+  .matrixCard:hover,
+  .matchRow:hover,
+  .actionPrimary:hover {
+    transform: none;
+  }
+}

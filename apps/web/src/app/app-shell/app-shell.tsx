@@ -3,6 +3,7 @@
 import {
   Button,
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -29,31 +30,49 @@ import { useRef, useState, type ReactNode, type RefObject } from "react";
 
 import styles from "./shell.module.css";
 import { findShellRoute, isRouteActive, routeGroups, shellRoutes } from "./routes";
+import {
+  BellIcon,
+  CalendarIcon,
+  CardIcon,
+  ChartIcon,
+  CheckCircleIcon,
+  DailyIcon,
+  GridIcon,
+  HelpIcon,
+  HistoryIcon,
+  HomeIcon,
+  SearchIcon,
+  SettingsIcon,
+  ShieldIcon,
+  SparklesIcon,
+  TargetIcon,
+} from "../../components/dashboard/dashboard-icons";
 
-/* ----------------------------------------------------------------
-   Route Icon — uses CSS icon squares, no emoji
-   ---------------------------------------------------------------- */
-const iconGlyphs: Record<string, string> = {
-  home: "⌂",
-  spark: "✦",
-  calendar: "□",
-  daily: "◇",
-  target: "◎",
-  grid: "▦",
-  check: "✓",
-  chart: "↗",
-  history: "↶",
-  bell: "○",
-  card: "▭",
-  shield: "◈",
-  settings: "⚙",
-  help: "?",
+const ROUTE_ICON_MAP: Record<
+  string,
+  React.ComponentType<{ size?: number; className?: string }>
+> = {
+  spark: SparklesIcon,
+  calendar: CalendarIcon,
+  daily: DailyIcon,
+  target: TargetIcon,
+  grid: GridIcon,
+  check: CheckCircleIcon,
+  chart: ChartIcon,
+  history: HistoryIcon,
+  bell: BellIcon,
+  card: CardIcon,
+  shield: ShieldIcon,
+  settings: SettingsIcon,
+  help: HelpIcon,
 };
 
 function RouteIcon({ name }: Readonly<{ name: string }>) {
+  const Icon = ROUTE_ICON_MAP[name] ?? HomeIcon;
+
   return (
     <span aria-hidden="true" className={styles.routeIcon}>
-      {iconGlyphs[name] ?? "•"}
+      <Icon size={17} />
     </span>
   );
 }
@@ -118,22 +137,29 @@ function NavigationList({
    Breadcrumbs
    ---------------------------------------------------------------- */
 export function RouteBreadcrumbs() {
-  const route = findShellRoute(usePathname());
+  const pathname = usePathname();
+  const route = findShellRoute(pathname);
+  const label = route?.breadcrumb ?? "Application";
+
   return (
     <nav aria-label="Breadcrumb" className={styles.breadcrumbs}>
-      <ol>
-        <li>
+      <ol className={styles.breadcrumbList}>
+        <li className={styles.breadcrumbRoot}>
           <Link href="/overview">PlayToday</Link>
         </li>
-        <li aria-current="page">{route?.breadcrumb ?? "Application"}</li>
+        <li className={styles.breadcrumbSep} aria-hidden="true">
+          /
+        </li>
+        <li aria-current="page" className={styles.breadcrumbCurrent}>
+          {label}
+        </li>
       </ol>
     </nav>
   );
 }
 
 /* ----------------------------------------------------------------
-   Mobile Drawer — compact, matches public homepage quality
-   Logo uses CSS lines (same as public homepage), not text chars
+   Mobile Drawer — natural luxury theme, matches dashboard palette
    ---------------------------------------------------------------- */
 function MobileNavDrawer({
   account,
@@ -146,6 +172,15 @@ function MobileNavDrawer({
   onOpenChange: (open: boolean) => void;
   returnFocusRef: RefObject<HTMLButtonElement | null>;
 }>) {
+  const identitySource = account?.displayName?.trim() ?? account?.email?.split("@")[0];
+  const accountInitials = identitySource
+    ? identitySource
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((part) => part[0]?.toUpperCase())
+        .join("")
+    : "PT";
+
   return (
     <Sheet
       onOpenChange={(nextOpen) => {
@@ -161,19 +196,16 @@ function MobileNavDrawer({
         className={styles.drawer}
         side="left"
       >
-        {/* Drawer Header — compact brand + close */}
+        {/* Drawer Header — brand + close */}
         <div className={styles.drawerHeader}>
           <div className={styles.drawerBrand}>
-            <span className={styles.drawerMark} aria-hidden="true">
+            <span className={styles.brandMark} aria-hidden="true">
               <i />
               <i />
             </span>
-            <div className={styles.drawerBrandText}>
-              <SheetTitle className={styles.drawerBrandName}>PLAYTODAY</SheetTitle>
-              <SheetDescription
-                id="mobile-nav-description"
-                className={styles.drawerBrandSub}
-              >
+            <div className={styles.brandText}>
+              <SheetTitle className={styles.brandName}>PLAYTODAY</SheetTitle>
+              <SheetDescription id="mobile-nav-description" className={styles.brandSub}>
                 Sports intelligence
               </SheetDescription>
             </div>
@@ -192,12 +224,10 @@ function MobileNavDrawer({
           </SheetClose>
         </div>
 
-        {/* Account card — compact */}
+        {/* Account card — natural palette */}
         {account ? (
           <div className={styles.drawerAccountCard}>
-            <span className={styles.drawerAvatar}>
-              {(account.displayName ?? account.email ?? "U").slice(0, 2).toUpperCase()}
-            </span>
+            <span className={styles.drawerAvatar}>{accountInitials}</span>
             <div className={styles.drawerAccountInfo}>
               <strong>{account.displayName ?? "Signed in user"}</strong>
               <small>{account.email}</small>
@@ -210,9 +240,9 @@ function MobileNavDrawer({
           <NavigationList onNavigate={() => onOpenChange(false)} />
         </nav>
 
-        {/* Drawer footer tagline */}
+        {/* Drawer footer */}
         <div className={styles.drawerFooter}>
-          <span>PT // SPORTS INTELLIGENCE</span>
+          <span>PT // CANONICAL SPORTS INTELLIGENCE</span>
         </div>
       </SheetContent>
     </Sheet>
@@ -220,7 +250,7 @@ function MobileNavDrawer({
 }
 
 /* ----------------------------------------------------------------
-   Header — ☰ | breadcrumbs | 🔍 🔔 👤
+   Header — ☰ | Breadcrumbs | Search | Notifications | Profile
    ---------------------------------------------------------------- */
 function AppHeader({
   account,
@@ -238,11 +268,11 @@ function AppHeader({
         .slice(0, 2)
         .map((part) => part[0]?.toUpperCase())
         .join("")
-    : "";
+    : "PT";
 
   return (
     <header className={styles.header}>
-      {/* Hamburger — proper 3-line CSS icon */}
+      {/* Hamburger (mobile only) */}
       <button
         aria-label="Open navigation"
         className={styles.menuTrigger}
@@ -257,33 +287,43 @@ function AppHeader({
         </span>
       </button>
 
-      {/* Breadcrumbs fill middle */}
+      {/* Breadcrumbs on left */}
       <div className={styles.headerContext}>
         <RouteBreadcrumbs />
       </div>
 
-      {/* Actions: search, notifications, profile */}
+      {/* Actions at far right: Search | Notifications | Avatar */}
       <div className={styles.headerActions}>
         <Dialog>
           <DialogTrigger asChild>
             <button
               aria-label="Search PlayToday"
-              className={styles.headerIconBtn}
+              className={styles.searchTriggerBtn}
               type="button"
             >
-              ⌕
+              <SearchIcon size={16} />
+              <span className={styles.searchPromptText}>Search...</span>
+              <kbd className={styles.searchKbd}>⌘K</kbd>
             </button>
           </DialogTrigger>
-          <DialogContent aria-describedby="search-description">
+          <DialogContent
+            aria-describedby="search-description"
+            className={styles.searchDialog}
+          >
             <DialogHeader>
+              <div className={styles.searchDialogIcon} aria-hidden="true">
+                <SearchIcon size={18} />
+              </div>
               <DialogTitle>Search PlayToday</DialogTitle>
               <DialogDescription id="search-description">
-                Search is unavailable. Nothing is searched or sent when you open this
-                panel.
+                Search is not available yet. Use the navigation to open games, markets,
+                analysis, or account settings.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
-              <Button variant="secondary">Understood</Button>
+              <DialogClose asChild>
+                <Button variant="secondary">Close search</Button>
+              </DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -293,7 +333,7 @@ function AppHeader({
           className={styles.headerIconBtn}
           href="/settings/notifications"
         >
-          ○
+          <BellIcon size={17} />
         </Link>
 
         <DropdownMenu>
@@ -303,30 +343,45 @@ function AppHeader({
               className={styles.accountTrigger}
               type="button"
             >
-              <span aria-hidden="true">{accountInitials || "PT"}</span>
+              <span aria-hidden="true">{accountInitials}</span>
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className={styles.accountMenuContent}>
             {account ? (
-              <div className={styles.accountIdentity}>
-                <strong>{account.displayName ?? "Display name not set"}</strong>
-                <span>{account.email ?? "Email unavailable"}</span>
+              <div className={styles.accountMenuHeader}>
+                <div className={styles.accountMenuName}>
+                  {account.displayName ?? "Signed In User"}
+                </div>
+                <div className={styles.accountMenuEmail}>{account.email}</div>
               </div>
             ) : null}
             <DropdownMenuItem asChild>
-              <Link href="/settings">Account settings</Link>
+              <Link className={styles.accountMenuItem} href="/settings">
+                Account settings
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/settings/profile">Profile</Link>
+              <Link className={styles.accountMenuItem} href="/settings/profile">
+                Profile
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/settings/security">Security</Link>
+              <Link className={styles.accountMenuItem} href="/settings/security">
+                Security
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/support">Help &amp; Support</Link>
+              <Link className={styles.accountMenuItem} href="/support">
+                Help &amp; Support
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/auth/sign-out">Sign out</Link>
+              <Link
+                className={`${styles.accountMenuItem} ${styles.signOutItem}`}
+                href="/auth/sign-out"
+              >
+                Sign out
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

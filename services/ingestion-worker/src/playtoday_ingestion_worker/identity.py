@@ -1,4 +1,4 @@
-"""Identity metadata for foundation verification."""
+"""Identity metadata for repository verification."""
 
 from typing import Final
 
@@ -6,5 +6,5 @@ SERVICE_NAME: Final = "playtoday-ingestion-worker"
 
 
 def service_identity() -> dict[str, str]:
-    """Return non-operational service identity metadata."""
-    return {"service": SERVICE_NAME, "status": "placeholder"}
+    """Return the worker service identity and active runtime."""
+    return {"service": SERVICE_NAME, "status": "operational", "runtime": "nodejs"}

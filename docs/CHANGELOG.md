@@ -1,10 +1,29 @@
 # PlayToday Changelog
 
+## 2026-08-14: Phase 4B operational recovery
+
+- Deployed the sports foundation, access hardening, and foreign-key index migrations to hosted Supabase.
+- Activated real API-Football fixture ingestion with a bounded manual command, provider health tracking, run history, and idempotent canonical writes.
+- Added 137 real hosted fixtures and verified the canonical fixture view for `/games` and `/overview`.
+- Replaced unsupported dashboard AI and probability claims with real fixture, score, status, freshness, and timezone content.
+- Configured the required production environment variables, deployed and promoted the cron-bearing Vercel build, and verified a protected production ingestion run with zero failures.
+- Verified public health and authentication redirects, authenticated `/overview` and `/games` routing, unauthenticated cron rejection, and an empty production error-log scan.
+
+## [Phase 4B] - 2026-08-13
+
+### Added
+
+- **Production Football Catalog & Fixture Sync**: Implemented `getCompetitions()`, `getTeams()`, and `getFixtures()` in `ApiFootballAdapter` and `SportsIngestionPersistence`.
+- **Today's Games Read Service**: Created `apps/web/src/lib/games-service.ts` to convert user-local calendar day bounds into UTC timestamptz ranges for `v_public_fixtures` queries.
+- **Data-Backed Today's Games UI**: Connected `/games` page to real canonical database query service, rendering live score indicators, timezone-aware kickoff formatting, date navigation, status filtering, and mature no-match empty states.
+- **Overview Fixture Integration**: Connected `/overview` workspace card to real canonical fixture tracking metrics.
+- **Phase 4B Documentation Suite**: Created `FOOTBALL_CATALOG_ARCHITECTURE.md`, `FIXTURE_INGESTION_ARCHITECTURE.md`, `FIXTURE_LIFECYCLE.md`, `TODAYS_GAMES_ARCHITECTURE.md`, `SPORTS_SCHEDULER.md`, `LIVE_MATCH_DATA_ARCHITECTURE.md`, `FIXTURE_QUERY_POLICY.md`, and `SPORTS_PROVIDER_FAILURE_HANDLING.md`.
+
 ## [Phase 4A] - 2026-08-12
 
 ### Added
 
-- **Canonical Sports Data Foundation**: Created `supabase/migrations/20260812150000_phase_4a_sports_foundation.sql` defining `sports`, `areas`, `competitions`, `seasons`, `teams`, `venues`, `fixtures`, `provider_entity_mappings`, `provider_payloads`, `sports_ingestion_runs`, `sports_provider_health`, and `v_public_fixtures`.
+- **Canonical Sports Data Foundation**: Created the Phase 4A sports foundation migration, now aligned to hosted version `20260814004912`, defining `sports`, `areas`, `competitions`, `seasons`, `teams`, `venues`, `fixtures`, `provider_entity_mappings`, `provider_payloads`, `sports_ingestion_runs`, `sports_provider_health`, and `v_public_fixtures`.
 - **Decoupled Ingestion Engine (`@playtoday/sports-domain`)**: Implemented provider-independent TypeScript architecture featuring `SportsProviderHttpClient` (with exponential backoff and rate-limiting), `SportsProviderAdapter` (API-Football adapter), Zod normalization schemas, and `SportsIngestionPersistence` with idempotent entity resolution and PostgreSQL upserts.
 - **Provider Research & Evaluation Suite**: Created `SPORTS_DATA_PROVIDER_EVALUATION.md`, `ADR_SPORTS_DATA_PROVIDER.md`, `SPORTS_DATA_ARCHITECTURE.md`, `SPORTS_CANONICAL_MODEL.md`, `SPORTS_INGESTION_ARCHITECTURE.md`, `SPORTS_DATA_FRESHNESS.md`, `SPORTS_DATA_SECURITY.md`, `SPORTS_PROVIDER_CAPABILITIES.md`, and `SPORTS_DATA_OPERATIONS.md`.
 

@@ -68,24 +68,35 @@
 2. Provider payloads must be normalized before entering domain logic.
 3. Provider IDs must not become PlayToday’s canonical primary keys.
 4. External provider credentials are server-only.
-5. Browser components must not call secret sports APIs directly.
-6. Production mock fixture/odds data is prohibited.
-7. Missing sports data must produce real unavailable/empty states.
-8. Provider ingestion must be idempotent.
-9. Provider rate limits must be respected.
-10. Live polling must use evidence-based cadence.
-11. Upstream provider failures must never trigger fabricated fallback data.
-12. All important dynamic sports records require freshness information.
-13. Provider status mappings must normalize into PlayToday canonical statuses.
-14. Provider-specific logic belongs inside adapters.
-15. Core application logic must remain provider-independent.
-16. Sports ingestion writes come only from trusted server infrastructure.
-17. Normal users cannot mutate canonical sports reference data.
-18. Bookmaker websites must not be scraped for odds or booking codes.
-19. Official bookmaker integrations require authorized access.
-20. Sports-provider terms/data rights must be reviewed before broad production use.
-21. Realtime is reserved for genuinely changing data.
-22. Tests may use isolated fixtures; production UI may not.
-23. User-facing sports-data messages require Humanizer.
-24. UI changes continue to require Taste Skill + UI/UX Pro Max.
-25. Production maturity in presentation and absolute honesty in data remain permanent.
+
+## Phase 4B operational rules
+
+1. Phase 4B cannot pass on architecture or mocked adapter tests alone.
+2. A passing recovery requires hosted migrations, a real provider request, real canonical records, and an idempotent repeat.
+3. Browser code reads canonical Supabase data and never calls API-Football.
+4. Dashboard sports counts, scores, and statuses must come from canonical records.
+5. No AI, probability, odds, ROI, or model claim may appear before its engine and data exist.
+6. Provider request and fixture budgets are required on the Free plan.
+7. Interrupted runs must be closed as failed and kept as truthful operational history.
+8. A committed scheduler is not an active scheduler until its production environment and deployment are verified.
+9. Browser components must not call secret sports APIs directly.
+10. Production mock fixture/odds data is prohibited.
+11. Missing sports data must produce real unavailable/empty states.
+12. Provider ingestion must be idempotent.
+13. Provider rate limits must be respected.
+14. Live polling must use evidence-based cadence.
+15. Upstream provider failures must never trigger fabricated fallback data.
+16. All important dynamic sports records require freshness information.
+17. Provider status mappings must normalize into PlayToday canonical statuses.
+18. Provider-specific logic belongs inside adapters.
+19. Core application logic must remain provider-independent.
+20. Sports ingestion writes come only from trusted server infrastructure.
+21. Normal users cannot mutate canonical sports reference data.
+22. Bookmaker websites must not be scraped for odds or booking codes.
+23. Official bookmaker integrations require authorized access.
+24. Sports-provider terms/data rights must be reviewed before broad production use.
+25. Realtime is reserved for genuinely changing data.
+26. Tests may use isolated fixtures; production UI may not.
+27. User-facing sports-data messages require Humanizer.
+28. UI changes continue to require Taste Skill + UI/UX Pro Max.
+29. Production maturity in presentation and absolute honesty in data remain permanent.

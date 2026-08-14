@@ -1,0 +1,378 @@
+/* ================================================================
+   Today's Games — Warm Milk & Classic Luxury CSS
+   ================================================================ */
+.gamesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Primary Control Bar */
+.controlBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 0.95rem;
+  background: var(--pt-bg-surface);
+  box-shadow: var(--pt-shadow-xs);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dateNav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.dateBtn {
+  display: inline-flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 0.6rem;
+  background: var(--pt-bg-surface);
+  color: var(--pt-stone-700);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--pt-shadow-xs);
+  transition: all 140ms ease-out;
+}
+
+.dateBtn:hover {
+  border-color: var(--pt-border-strong);
+  background: var(--pt-bg-surface-muted);
+  color: var(--pt-stone-900);
+}
+
+.dateLabelGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.dateHeader {
+  color: var(--pt-stone-900);
+  font-size: 0.96rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.timezoneNotice {
+  color: var(--pt-stone-500);
+  font: 600 0.7rem/1 var(--pt-font-data);
+}
+
+.todayResetBtn {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  padding: 0 0.85rem;
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  border-radius: 99px;
+  background: var(--pt-emerald-50);
+  color: var(--pt-emerald-700);
+  font: 720 0.7rem/1 var(--pt-font-data);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 120ms;
+}
+
+.todayResetBtn:hover {
+  background: var(--pt-emerald-100);
+}
+
+/* Filters */
+.filterGroup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  max-width: 100%;
+}
+
+.filterLabel {
+  color: var(--pt-stone-500);
+  font: 700 0.68rem/1 var(--pt-font-data);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.filterSelect {
+  min-height: 2.25rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 0.6rem;
+  background: var(--pt-bg-surface);
+  color: var(--pt-stone-800);
+  font-size: 0.82rem;
+  font-weight: 560;
+  cursor: pointer;
+  transition: border-color 140ms;
+}
+
+.filterSelect:focus-visible {
+  outline: 2px solid var(--pt-emerald-600);
+}
+
+/* Freshness Row */
+.freshnessRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.25rem 0.15rem;
+}
+
+.freshnessMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pulseIndicator {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 99px;
+  background: var(--pt-emerald-600);
+  box-shadow: 0 0 5px rgba(5, 150, 105, 0.6);
+}
+
+.pulseIndicator[data-freshness="stale"] {
+  background: var(--pt-amber-500);
+  box-shadow: 0 0 5px rgba(245, 158, 11, 0.6);
+}
+
+.freshnessText {
+  color: var(--pt-stone-600);
+  font: 650 0.74rem/1 var(--pt-font-data);
+  letter-spacing: 0.02em;
+}
+
+.countTag {
+  color: var(--pt-stone-500);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* Fixtures Grid */
+.fixturesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18.5rem, 1fr));
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fixtureCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 0.95rem;
+  background: var(--pt-bg-surface);
+  box-shadow: var(--pt-shadow-xs);
+  box-sizing: border-box;
+  transition: all 140ms ease-out;
+}
+
+.fixtureCard:hover {
+  border-color: var(--pt-border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--pt-shadow-md);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+.compName {
+  overflow: hidden;
+  color: var(--pt-stone-500);
+  font-size: 0.76rem;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 99px;
+  background: var(--pt-bg-surface-muted);
+  color: var(--pt-stone-600);
+  font: 700 0.64rem/1 var(--pt-font-data);
+  text-transform: uppercase;
+}
+
+.statusBadge[data-live="true"] {
+  background: var(--pt-emerald-50);
+  color: var(--pt-emerald-700);
+}
+
+.statusBadge[data-finished="true"] {
+  background: var(--pt-bg-surface-muted);
+  color: var(--pt-stone-600);
+}
+
+.teamsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.teamRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.teamInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.teamLogoPlaceholder {
+  display: grid;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: 0 0 1.5rem;
+  place-items: center;
+  border-radius: 0.35rem;
+  background: var(--pt-bg-surface-muted);
+  color: var(--pt-stone-500);
+  font: 700 0.65rem/1 var(--pt-font-data);
+}
+
+.teamName {
+  overflow: hidden;
+  color: var(--pt-stone-900);
+  font-size: 0.88rem;
+  font-weight: 680;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.teamScore {
+  color: var(--pt-stone-900);
+  font: 750 0.95rem/1 var(--pt-font-data);
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--pt-border-subtle);
+}
+
+.kickoffTime {
+  color: var(--pt-stone-500);
+  font: 600 0.74rem/1 var(--pt-font-data);
+}
+
+.analyzeAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--pt-emerald-600);
+  font-size: 0.8rem;
+  font-weight: 680;
+  text-decoration: none;
+  transition: color 120ms;
+}
+
+.analyzeAction:hover {
+  color: var(--pt-emerald-700);
+}
+
+/* Empty State */
+.emptyStateCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  border: 1px solid var(--pt-border-default);
+  border-radius: 1rem;
+  background: var(--pt-bg-surface);
+  box-shadow: var(--pt-shadow-xs);
+  box-sizing: border-box;
+}
+
+.emptyIconWrapper {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  margin-bottom: 1rem;
+  border-radius: 99px;
+  background: var(--pt-emerald-50);
+  color: var(--pt-emerald-700);
+}
+
+.emptyTitle {
+  margin: 0 0 0.4rem;
+  color: var(--pt-stone-900);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.emptyText {
+  max-width: 28rem;
+  margin: 0 0 1.5rem;
+  color: var(--pt-stone-500);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+/* Responsive Overrides */
+@media (max-width: 48rem) {
+  .controlBar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .dateNav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filterGroup {
+    width: 100%;
+  }
+
+  .filterSelect {
+    flex: 1;
+  }
+
+  .fixturesGrid {
+    grid-template-columns: 1fr;
+  }
+}

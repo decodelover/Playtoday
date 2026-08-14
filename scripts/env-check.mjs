@@ -17,8 +17,24 @@ const expectedKeys = [
   "NEXT_PUBLIC_APP_URL",
   "NEXT_PUBLIC_SUPABASE_URL",
   "SUPABASE_SERVICE_ROLE_KEY",
+  "SPORTS_PROVIDER",
+  "SPORTS_PROVIDER_API_KEY",
+  "SPORTS_PROVIDER_BASE_URL",
+  "SPORTS_SYNC_MAX_REQUESTS",
+  "SPORTS_SYNC_MAX_FIXTURES",
+  "CRON_SECRET",
 ];
-const serverOnlyKeys = ["APP_ENV", "LOG_LEVEL", "SUPABASE_SERVICE_ROLE_KEY"];
+const serverOnlyKeys = [
+  "APP_ENV",
+  "LOG_LEVEL",
+  "SUPABASE_SERVICE_ROLE_KEY",
+  "SPORTS_PROVIDER",
+  "SPORTS_PROVIDER_API_KEY",
+  "SPORTS_PROVIDER_BASE_URL",
+  "SPORTS_SYNC_MAX_REQUESTS",
+  "SPORTS_SYNC_MAX_FIXTURES",
+  "CRON_SECRET",
+];
 const clientSafeKeys = [
   "NEXT_PUBLIC_APP_NAME",
   "NEXT_PUBLIC_APP_URL",
@@ -132,6 +148,20 @@ function validateCurrent() {
     SUPABASE_SERVICE_ROLE_KEY:
       process.env.SUPABASE_SERVICE_ROLE_KEY ??
       localEntries.get("SUPABASE_SERVICE_ROLE_KEY"),
+    SPORTS_PROVIDER: process.env.SPORTS_PROVIDER ?? localEntries.get("SPORTS_PROVIDER"),
+    SPORTS_PROVIDER_API_KEY:
+      process.env.SPORTS_PROVIDER_API_KEY ??
+      localEntries.get("SPORTS_PROVIDER_API_KEY"),
+    SPORTS_PROVIDER_BASE_URL:
+      process.env.SPORTS_PROVIDER_BASE_URL ??
+      localEntries.get("SPORTS_PROVIDER_BASE_URL"),
+    SPORTS_SYNC_MAX_REQUESTS:
+      process.env.SPORTS_SYNC_MAX_REQUESTS ??
+      localEntries.get("SPORTS_SYNC_MAX_REQUESTS"),
+    SPORTS_SYNC_MAX_FIXTURES:
+      process.env.SPORTS_SYNC_MAX_FIXTURES ??
+      localEntries.get("SPORTS_SYNC_MAX_FIXTURES"),
+    CRON_SECRET: process.env.CRON_SECRET ?? localEntries.get("CRON_SECRET"),
   });
 }
 

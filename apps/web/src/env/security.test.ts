@@ -31,10 +31,16 @@ describe("environment repository safety", () => {
   it("keeps the example contract complete and minimal", () => {
     expect(parseExampleKeys()).toEqual([
       "APP_ENV",
+      "CRON_SECRET",
       "LOG_LEVEL",
       "NEXT_PUBLIC_APP_NAME",
       "NEXT_PUBLIC_APP_URL",
       "NEXT_PUBLIC_SUPABASE_URL",
+      "SPORTS_PROVIDER",
+      "SPORTS_PROVIDER_API_KEY",
+      "SPORTS_PROVIDER_BASE_URL",
+      "SPORTS_SYNC_MAX_FIXTURES",
+      "SPORTS_SYNC_MAX_REQUESTS",
       "SUPABASE_SERVICE_ROLE_KEY",
     ]);
   });

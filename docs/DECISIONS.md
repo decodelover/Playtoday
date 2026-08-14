@@ -1,5 +1,16 @@
 # PlayToday Architecture Decisions
 
+## ADR 011: Sports ingestion runtime and access boundary
+
+- **Context**: The sports domain package existed, but the Python worker was a placeholder and hosted Supabase had no sports schema.
+- **Decision**:
+  - Run ingestion in Node.js so the worker directly composes `ApiFootballAdapter` and `SportsIngestionPersistence`.
+  - Use Vercel, the existing approved production platform, for one protected daily cron route.
+  - Keep API-Football and service-role credentials server-only.
+  - Give authenticated members read-only canonical access. Keep provider mappings, payloads, health, and run history internal.
+  - Limit Free-plan runs by request and fixture budgets. Do not enable frequent live polling at the verified quota.
+- **Consequences**: Manual and scheduled hosted ingestion are operational. The production route is secret-protected, quota-bounded, and verified against the canonical hosted database. Higher-frequency live polling remains deferred until quota and runtime capacity are approved.
+
 ## ADR 010: Canonical authenticated account settings and safe lifecycle boundaries
 
 - **Context**: Members needed account controls without duplicated preferences, fabricated security data, or privileged RLS bypasses.

@@ -16,8 +16,8 @@
 
 - [x] **Phase 3A**: Core Supabase Data Architecture and Account Security Hardening
 - [x] **Phase 3B**: Production Account Settings, Security, and User Data Management
-- [x] **Phase 4A**: Real Sports Data Provider Selection, Canonical Football Data Model & Ingestion Foundation
+- [x] **Phase 4B**: Operationally complete. Hosted sports data, production ingestion, protected daily scheduling, canonical dashboard reads, and release verification pass.
 
 ## Upcoming Phase
 
-- [ ] **Phase 4B**: Target Odds, Daily Edge & Model Intelligence Foundations
+- [ ] **Phase 4C**: READY, NOT STARTED. Phase 4B prerequisite is complete.

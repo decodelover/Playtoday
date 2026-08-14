@@ -86,7 +86,7 @@ describe("settings experience", () => {
     await waitFor(() =>
       expect(actionMocks.displayName).toHaveBeenCalledWith("Amina Okafor"),
     );
-    expect(screen.getByText("Your display name is saved.")).toBeVisible();
+    expect(await screen.findByText("Your display name is saved.")).toBeVisible();
 
     fireEvent.change(screen.getByLabelText("IANA timezone"), {
       target: { value: "Europe/London" },

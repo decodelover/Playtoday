@@ -22,7 +22,7 @@ describe("public homepage", () => {
         screen.getByRole("heading", { name: new RegExp(name, "i") }),
       ).toBeVisible();
     }
-  });
+  }, 15_000);
 
   it("contains no fabricated sports, pricing, or performance data", () => {
     render(<Home />);

@@ -55,3 +55,9 @@ The two public functions accept no user ID. Both derive ownership from `auth.uid
 ## Deletion behavior
 
 Profiles and preferences cascade when the corresponding Auth user is deleted. Contact submissions are not tied to an Auth user and require a separate retention decision. No financial, prediction, settlement, or subscription history exists in this schema.
+
+## Phase 4 sports objects
+
+Hosted tables are `sports`, `areas`, `competitions`, `seasons`, `teams`, `venues`, `fixtures`, `provider_entity_mappings`, `provider_payloads`, `sports_ingestion_runs`, and `sports_provider_health`. The hosted read view is `v_public_fixtures`, and the enum is `fixture_status`. No sports database function was added.
+
+The deployed migration versions are `20260814004912`, `20260814004921`, and `20260814005206`. Local filenames match the hosted migration ledger. The sports schema uses canonical UUID relationships, unique provider mappings, a unique competition-season name pair, UTC timestamps, and indexed foreign keys.

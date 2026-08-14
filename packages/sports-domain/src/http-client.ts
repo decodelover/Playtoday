@@ -6,6 +6,17 @@ export interface HttpClientConfig {
   maxRetries?: number;
 }
 
+export class ProviderHttpError extends Error {
+  constructor(
+    message: string,
+    public readonly status: number,
+    public readonly retryable: boolean,
+  ) {
+    super(message);
+    this.name = "ProviderHttpError";
+  }
+}
+
 export class SportsProviderHttpClient {
   private readonly baseUrl: string;
   private readonly apiKey: string | undefined;
@@ -63,8 +74,10 @@ export class SportsProviderHttpClient {
 
         // Non-retryable status codes (401, 403, 404, 422)
         if ([401, 403, 404, 422].includes(response.status)) {
-          throw new Error(
-            `Provider HTTP Error ${response.status}: Permanent client error`,
+          throw new ProviderHttpError(
+            `Provider HTTP error ${response.status}: permanent client error`,
+            response.status,
+            false,
           );
         }
 
@@ -80,11 +93,16 @@ export class SportsProviderHttpClient {
           continue;
         }
 
-        throw new Error(
-          `Provider HTTP Error ${response.status}: ${await response.text()}`,
+        throw new ProviderHttpError(
+          `Provider HTTP error ${response.status}`,
+          response.status,
+          response.status >= 500 || response.status === 429,
         );
       } catch (error) {
         clearTimeout(timeoutId);
+        if (error instanceof ProviderHttpError && !error.retryable) {
+          throw error;
+        }
         if (attempt >= this.maxRetries) {
           const message = error instanceof Error ? error.message : "Network error";
           throw new Error(
