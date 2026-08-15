@@ -55,5 +55,6 @@ yarn-error.log*
 *.tsbuildinfo
 .agents/
 skills-lock.json
+scratch/
 
 .vercel

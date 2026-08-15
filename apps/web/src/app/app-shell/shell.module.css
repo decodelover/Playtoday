@@ -178,11 +178,11 @@
   display: inline-grid;
   width: 2rem;
   height: 2rem;
-  flex: 0 0 auto;
+  flex: 0 0 2rem;
   overflow: hidden;
   border-radius: 0.7rem;
-  background: var(--pt-brand-pink);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 22%);
+  background: #ff0f50 !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
 }
 
 .brandMark i {
@@ -192,12 +192,17 @@
   width: 1.2rem;
   height: 2px;
   border-radius: 99px;
-  background: #ffffff;
+  background: #ffffff !important;
   transform: rotate(-24deg);
 }
 
 .brandMark i:last-child {
   top: 1.24rem;
+  left: 0.38rem;
+  width: 1.2rem;
+  height: 2px;
+  border-radius: 99px;
+  background: #ffffff !important;
   transform: rotate(24deg);
 }
 
@@ -356,9 +361,10 @@
   justify-content: space-between;
   gap: 1.25rem;
   padding: 0 clamp(1rem, 2vw, 2rem);
-  border-bottom: 1px solid var(--pt-border-default);
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(4, 120, 87, 0.2);
   box-sizing: border-box;
 }
 
@@ -369,17 +375,17 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--pt-border-default);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 0.65rem;
-  background: var(--pt-bg-surface);
-  color: var(--pt-stone-800);
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
   cursor: pointer;
   transition: all 140ms;
 }
 
 .menuTrigger:hover {
-  background: var(--pt-bg-surface-muted);
-  border-color: var(--pt-border-strong);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .hamburgerIcon {
@@ -395,7 +401,7 @@
   width: 100%;
   height: 2px;
   border-radius: 99px;
-  background: currentColor;
+  background: #ffffff !important;
 }
 
 .hamburgerIcon i:nth-child(1) {
@@ -418,7 +424,7 @@
   align-items: center;
 }
 
-/* Breadcrumbs (Desktop: PlayToday / Page, Mobile: Page Only) */
+/* Breadcrumbs */
 .breadcrumbs {
   display: flex;
   min-width: 0;
@@ -440,7 +446,7 @@
 }
 
 .breadcrumbRoot a {
-  color: var(--pt-stone-500);
+  color: rgba(255, 255, 255, 0.75);
   font: 700 0.76rem/1 var(--pt-font-data);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -448,16 +454,16 @@
 }
 
 .breadcrumbRoot a:hover {
-  color: var(--pt-stone-900);
+  color: #ffffff;
 }
 
 .breadcrumbSep {
-  color: var(--pt-stone-300);
+  color: rgba(255, 255, 255, 0.45);
   font-size: 0.85rem;
 }
 
 .breadcrumbCurrent {
-  color: var(--pt-stone-900);
+  color: #ffffff !important;
   font-size: 0.96rem;
   font-weight: 800;
   white-space: nowrap;
@@ -478,21 +484,20 @@
   align-items: center;
   gap: 0.55rem;
   padding: 0 0.85rem;
-  border: 1px solid var(--pt-border-default);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 0.65rem;
-  background: var(--pt-bg-surface);
-  color: var(--pt-stone-600);
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
   font-size: 0.82rem;
   font-weight: 540;
   cursor: pointer;
-  box-shadow: var(--pt-shadow-xs);
   transition: all 140ms ease-out;
 }
 
 .searchTriggerBtn:hover {
-  border-color: var(--pt-border-strong);
-  background: var(--pt-bg-surface-muted);
-  color: var(--pt-stone-900);
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
 }
 
 .searchDialog {
@@ -549,41 +554,39 @@
   height: 2.35rem;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--pt-border-default);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 0.65rem;
-  background: var(--pt-bg-surface);
-  color: var(--pt-stone-700);
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: var(--pt-shadow-xs);
   transition: all 140ms;
 }
 
 .headerIconBtn:hover {
-  border-color: var(--pt-border-strong);
-  background: var(--pt-bg-surface-muted);
-  color: var(--pt-stone-900);
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
 }
 
 .accountTrigger {
   display: inline-flex;
-  width: 2.35rem;
-  height: 2.35rem;
+  width: 2.25rem;
+  height: 2.25rem;
   align-items: center;
   justify-content: center;
-  border: 1.5px solid rgba(5, 150, 105, 0.3);
-  border-radius: 99px;
-  background: var(--pt-emerald-50);
-  color: var(--pt-emerald-700);
-  font: 750 0.82rem/1 var(--pt-font-data);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  padding: 0;
+  border-radius: 999px;
   cursor: pointer;
-  box-shadow: var(--pt-shadow-xs);
-  transition: all 140ms;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  transition: transform 140ms ease-out;
 }
 
 .accountTrigger:hover {
-  transform: scale(1.04);
-  box-shadow: 0 2px 8px rgba(4, 120, 87, 0.2);
+  transform: scale(1.06);
+  border-color: #ffffff;
 }
 
 /* User Menu Dropdown */
@@ -598,33 +601,50 @@
   --pt-border-default: #e8e4dc;
   --pt-border-subtle: #f5f2eb;
   --pt-shadow-lg:
-    0 10px 15px -3px rgba(28, 25, 23, 0.12), 0 4px 6px -4px rgba(28, 25, 23, 0.06);
+    0 10px 15px -3px rgba(28, 25, 23, 0.07), 0 4px 6px -4px rgba(28, 25, 23, 0.02);
 
-  min-width: 14rem;
-  padding: 0.45rem;
-  border: 1px solid var(--pt-border-default) !important;
-  border-radius: 0.75rem;
+  min-width: 14.5rem;
+  padding: 0.4rem;
+  border: 1px solid #e8e4dc !important;
+  border-radius: 0.85rem;
   background: #ffffff !important;
-  box-shadow: var(--pt-shadow-lg) !important;
-  color: var(--pt-stone-900) !important;
-  opacity: 1 !important;
-  isolation: isolate;
+  background-color: #ffffff !important;
+  box-shadow: var(--pt-shadow-lg);
+  color: #44403c !important;
 }
 
 .accountMenuHeader {
-  padding: 0.65rem 0.8rem;
-  border-bottom: 1px solid var(--pt-border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  margin-bottom: 0.25rem;
+  border-bottom: 1px solid var(--pt-border-default);
+}
+
+.accountMenuInfo {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.1rem;
 }
 
 .accountMenuName {
-  font-size: 0.88rem;
-  font-weight: 700;
+  font-size: 0.86rem;
+  font-weight: 750;
   color: var(--pt-stone-900);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .accountMenuEmail {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--pt-stone-500);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .accountMenuItem {
@@ -657,30 +677,62 @@
 }
 
 /* ================================================================
-   MOBILE DRAWER — 100% High-Contrast, Bold, Solid Links
+   MOBILE DRAWER — 100% Solid Warm Milk & Luxury Emerald Theme
    ================================================================ */
 .drawer {
-  --pt-brand-pink: #ff0f50;
-  --pt-font-data: "Geist Mono", "SF Mono", ui-monospace, monospace;
+  /* Self-contained Warm Milk & Luxury Tokens for Portaled Elements */
+  --pt-bg-base: #fbf9f4;
+  --pt-bg-base-end: #f6f3eb;
+  --pt-bg-surface: #ffffff;
+  --pt-bg-surface-muted: #f5f2eb;
+  --pt-bg-surface-subtle: #faf7f0;
+
+  --pt-stone-950: #0c0a09;
   --pt-stone-900: #1c1917;
+  --pt-stone-850: #201d1b;
+  --pt-stone-800: #292524;
   --pt-stone-700: #44403c;
   --pt-stone-600: #57534e;
   --pt-stone-500: #78716c;
-  --pt-bg-surface: #ffffff;
-  --pt-bg-surface-muted: #f5f2eb;
+  --pt-stone-400: #a8a29e;
+  --pt-stone-300: #d6d3d1;
+  --pt-stone-200: #e8e4dc;
+  --pt-stone-100: #f5f2eb;
+
+  --pt-emerald-800: #064e3b;
   --pt-emerald-700: #047857;
   --pt-emerald-600: #059669;
+  --pt-emerald-500: #10b981;
+  --pt-emerald-100: #d1fae5;
+  --pt-emerald-50: #ecfdf5;
+
+  --pt-border-subtle: #f5f2eb;
   --pt-border-default: #e8e4dc;
   --pt-border-strong: #d6d3d1;
+  --pt-border-interactive: #a8a29e;
 
+  --pt-font-data: "Geist Mono", "SF Mono", ui-monospace, monospace;
+
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  z-index: 1000 !important;
   display: flex !important;
-  width: 18rem !important;
-  max-width: 84vw !important;
+  width: 19.5rem !important;
+  max-width: 86vw !important;
+  height: 100dvh !important;
   flex-direction: column !important;
-  border-right: 1px solid #cbd5e1 !important;
-  background-color: #ffffff !important;
-  color: #0f172a !important;
-  box-shadow: var(--pt-shadow-lg) !important;
+  padding: 0 !important;
+  border: none !important;
+  border-right: 1px solid #e8e4dc !important;
+  background: #fbf9f4 !important;
+  background-color: #fbf9f4 !important;
+  color: #1c1917 !important;
+  box-shadow: 0 1.5rem 4rem rgba(28, 25, 23, 0.25) !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  overflow: hidden !important;
 }
 
 .drawer * {
@@ -693,7 +745,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 1.25rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e8e4dc !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  flex-shrink: 0;
 }
 
 .drawerBrand {
@@ -703,14 +758,15 @@
 }
 
 .drawerBrandName {
-  color: #0f172a !important;
-  font-size: 0.95rem !important;
+  color: #1c1917 !important;
+  font-size: 0.96rem !important;
   font-weight: 850 !important;
+  letter-spacing: 0.03em;
 }
 
 .drawerBrandSub {
-  color: #059669 !important;
-  font: 700 0.65rem/1 var(--pt-font-data) !important;
+  color: #047857 !important;
+  font: 700 0.65rem/1 "Geist Mono", "SF Mono", ui-monospace, monospace !important;
 }
 
 .drawerClose {
@@ -718,16 +774,17 @@
   width: 2.25rem;
   height: 2.25rem;
   place-items: center;
-  border: 1px solid #cbd5e1 !important;
-  border-radius: 0.55rem;
-  background: #f1f5f9 !important;
-  color: #0f172a !important;
+  border: 1px solid #e8e4dc !important;
+  border-radius: 0.6rem;
+  background: #f5f2eb !important;
+  color: #44403c !important;
   cursor: pointer;
-  transition: all 120ms;
+  transition: all 120ms ease-out;
 }
 
 .drawerClose:hover {
-  background: #e2e8f0 !important;
+  background: #e8e4dc !important;
+  color: #0c0a09 !important;
 }
 
 .closeIcon {
@@ -744,7 +801,7 @@
   width: 100%;
   height: 2px;
   border-radius: 99px;
-  background: #0f172a !important;
+  background: currentColor !important;
 }
 
 .closeIcon i:first-child {
@@ -755,61 +812,14 @@
   transform: rotate(-45deg);
 }
 
-.drawerAccountCard {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin: 0.85rem 1rem 0.25rem;
-  padding: 0.85rem 1rem;
-  border: 1px solid #cbd5e1 !important;
-  border-radius: 0.85rem;
-  background: #f8fafc !important;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
-}
-
-.drawerAvatar {
-  display: grid;
-  width: 2.4rem;
-  height: 2.4rem;
-  flex: 0 0 2.4rem;
-  place-items: center;
-  border: 1.5px solid rgba(5, 150, 105, 0.4);
-  border-radius: 99px;
-  background: #ecfdf5 !important;
-  color: #047857 !important;
-  font: 750 0.85rem/1 var(--pt-font-data) !important;
-}
-
-.drawerAccountInfo {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.drawerAccountInfo strong {
-  overflow: hidden;
-  color: #0f172a !important;
-  font-size: 0.88rem !important;
-  font-weight: 750 !important;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.drawerAccountInfo small {
-  overflow: hidden;
-  color: #475569 !important;
-  font-size: 0.76rem !important;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* Explicit High-Contrast Mobile Drawer Navigation Links */
+/* Explicit Clean Mobile Drawer Navigation Links */
 .drawerNav {
   min-height: 0;
   flex: 1;
   overflow-y: auto;
-  padding: 0.75rem 1rem 1.5rem !important;
+  padding: 0.85rem 1.1rem 1.25rem !important;
+  background: #fbf9f4 !important;
+  background-color: #fbf9f4 !important;
 }
 
 .drawerNav .navGroup {
@@ -817,15 +827,15 @@
 }
 
 .drawerNav .navGroup:first-child {
-  margin-top: 0.35rem !important;
+  margin-top: 0.25rem !important;
 }
 
 .drawerNav .navGroupLabel {
   display: block !important;
-  margin: 0 0 0.5rem !important;
+  margin: 0 0 0.45rem !important;
   padding: 0 0.35rem !important;
-  color: #475569 !important;
-  font: 800 0.72rem/1 var(--pt-font-data) !important;
+  color: #78716c !important;
+  font: 750 0.68rem/1 "Geist Mono", "SF Mono", ui-monospace, monospace !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
 }
@@ -842,44 +852,47 @@
 .drawerNav .navLink {
   position: relative !important;
   display: flex !important;
-  min-height: 2.85rem !important;
+  min-height: 2.75rem !important;
   align-items: center !important;
   gap: 0.85rem !important;
-  padding: 0.5rem 0.85rem !important;
-  border: 1px solid #e2e8f0 !important;
+  padding: 0.45rem 0.85rem !important;
+  border: 1px solid #e8e4dc !important;
   border-radius: 0.75rem !important;
-  background: #f8fafc !important;
-  color: #0f172a !important;
-  font-size: 0.92rem !important;
-  font-weight: 700 !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #292524 !important;
+  font-size: 0.9rem !important;
+  font-weight: 650 !important;
   text-decoration: none !important;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
-  transition: all 120ms ease-out !important;
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.03) !important;
+  transition: all 140ms ease-out !important;
 }
 
 .drawerNav .navLink:hover {
-  background: #f1f5f9 !important;
-  border-color: #cbd5e1 !important;
-  color: #000000 !important;
+  background: #f5f2eb !important;
+  border-color: #d6d3d1 !important;
+  color: #0c0a09 !important;
 }
 
 .drawerNav .navLink[data-active] {
-  border-color: #a7f3d0 !important;
+  border-color: rgba(5, 150, 105, 0.4) !important;
   background: #ecfdf5 !important;
+  background-color: #ecfdf5 !important;
   color: #047857 !important;
-  font-weight: 800 !important;
+  font-weight: 750 !important;
+  box-shadow: 0 1px 3px rgba(5, 150, 105, 0.12) !important;
 }
 
 .drawerNav .navLabel {
-  color: #0f172a !important;
-  font-size: 0.92rem !important;
-  font-weight: 700 !important;
+  color: #292524 !important;
+  font-size: 0.9rem !important;
+  font-weight: 650 !important;
   display: inline-block !important;
 }
 
 .drawerNav .navLink[data-active] .navLabel {
   color: #047857 !important;
-  font-weight: 800 !important;
+  font-weight: 750 !important;
 }
 
 .drawerNav .routeIcon {
@@ -889,29 +902,87 @@
   flex: 0 0 2rem !important;
   place-items: center !important;
   border-radius: 0.5rem !important;
-  background: #ffffff !important;
-  border: 1px solid #e2e8f0 !important;
-  color: #334155 !important;
+  background: #f5f2eb !important;
+  border: 1px solid #e8e4dc !important;
+  color: #57534e !important;
 }
 
 .drawerNav .navLink:hover .routeIcon {
   background: #ffffff !important;
-  color: #0f172a !important;
-  border-color: #cbd5e1 !important;
+  color: #1c1917 !important;
+  border-color: #d6d3d1 !important;
 }
 
 .drawerNav .navLink[data-active] .routeIcon {
   background: #d1fae5 !important;
-  border-color: #a7f3d0 !important;
+  border-color: #10b981 !important;
   color: #047857 !important;
 }
 
+/* User Account Profile Card at Bottom of Drawer */
+.drawerBottomAccount {
+  padding: 0.85rem 1.1rem;
+  border-top: 1px solid #e8e4dc !important;
+  background: #faf7f0 !important;
+  background-color: #faf7f0 !important;
+  flex-shrink: 0;
+}
+
+.drawerAccountCard {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #e8e4dc !important;
+  border-radius: 0.85rem;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  text-decoration: none;
+  color: #1c1917 !important;
+  box-shadow: 0 1px 3px rgba(28, 25, 23, 0.04);
+  transition: all 140ms ease-out;
+}
+
+.drawerAccountCard:hover {
+  background: #ecfdf5 !important;
+  border-color: #10b981 !important;
+}
+
+.drawerAccountInfo {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.drawerAccountName {
+  overflow: hidden;
+  color: #1c1917 !important;
+  font-size: 0.86rem !important;
+  font-weight: 750 !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawerAccountEmail {
+  overflow: hidden;
+  color: #78716c !important;
+  font-size: 0.74rem !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .drawerFooter {
-  padding: 1rem 1.25rem;
-  border-top: 1px solid #e2e8f0;
-  color: #64748b !important;
-  font: 700 0.65rem/1 var(--pt-font-data) !important;
+  padding: 0.85rem 1.1rem;
+  border-top: 1px solid #e8e4dc !important;
+  background: #fbf9f4 !important;
+  background-color: #fbf9f4 !important;
+  color: #a8a29e !important;
+  font: 700 0.65rem/1 "Geist Mono", "SF Mono", ui-monospace, monospace !important;
   letter-spacing: 0.08em;
+  text-align: center;
+  flex-shrink: 0;
 }
 
 /* ================================================================

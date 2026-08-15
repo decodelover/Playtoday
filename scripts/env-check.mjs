@@ -22,6 +22,9 @@ const expectedKeys = [
   "SPORTS_PROVIDER_BASE_URL",
   "SPORTS_SYNC_MAX_REQUESTS",
   "SPORTS_SYNC_MAX_FIXTURES",
+  "ODDS_SYNC_MAX_REQUESTS",
+  "ODDS_SYNC_MAX_PAGES",
+  "ODDS_SYNC_MAX_EVENTS",
   "CRON_SECRET",
 ];
 const serverOnlyKeys = [
@@ -33,6 +36,9 @@ const serverOnlyKeys = [
   "SPORTS_PROVIDER_BASE_URL",
   "SPORTS_SYNC_MAX_REQUESTS",
   "SPORTS_SYNC_MAX_FIXTURES",
+  "ODDS_SYNC_MAX_REQUESTS",
+  "ODDS_SYNC_MAX_PAGES",
+  "ODDS_SYNC_MAX_EVENTS",
   "CRON_SECRET",
 ];
 const clientSafeKeys = [
@@ -161,6 +167,12 @@ function validateCurrent() {
     SPORTS_SYNC_MAX_FIXTURES:
       process.env.SPORTS_SYNC_MAX_FIXTURES ??
       localEntries.get("SPORTS_SYNC_MAX_FIXTURES"),
+    ODDS_SYNC_MAX_REQUESTS:
+      process.env.ODDS_SYNC_MAX_REQUESTS ?? localEntries.get("ODDS_SYNC_MAX_REQUESTS"),
+    ODDS_SYNC_MAX_PAGES:
+      process.env.ODDS_SYNC_MAX_PAGES ?? localEntries.get("ODDS_SYNC_MAX_PAGES"),
+    ODDS_SYNC_MAX_EVENTS:
+      process.env.ODDS_SYNC_MAX_EVENTS ?? localEntries.get("ODDS_SYNC_MAX_EVENTS"),
     CRON_SECRET: process.env.CRON_SECRET ?? localEntries.get("CRON_SECRET"),
   });
 }

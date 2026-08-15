@@ -6,8 +6,11 @@ const sportsWorkerEnvironmentSchema = z.object({
   SPORTS_PROVIDER_BASE_URL: z.string().url().startsWith("https://"),
   NEXT_PUBLIC_SUPABASE_URL: z.string().url().startsWith("https://"),
   SUPABASE_SERVICE_ROLE_KEY: z.string().trim().min(20),
-  SPORTS_SYNC_MAX_REQUESTS: z.coerce.number().int().min(2).max(20).default(4),
-  SPORTS_SYNC_MAX_FIXTURES: z.coerce.number().int().min(1).max(200).default(60),
+  SPORTS_SYNC_MAX_REQUESTS: z.coerce.number().int().min(2).max(50).default(10),
+  SPORTS_SYNC_MAX_FIXTURES: z.coerce.number().int().min(1).max(1000).default(500),
+  ODDS_SYNC_MAX_REQUESTS: z.coerce.number().int().min(2).max(50).default(10),
+  ODDS_SYNC_MAX_PAGES: z.coerce.number().int().min(1).max(50).default(5),
+  ODDS_SYNC_MAX_EVENTS: z.coerce.number().int().min(1).max(200).default(50),
 });
 
 export type SportsWorkerEnvironment = z.infer<typeof sportsWorkerEnvironmentSchema>;

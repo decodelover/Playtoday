@@ -47,6 +47,13 @@ import {
   SparklesIcon,
   TargetIcon,
 } from "../../components/dashboard/dashboard-icons";
+import { UserAvatar } from "../../components/user-avatar";
+
+interface AppAccountIdentity {
+  displayName: string | null;
+  email: string | null;
+  avatarUrl?: string | null;
+}
 
 const ROUTE_ICON_MAP: Record<
   string,
@@ -167,20 +174,11 @@ function MobileNavDrawer({
   onOpenChange,
   returnFocusRef,
 }: Readonly<{
-  account?: { displayName: string | null; email: string | null } | undefined;
+  account?: AppAccountIdentity | undefined;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   returnFocusRef: RefObject<HTMLButtonElement | null>;
 }>) {
-  const identitySource = account?.displayName?.trim() ?? account?.email?.split("@")[0];
-  const accountInitials = identitySource
-    ? identitySource
-        .split(/\s+/)
-        .slice(0, 2)
-        .map((part) => part[0]?.toUpperCase())
-        .join("")
-    : "PT";
-
   return (
     <Sheet
       onOpenChange={(nextOpen) => {
@@ -224,21 +222,34 @@ function MobileNavDrawer({
           </SheetClose>
         </div>
 
-        {/* Account card — natural palette */}
-        {account ? (
-          <div className={styles.drawerAccountCard}>
-            <span className={styles.drawerAvatar}>{accountInitials}</span>
-            <div className={styles.drawerAccountInfo}>
-              <strong>{account.displayName ?? "Signed in user"}</strong>
-              <small>{account.email}</small>
-            </div>
-          </div>
-        ) : null}
-
         {/* Navigation — scrollable */}
         <nav aria-label="Mobile full navigation" className={styles.drawerNav}>
           <NavigationList onNavigate={() => onOpenChange(false)} />
         </nav>
+
+        {/* Account profile card at bottom of drawer */}
+        {account ? (
+          <div className={styles.drawerBottomAccount}>
+            <Link
+              className={styles.drawerAccountCard}
+              href="/settings/profile"
+              onClick={() => onOpenChange(false)}
+            >
+              <UserAvatar
+                name={account.displayName}
+                size={38}
+                src={account.avatarUrl}
+              />
+              <div className={styles.drawerAccountInfo}>
+                <strong className={styles.drawerAccountName}>
+                  {account.displayName ?? "Signed in user"}
+                </strong>
+                <small className={styles.drawerAccountEmail}>{account.email}</small>
+              </div>
+              <SettingsIcon size={16} />
+            </Link>
+          </div>
+        ) : null}
 
         {/* Drawer footer */}
         <div className={styles.drawerFooter}>
@@ -257,19 +268,10 @@ function AppHeader({
   navigationTriggerRef,
   onOpenNavigation,
 }: Readonly<{
-  account?: { displayName: string | null; email: string | null } | undefined;
+  account?: AppAccountIdentity | undefined;
   navigationTriggerRef: RefObject<HTMLButtonElement | null>;
   onOpenNavigation: () => void;
 }>) {
-  const identitySource = account?.displayName?.trim() ?? account?.email?.split("@")[0];
-  const accountInitials = identitySource
-    ? identitySource
-        .split(/\s+/)
-        .slice(0, 2)
-        .map((part) => part[0]?.toUpperCase())
-        .join("")
-    : "PT";
-
   return (
     <header className={styles.header}>
       {/* Hamburger (mobile only) */}
@@ -343,16 +345,27 @@ function AppHeader({
               className={styles.accountTrigger}
               type="button"
             >
-              <span aria-hidden="true">{accountInitials}</span>
+              <UserAvatar
+                name={account?.displayName}
+                size={30}
+                src={account?.avatarUrl}
+              />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className={styles.accountMenuContent}>
             {account ? (
               <div className={styles.accountMenuHeader}>
-                <div className={styles.accountMenuName}>
-                  {account.displayName ?? "Signed In User"}
+                <UserAvatar
+                  name={account.displayName}
+                  size={36}
+                  src={account.avatarUrl}
+                />
+                <div className={styles.accountMenuInfo}>
+                  <div className={styles.accountMenuName}>
+                    {account.displayName ?? "Signed In User"}
+                  </div>
+                  <div className={styles.accountMenuEmail}>{account.email}</div>
                 </div>
-                <div className={styles.accountMenuEmail}>{account.email}</div>
               </div>
             ) : null}
             <DropdownMenuItem asChild>
@@ -362,7 +375,7 @@ function AppHeader({
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link className={styles.accountMenuItem} href="/settings/profile">
-                Profile
+                Profile &amp; Avatar
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
@@ -397,7 +410,7 @@ export function AppShell({
   account,
   children,
 }: Readonly<{
-  account?: { displayName: string | null; email: string | null } | undefined;
+  account?: AppAccountIdentity | undefined;
   children: ReactNode;
 }>) {
   const [collapsed, setCollapsed] = useState(false);

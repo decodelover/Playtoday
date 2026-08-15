@@ -16,6 +16,8 @@
     "clean": "node ../../scripts/clean.mjs .next coverage tsconfig.tsbuildinfo"
   },
   "dependencies": {
+    "@playtoday/ai-tools": "workspace:*",
+    "@playtoday/bookmaker-adapters": "workspace:*",
     "@playtoday/database-types": "workspace:*",
     "@playtoday/ingestion-worker": "workspace:*",
     "@playtoday/sports-domain": "workspace:*",

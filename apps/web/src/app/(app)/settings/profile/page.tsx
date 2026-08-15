@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getAuthenticatedAccountSettings } from "../../../../lib/account-settings-service";
 import styles from "../settings.module.css";
 import { ProfileForm } from "./profile-form";
+import { AvatarUploader } from "./avatar-uploader";
 
 function formatDate(value: string) {
   return new Intl.DateTimeFormat("en-GB", {
@@ -23,8 +24,13 @@ export default async function ProfilePage() {
     <div className={styles.page}>
       <header className={styles.pageHeader}>
         <h1>Profile</h1>
-        <p>Keep your account identity and local time display up to date.</p>
+        <p>Keep your account identity, profile photo, and local time display up to date.</p>
       </header>
+
+      <AvatarUploader
+        currentAvatarUrl={account.profile.avatar_url}
+        displayName={account.profile.display_name}
+      />
 
       <section className={styles.panel}>
         <div className={styles.panelHeader}>
@@ -47,16 +53,6 @@ export default async function ProfilePage() {
         displayName={account.profile.display_name}
         timezone={account.preferences.timezone}
       />
-
-      <section className={styles.panel}>
-        <div className={styles.panelHeader}>
-          <h2>Profile image</h2>
-          <p>
-            PlayToday does not have account image uploads. Your initials are used
-            instead, so no stock image or unverified avatar is shown.
-          </p>
-        </div>
-      </section>
     </div>
   );
 }

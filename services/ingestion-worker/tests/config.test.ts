@@ -9,6 +9,9 @@ const validEnvironment = {
   SUPABASE_SERVICE_ROLE_KEY: "test-service-role-key-not-a-credential",
   SPORTS_SYNC_MAX_REQUESTS: "4",
   SPORTS_SYNC_MAX_FIXTURES: "60",
+  ODDS_SYNC_MAX_REQUESTS: "4",
+  ODDS_SYNC_MAX_PAGES: "2",
+  ODDS_SYNC_MAX_EVENTS: "20",
 };
 
 describe("sports worker environment", () => {
@@ -16,6 +19,7 @@ describe("sports worker environment", () => {
     expect(loadSportsWorkerEnvironment(validEnvironment)).toMatchObject({
       SPORTS_PROVIDER: "api-football",
       SPORTS_SYNC_MAX_REQUESTS: 4,
+      ODDS_SYNC_MAX_PAGES: 2,
     });
   });
 

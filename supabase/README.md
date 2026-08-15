@@ -1,4 +1,4 @@
-# Supabase foundation
+# Supabase foundation and sports data
 
 Phase 2F brings forward the smallest Supabase boundary needed for the public contact form.
 
@@ -6,7 +6,10 @@ The committed migrations create `public.contact_submissions`, `public.profiles`,
 
 Run `pnpm exec supabase --help` before using the CLI. With an isolated local stack running, replay migrations and execute `pnpm exec supabase test db`. Never run a reset against an unidentified or production database.
 
-No seed data is configured. No authentication, sports-data, prediction, settlement, billing, or performance schema is introduced in this phase.
+Phase 4A through Phase 4C add canonical football fixtures, provider mappings,
+bookmaker and market registries, current odds, immutable meaningful-change history,
+ingestion runs, and provider health. Browser roles remain read-only on approved
+views and catalogs. Sports and odds writes require the service role.
 
 ## Local workflow
 

@@ -34,8 +34,8 @@ export default function SubscriptionPage() {
               <h3>Current Access Level</h3>
             </div>
             <p>
-              Your account currently has access to production canonical sports data,
-              daily edge picks, and target odds tools.
+              Your account can view canonical football fixtures and current provider
+              odds. Prediction picks and target-odds tools are not enabled.
             </p>
           </div>
 
@@ -45,8 +45,8 @@ export default function SubscriptionPage() {
               <h3>Pro & VIP Intelligence</h3>
             </div>
             <p>
-              Future subscription tiers will unlock advanced AI Analyst custom prompts,
-              real-time odds change push alerts, and automated ticket generation.
+              Future plan capabilities are not configured and are not promised as part
+              of the current subscription screen.
             </p>
           </div>
 
@@ -55,10 +55,7 @@ export default function SubscriptionPage() {
               <span className={styles.cardIcon}>🔒</span>
               <h3>Billing & Security</h3>
             </div>
-            <p>
-              Transparent billing with zero surprise recurring charges or un-cancelled
-              trials.
-            </p>
+            <p>Billing and paid subscriptions are not configured in this phase.</p>
           </div>
         </div>
       </div>

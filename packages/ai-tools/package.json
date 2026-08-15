@@ -2,7 +2,7 @@
   "name": "@playtoday/ai-tools",
   "version": "0.0.0",
   "private": true,
-  "description": "Future trusted AI Analyst tool definitions and schemas.",
+  "description": "PlayToday AI Analyst tools and Gemini intelligence schemas.",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -21,7 +21,11 @@
     "format:check": "prettier --check .",
     "clean": "node ../../scripts/clean.mjs dist coverage"
   },
+  "dependencies": {
+    "zod": "catalog:"
+  },
   "devDependencies": {
-    "@playtoday/config": "workspace:*"
+    "@playtoday/config": "workspace:*",
+    "@types/node": "catalog:"
   }
 }

@@ -1,0 +1,442 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: clamp(1rem, 2vw, 2rem) 1rem 3rem;
+  box-sizing: border-box;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--pt-stone-600);
+  font-size: 0.84rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color 120ms ease-out;
+}
+
+.backLink:hover {
+  color: var(--pt-emerald-700);
+}
+
+/* Match Hero Card */
+.heroCard {
+  border: 1px solid var(--pt-border-default);
+  border-radius: 1.15rem;
+  background: var(--pt-bg-surface);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.heroMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--pt-border-subtle);
+}
+
+.compBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 750;
+  color: var(--pt-stone-800);
+}
+
+.compLogo {
+  width: 1.35rem;
+  height: 1.35rem;
+  object-fit: contain;
+}
+
+.statusBadge {
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.statusFinished {
+  background: var(--pt-stone-100);
+  color: var(--pt-stone-700);
+  border: 1px solid var(--pt-border-default);
+}
+
+.statusLive {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+  animation: pulseLive 2s infinite ease-in-out;
+}
+
+.statusScheduled {
+  background: var(--pt-emerald-50);
+  color: var(--pt-emerald-700);
+  border: 1px solid var(--pt-emerald-200);
+}
+
+@keyframes pulseLive {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+
+.matchHeaderGrid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  text-align: center;
+}
+
+.teamCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.teamLogo {
+  width: clamp(3.5rem, 8vw, 5rem);
+  height: clamp(3.5rem, 8vw, 5rem);
+  object-fit: contain;
+}
+
+.teamName {
+  font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+  font-weight: 800;
+  color: var(--pt-stone-900);
+  letter-spacing: -0.02em;
+}
+
+.teamVenueTag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--pt-stone-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.scoreCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.scoreBox {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--pt-stone-950);
+  line-height: 1;
+}
+
+.kickoffTime {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--pt-emerald-700);
+}
+
+.venueText {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.76rem;
+  color: var(--pt-stone-500);
+  font-weight: 550;
+}
+
+/* Provenance Bar */
+.provenanceBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.85rem;
+  background: var(--pt-bg-surface-subtle);
+  border: 1px solid var(--pt-border-default);
+  font-size: 0.76rem;
+  color: var(--pt-stone-600);
+}
+
+.provItems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.provItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+
+/* Sections Grid */
+.gridTwoCol {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  border: 1px solid var(--pt-border-default);
+  border-radius: 1rem;
+  background: var(--pt-bg-surface);
+  padding: 1.4rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.15rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--pt-border-subtle);
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--pt-stone-900);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardBadge {
+  font-size: 0.68rem;
+  font-weight: 750;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.35rem;
+  background: var(--pt-emerald-50);
+  color: var(--pt-emerald-700);
+  border: 1px solid var(--pt-emerald-200);
+}
+
+/* Probability Bars */
+.probBars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.probRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.probLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--pt-stone-800);
+}
+
+.probTrack {
+  width: 100%;
+  height: 0.65rem;
+  border-radius: 99px;
+  background: var(--pt-stone-100);
+  overflow: hidden;
+}
+
+.probFill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #059669 0%, #10b981 100%);
+  transition: width 400ms ease-out;
+}
+
+.probFillDraw {
+  background: linear-gradient(90deg, #6b7280 0%, #9ca3af 100%);
+}
+
+.probFillAway {
+  background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+}
+
+/* Form Badges */
+.formRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.formBadge {
+  display: grid;
+  width: 1.65rem;
+  height: 1.65rem;
+  place-items: center;
+  border-radius: 0.4rem;
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.formW {
+  background: #059669;
+}
+
+.formD {
+  background: #6b7280;
+}
+
+.formL {
+  background: #dc2626;
+}
+
+/* Matches List */
+.matchesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 0.75rem;
+}
+
+.matchListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--pt-border-subtle);
+  border-radius: 0.65rem;
+  background: var(--pt-bg-surface-subtle);
+  font-size: 0.8rem;
+}
+
+.matchListOpponent {
+  font-weight: 650;
+  color: var(--pt-stone-800);
+}
+
+.matchListScore {
+  font-weight: 800;
+  font-family: var(--pt-font-data);
+}
+
+/* Statistics Table */
+.statsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.statRow {
+  display: grid;
+  grid-template-columns: 3rem 1fr 3rem;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+}
+
+.statValHome {
+  text-align: right;
+  font-weight: 800;
+  color: var(--pt-stone-900);
+}
+
+.statLabel {
+  text-align: center;
+  font-weight: 600;
+  color: var(--pt-stone-600);
+  font-size: 0.78rem;
+}
+
+.statValAway {
+  text-align: left;
+  font-weight: 800;
+  color: var(--pt-stone-900);
+}
+
+/* Standings Table */
+.standingsWrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.standingsTable {
+  width: 100%;
+  min-width: 28rem;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  text-align: left;
+}
+
+.standingsTable th {
+  padding: 0.5rem 0.65rem;
+  border-bottom: 1px solid var(--pt-border-default);
+  font-weight: 750;
+  color: var(--pt-stone-500);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.standingsTable td {
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid var(--pt-border-subtle);
+  color: var(--pt-stone-800);
+}
+
+.standingsHighlight {
+  background: var(--pt-emerald-50);
+  font-weight: 750;
+}
+
+/* Lineup Grids */
+.lineupSide {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lineupFormation {
+  font-size: 0.78rem;
+  font-weight: 750;
+  color: var(--pt-emerald-700);
+  margin-bottom: 0.4rem;
+}
+
+.playerItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--pt-stone-800);
+}
+
+.playerNumber {
+  display: grid;
+  width: 1.35rem;
+  height: 1.35rem;
+  place-items: center;
+  border-radius: 0.3rem;
+  background: var(--pt-stone-100);
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.emptyNotice {
+  padding: 1.25rem;
+  text-align: center;
+  color: var(--pt-stone-500);
+  font-size: 0.84rem;
+  font-style: italic;
+}

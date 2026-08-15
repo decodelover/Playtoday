@@ -25,5 +25,6 @@ To add a variable:
 4. Extend schema, error-redaction, template, and boundary tests.
 5. Run `pnpm env:example:check`, `pnpm env:check:test`, and `pnpm quality`.
 
-Future service credentials must wait for their authorized roadmap phases and must be
-stored in approved secret storage or ignored local files, never committed templates.
+Sports provider and scheduler credentials are server-only. Local values belong in
+ignored `.env.local`; deployed values belong in approved secret storage. The
+committed template contains names and non-secret examples only.

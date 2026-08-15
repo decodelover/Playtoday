@@ -25,6 +25,7 @@
     "clean": "node ../../scripts/clean.mjs dist coverage"
   },
   "dependencies": {
+    "@playtoday/bookmaker-adapters": "workspace:*",
     "@playtoday/database-types": "workspace:*",
     "@playtoday/sports-domain": "workspace:*",
     "@supabase/supabase-js": "catalog:",

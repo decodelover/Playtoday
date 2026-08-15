@@ -1,13 +1,13 @@
 import type { Database } from "@playtoday/database-types";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { CompetitionDto, TeamDto } from "./adapter";
+import type { CompetitionDto, TeamDto } from "./adapter.js";
 import {
   rawFixtureDtoSchema,
   normalizeFixtureStatus,
   normalizeUtcTimestamp,
   type RawFixtureDto,
-} from "./normalization";
-import type { IngestionRunResult } from "./types";
+} from "./normalization.js";
+import type { IngestionRunResult } from "./types.js";
 
 export interface IngestionOptions {
   provider: string;

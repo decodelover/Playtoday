@@ -8,9 +8,13 @@ PlayToday is a planned premium sports-intelligence and target-odds decision-supp
 
 ## Current roadmap position
 
-**Revised Phase 2F: implemented locally, with the production database release gate still open.**
+**Phase 4C: operational with real pre-match football odds and canonical markets.**
 
-The repository contains the product and interface foundation, production public supporting pages, a searchable Help Centre, and a validated Contact write path. The Contact path requires its reviewed Supabase migration before it can persist production submissions. Shared packages and Python services remain foundations for later phases.
+The repository contains the public and authenticated product foundation, canonical
+football fixtures, real API-Football pre-match odds, current and historical odds
+storage, protected ingestion schedules, and authenticated Daily Odds and Markets
+views. Prediction models, AI recommendations, settlement, bookmaker codes, payments,
+and Phase 4D remain unavailable.
 
 See the controlled [roadmap](docs/ROADMAP.md) and [development rules](docs/DEVELOPMENT_RULES.md) before making changes. Authentication, live sports data, predictions, settlement, billing, and support integrations remain unavailable.
 
@@ -21,7 +25,10 @@ See the controlled [roadmap](docs/ROADMAP.md) and [development rules](docs/DEVEL
 - Shared private packages under `@playtoday/*`
 - Python 3.12+ service placeholders checked by Ruff and pytest
 
-A minimal server-only Supabase Contact client and migration foundation are configured. Authentication, licensed sports data, prediction models, AI Analyst tools, deterministic settlement, payments, notifications, and bookmaker integrations remain unavailable.
+Supabase authentication, account settings, canonical football data, and licensed
+provider odds are configured. Prediction models, AI Analyst tools, deterministic
+settlement, payments, notifications, and direct bookmaker integrations remain
+unavailable.
 
 ## Repository structure
 
@@ -76,6 +83,8 @@ The web foundation is served by `@playtoday/web`. Its health endpoint is `/api/h
 
 ```sh
 pnpm build           # Build all buildable workspaces
+pnpm sports:sync     # Run the bounded canonical fixture ingestion job
+pnpm odds:sync       # Run the bounded pre-match odds ingestion job
 pnpm env:check       # Validate explicit process values or an existing .env.local
 pnpm env:check:test  # Validate deterministic non-secret test values
 pnpm env:example:check # Validate the committed template and ignore policy
@@ -105,7 +114,7 @@ The public design language uses deep navy, white and lavender surfaces, pink act
 
 Read the [Public Design System](docs/PUBLIC_DESIGN_SYSTEM.md), [Public Content and Data Rules](docs/PUBLIC_CONTENT_AND_DATA.md), [Public Website Architecture](docs/PUBLIC_WEBSITE_ARCHITECTURE.md), and [Public Route Inventory](docs/PUBLIC_ROUTE_INVENTORY.md) before future public interface work.
 
-The authenticated application shell and shared `@playtoday/ui` library remain separate from the public visual system. Read [Application Shell](docs/APPLICATION_SHELL.md) for that boundary. No functional product workflow is included.
+The authenticated application shell and shared `@playtoday/ui` library remain separate from the public visual system. Read [Application Shell](docs/APPLICATION_SHELL.md) for that boundary and [Phase 4C Odds and Markets](docs/PHASE_4C_ODDS_AND_MARKETS.md) for the operational odds workflow.
 
 ## Product restrictions
 

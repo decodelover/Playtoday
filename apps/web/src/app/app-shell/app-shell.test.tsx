@@ -71,17 +71,15 @@ describe("application shell", () => {
     expect(screen.getByRole("button", { name: "Open navigation" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Search PlayToday" })).toBeVisible();
     expect(screen.getAllByRole("link", { name: "Notifications" })[0]).toBeVisible();
-    expect(screen.getByRole("button", { name: "Account menu" })).toHaveTextContent(
-      "AO",
-    );
+    expect(screen.getByRole("button", { name: "Account menu" })).toBeVisible();
     fireEvent.pointerDown(screen.getByRole("button", { name: "Account menu" }), {
       button: 0,
       ctrlKey: false,
     });
     expect(await screen.findByText("Amina Okafor")).toBeVisible();
     expect(screen.getByText("amina@example.com")).toBeVisible();
-    expect(screen.getByRole("menuitem", { name: "Profile" })).toBeVisible();
-    expect(screen.getByRole("menuitem", { name: "Security" })).toBeVisible();
+    expect(screen.getByRole("menuitem", { name: /profile/i })).toBeVisible();
+    expect(screen.getByRole("menuitem", { name: /security/i })).toBeVisible();
     expect(document.body.textContent).not.toMatch(/unread|premium plan|john doe/i);
   });
 

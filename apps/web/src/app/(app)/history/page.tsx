@@ -7,9 +7,9 @@ export default function HistoryPage() {
   const route = getShellRoute("history");
   return (
     <WorkspacePageWrapper
-      badgeText="AUDITED HISTORICAL RECORDS"
+      badgeText="PREDICTION HISTORY NOT ENABLED"
       route={route}
-      subtitle="Verified prediction history, transparent outcome archives, and historical yield audit logs."
+      subtitle="No PlayToday predictions or settlement records exist in Phase 4C."
     >
       <div className={styles.workspacePanel}>
         <div className={styles.panelHeader}>
@@ -22,7 +22,7 @@ export default function HistoryPage() {
               View Analytics
             </Link>
             <Link className={styles.actionBtnPrimary} href="/daily-odds">
-              Today&apos;s Picks
+              Current Odds
             </Link>
           </div>
         </div>
@@ -34,8 +34,8 @@ export default function HistoryPage() {
               <h3>Immutable Settlement Logs</h3>
             </div>
             <p>
-              Every published prediction is logged prior to kickoff and settled
-              automatically from official provider match scores.
+              Prediction settlement is not configured. Current bookmaker odds history is
+              stored internally and is not presented as prediction history.
             </p>
           </div>
 
@@ -44,10 +44,7 @@ export default function HistoryPage() {
               <span className={styles.cardIcon}>🛡️</span>
               <h3>Zero Deletion Integrity</h3>
             </div>
-            <p>
-              PlayToday never deletes or retroactively modifies lost predictions. 100%
-              transparent historical accuracy tracking.
-            </p>
+            <p>There are no published PlayToday prediction outcomes to audit yet.</p>
           </div>
 
           <div className={styles.infoCard}>
@@ -56,7 +53,8 @@ export default function HistoryPage() {
               <h3>Search &amp; Filter Archives</h3>
             </div>
             <p>
-              Filter historical picks by league, odds range, date, or outcome status.
+              Historical prediction filters will remain unavailable until genuine
+              published and settled records exist.
             </p>
           </div>
         </div>

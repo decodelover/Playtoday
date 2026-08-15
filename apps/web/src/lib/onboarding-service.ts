@@ -11,7 +11,7 @@ import { createSupabaseServerClient } from "./supabase/server";
 
 type ProfileOnboardingRow = Pick<
   Database["public"]["Tables"]["profiles"]["Row"],
-  "display_name" | "onboarding_completed_at" | "onboarding_step"
+  "display_name" | "onboarding_completed_at" | "onboarding_step" | "avatar_url"
 >;
 type UserPreferencesRow = Database["public"]["Tables"]["user_preferences"]["Row"];
 type DatabaseFunctions = Database["public"]["Functions"];
@@ -36,6 +36,7 @@ export interface UserOnboardingState {
   completedAt: string | null;
   currentStep: string;
   displayName: string | null;
+  avatarUrl?: string | null;
   preferences: UserPreferencesInput | null;
 }
 
@@ -57,7 +58,7 @@ export async function getOnboardingState(userId: string): Promise<UserOnboarding
   // Fetch profile onboarding completion timestamp and current step
   const { data: profileData, error: profileError } = await supabase
     .from("profiles")
-    .select("display_name, onboarding_completed_at, onboarding_step")
+    .select("display_name, onboarding_completed_at, onboarding_step, avatar_url")
     .eq("id", userId)
     .maybeSingle();
   const profile = profileData as ProfileOnboardingRow | null;
@@ -128,6 +129,7 @@ export async function getOnboardingState(userId: string): Promise<UserOnboarding
     completedAt,
     currentStep,
     displayName: profile.display_name,
+    avatarUrl: profile.avatar_url ?? null,
     preferences: parsedPreferences,
   };
 }

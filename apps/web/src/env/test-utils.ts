@@ -12,6 +12,9 @@ export const deterministicTestEnvironment = Object.freeze({
   SPORTS_PROVIDER_BASE_URL: "https://v3.football.api-sports.io",
   SPORTS_SYNC_MAX_REQUESTS: 4,
   SPORTS_SYNC_MAX_FIXTURES: 60,
+  ODDS_SYNC_MAX_REQUESTS: 4,
+  ODDS_SYNC_MAX_PAGES: 2,
+  ODDS_SYNC_MAX_EVENTS: 20,
   CRON_SECRET: "test-cron-secret-not-a-credential",
 } satisfies RuntimeEnvironmentInput);
 

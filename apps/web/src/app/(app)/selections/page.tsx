@@ -7,59 +7,30 @@ export default function SelectionsPage() {
   const route = getShellRoute("selections");
   return (
     <WorkspacePageWrapper
-      badgeText="SELECTIONS WORKSPACE READY"
+      badgeText="SAVED SELECTIONS NOT ENABLED"
       route={route}
-      subtitle="View your saved selection drafts, customized ticket builds, and bookmaker odds tracking."
+      subtitle="Saved tickets, movement alerts, and bookmaker code export are not available in the current phase."
     >
-      <div className={styles.workspacePanel}>
-        <div className={styles.panelHeader}>
-          <div className={styles.panelTitleGroup}>
-            <span className={styles.panelBadge}>SAVED TICKETS</span>
-            <h2 className={styles.panelTitle}>My Saved Selections</h2>
-          </div>
-          <div className={styles.panelActions}>
-            <Link className={styles.actionBtnSecondary} href="/daily-odds">
-              Daily Picks
-            </Link>
-            <Link className={styles.actionBtnPrimary} href="/target-odds">
-              Create New Ticket
-            </Link>
+      <div className={styles.defaultWorkspaceCard}>
+        <div className={styles.defaultCardHeader}>
+          <div>
+            <h2 className={styles.defaultCardTitle}>No saved selections yet</h2>
+            <p className={styles.defaultCardSubtitle}>
+              Phase 4C provides verified current odds and market coverage. It does not
+              create bookmaker tickets or booking codes.
+            </p>
           </div>
         </div>
-
-        <div className={styles.panelGrid}>
-          <div className={styles.infoCard}>
-            <div className={styles.cardHeader}>
-              <span className={styles.cardIcon}>📌</span>
-              <h3>Saved Selection Drafts</h3>
-            </div>
-            <p>
-              Your saved custom combinations are stored locally with real-time odds
-              updates and canonical team mappings.
-            </p>
-          </div>
-
-          <div className={styles.infoCard}>
-            <div className={styles.cardHeader}>
-              <span className={styles.cardIcon}>🇳🇬</span>
-              <h3>Bookmaker Code Exporter</h3>
-            </div>
-            <p>
-              Format your selections directly for quick booking on SportyBet, Bet9ja,
-              and MSport.
-            </p>
-          </div>
-
-          <div className={styles.infoCard}>
-            <div className={styles.cardHeader}>
-              <span className={styles.cardIcon}>🔔</span>
-              <h3>Odds Movement Alerts</h3>
-            </div>
-            <p>
-              Track odds shifts and market movements across target bookmakers prior to
-              kickoff.
-            </p>
-          </div>
+        <div className={styles.defaultCardBody}>
+          <p className={styles.defaultCardText}>
+            Review current prices on Daily Odds. Saving selections and tracking alerts
+            will remain unavailable until those workflows are implemented and tested.
+          </p>
+        </div>
+        <div className={styles.defaultCardFooter}>
+          <Link className={styles.actionBtnPrimary} href="/daily-odds">
+            View current odds
+          </Link>
         </div>
       </div>
     </WorkspacePageWrapper>

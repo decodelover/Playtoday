@@ -11,6 +11,7 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "sports:sync": "node --env-file=.env.local --import tsx services/ingestion-worker/src/cli.ts",
+    "odds:sync": "node --env-file=.env.local --import tsx services/ingestion-worker/src/odds-cli.ts",
     "env:check": "tsx scripts/env-check.mjs current",
     "env:check:test": "tsx scripts/env-check.mjs test",
     "env:example:check": "tsx scripts/env-check.mjs example",
@@ -30,7 +31,9 @@
   "devDependencies": {
     "@playtoday/config": "workspace:*",
     "@types/node": "catalog:",
+    "@types/pg": "catalog:",
     "eslint": "catalog:",
+    "pg": "catalog:",
     "prettier": "catalog:",
     "supabase": "catalog:",
     "tsx": "catalog:",

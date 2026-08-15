@@ -2,7 +2,7 @@
   "name": "@playtoday/bookmaker-adapters",
   "version": "0.0.0",
   "private": true,
-  "description": "Future universal bookmaker integration interfaces.",
+  "description": "Provider-neutral football odds contracts and API-Football adapter.",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -20,6 +20,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "clean": "node ../../scripts/clean.mjs dist coverage"
+  },
+  "dependencies": {
+    "@playtoday/sports-domain": "workspace:*",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@playtoday/config": "workspace:*"

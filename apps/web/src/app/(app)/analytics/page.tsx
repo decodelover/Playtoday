@@ -7,9 +7,9 @@ export default function AnalyticsPage() {
   const route = getShellRoute("analytics");
   return (
     <WorkspacePageWrapper
-      badgeText="TRANSPARENT METRICS ENGINE"
+      badgeText="PREDICTION ANALYTICS NOT ENABLED"
       route={route}
-      subtitle="Transparent performance analytics, accuracy verification, and canonical historical tracking."
+      subtitle="Prediction accuracy, yield, and settlement analytics are not available in Phase 4C."
     >
       <div className={styles.workspacePanel}>
         <div className={styles.panelHeader}>
@@ -22,7 +22,7 @@ export default function AnalyticsPage() {
               Prediction History
             </Link>
             <Link className={styles.actionBtnPrimary} href="/daily-odds">
-              Daily Edge
+              Current Odds
             </Link>
           </div>
         </div>
@@ -34,9 +34,8 @@ export default function AnalyticsPage() {
               <h3>Accuracy Audit Pipeline</h3>
             </div>
             <p>
-              PlayToday tracks model confidence ratings against verified match outcomes
-              in the canonical database. Zero post-hoc prediction editing or fictional
-              historical records.
+              No model confidence or accuracy record exists yet. This area will remain
+              unavailable until a tested prediction system publishes auditable records.
             </p>
           </div>
 
@@ -46,8 +45,8 @@ export default function AnalyticsPage() {
               <h3>Settlement Worker</h3>
             </div>
             <p>
-              Settlement worker automatically reconciles finished fixtures from
-              canonical provider feeds into transparent performance analytics.
+              The settlement worker is not operational. Fixture results are canonical
+              sports data and are not presented as settled predictions.
             </p>
           </div>
 
@@ -57,8 +56,8 @@ export default function AnalyticsPage() {
               <h3>Yield & ROI Analytics</h3>
             </div>
             <p>
-              Comprehensive analytics break down performance across leagues, markets,
-              and odds ranges with zero hidden metrics.
+              Yield and ROI require real published selections and settlement records.
+              PlayToday does not calculate or display them in this phase.
             </p>
           </div>
         </div>

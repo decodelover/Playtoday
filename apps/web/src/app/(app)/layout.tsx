@@ -10,7 +10,7 @@ export default async function ApplicationLayout({
   // Server-side identity protection for authenticated app routes
   const isTestEnvironment = process.env.NODE_ENV === "test";
   const user = await getAuthenticatedUser();
-  let accountIdentity: { displayName: string | null; email: string | null } | undefined;
+  let accountIdentity: { displayName: string | null; email: string | null; avatarUrl?: string | null } | undefined;
 
   if (!user && !isTestEnvironment) {
     redirect("/sign-in");
@@ -24,6 +24,7 @@ export default async function ApplicationLayout({
     accountIdentity = {
       displayName: onboardingState.displayName,
       email: user.email ?? null,
+      avatarUrl: onboardingState.avatarUrl ?? null,
     };
   }
 

@@ -34,8 +34,8 @@ export default function SupportPage() {
               <h3>System Documentation</h3>
             </div>
             <p>
-              Learn about our canonical sports data model, model probability
-              calculations, and bookmaker odds integration policies.
+              Learn about canonical sports data, bookmaker market data, source
+              freshness, and odds integration policies.
             </p>
           </div>
 

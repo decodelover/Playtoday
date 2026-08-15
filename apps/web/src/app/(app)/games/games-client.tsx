@@ -1,13 +1,24 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type {
   PublicFixtureDisplay,
   TodaysGamesResponse,
 } from "../../../lib/games-service";
+import { useLiveFixtures } from "../../../lib/use-live-fixtures";
 import styles from "./games.module.css";
+
+const COMMON_TIMEZONES = [
+  { id: "auto", label: "Auto (Local Browser)" },
+  { id: "Africa/Lagos", label: "Lagos (WAT / UTC+1)" },
+  { id: "Europe/London", label: "London (GMT/BST)" },
+  { id: "Africa/Johannesburg", label: "Johannesburg (SAST / UTC+2)" },
+  { id: "Africa/Nairobi", label: "Nairobi (EAT / UTC+3)" },
+  { id: "America/New_York", label: "New York (EST/EDT)" },
+  { id: "UTC", label: "UTC (Coordinated Universal)" },
+];
 
 function formatKickoffTime(kickoffIso: string, timezone: string): string {
   try {
@@ -47,8 +58,8 @@ function StatusBadge({ fixture }: Readonly<{ fixture: PublicFixtureDisplay }>) {
     fixture.status === "penalties"
   ) {
     return (
-      <span className={styles.liveBadge}>
-        <span className={styles.liveDot} aria-hidden="true" />
+      <span className={styles.statusBadge} data-live="true">
+        <span className={styles.pulseIndicator} aria-hidden="true" />
         LIVE {fixture.homeScore ?? 0} - {fixture.awayScore ?? 0}
       </span>
     );
@@ -56,25 +67,25 @@ function StatusBadge({ fixture }: Readonly<{ fixture: PublicFixtureDisplay }>) {
 
   if (fixture.status === "finished") {
     return (
-      <span className={styles.finishedBadge}>
+      <span className={styles.statusBadge} data-finished="true">
         FT {fixture.homeScore ?? 0} - {fixture.awayScore ?? 0}
       </span>
     );
   }
 
   if (fixture.status === "postponed") {
-    return <span className={styles.postponedBadge}>POSTPONED</span>;
+    return <span className={styles.statusBadge}>POSTPONED</span>;
   }
 
   if (fixture.status === "cancelled") {
-    return <span className={styles.postponedBadge}>CANCELLED</span>;
+    return <span className={styles.statusBadge}>CANCELLED</span>;
   }
 
   if (fixture.status === "abandoned") {
-    return <span className={styles.postponedBadge}>ABANDONED</span>;
+    return <span className={styles.statusBadge}>ABANDONED</span>;
   }
 
-  return <span className={styles.scheduledBadge}>SCHEDULED</span>;
+  return <span className={styles.statusBadge}>SCHEDULED</span>;
 }
 
 export function GamesClient({
@@ -84,11 +95,25 @@ export function GamesClient({
   const [selectedDate, setSelectedDate] = useState<string>(initialData.dateIso);
   const [selectedCompetition, setSelectedCompetition] = useState<string>("all");
   const [selectedStatus, setSelectedStatus] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [activeTimezone, setActiveTimezone] = useState<string>(initialData.userTimezone);
 
-  const fixtures = initialData.fixtures;
-  const userTimezone = initialData.userTimezone;
+  // Auto-detect client timezone if server defaulted to UTC
+  useEffect(() => {
+    try {
+      const browserTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (browserTz && initialData.userTimezone === "UTC") {
+        setActiveTimezone(browserTz);
+      }
+    } catch {
+      // Keep server timezone fallback
+    }
+  }, [initialData.userTimezone]);
+
+  // Real-time live scores and status updates via WebSockets
+  const { fixtures, lastLiveEventAt, isLiveConnected } = useLiveFixtures(initialData.fixtures);
   const freshness = initialData.freshness;
-  const lastSyncedAt = initialData.lastSyncedAt;
+  const lastSyncedAt = lastLiveEventAt ?? initialData.lastSyncedAt;
 
   // Derive available competitions from fixtures
   const competitions = useMemo(() => {
@@ -101,31 +126,42 @@ export function GamesClient({
     return Array.from(map.entries()).map(([id, name]) => ({ id, name }));
   }, [fixtures]);
 
-  // Filter fixtures based on competition & status selection
+  // Filter fixtures based on competition, status selection, and search query
   const filteredFixtures = useMemo(() => {
     return fixtures.filter((f) => {
       if (selectedCompetition !== "all" && f.competition.id !== selectedCompetition) {
         return false;
       }
       if (selectedStatus === "live") {
-        return (
-          f.status === "live" ||
-          f.status === "halftime" ||
-          f.status === "extra_time" ||
-          f.status === "penalties"
-        );
+        if (
+          f.status !== "live" &&
+          f.status !== "halftime" &&
+          f.status !== "extra_time" &&
+          f.status !== "penalties"
+        ) {
+          return false;
+        }
+      } else if (selectedStatus === "scheduled") {
+        if (f.status !== "scheduled") return false;
+      } else if (selectedStatus === "finished") {
+        if (f.status !== "finished") return false;
       }
-      if (selectedStatus === "scheduled") {
-        return f.status === "scheduled";
+
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase();
+        const home = f.homeTeam.name.toLowerCase();
+        const away = f.awayTeam.name.toLowerCase();
+        const comp = f.competition.name.toLowerCase();
+        if (!home.includes(query) && !away.includes(query) && !comp.includes(query)) {
+          return false;
+        }
       }
-      if (selectedStatus === "finished") {
-        return f.status === "finished";
-      }
+
       return true;
     });
-  }, [fixtures, selectedCompetition, selectedStatus]);
+  }, [fixtures, selectedCompetition, selectedStatus, searchQuery]);
 
-  // Date step helper (Prev day / Next day)
+  // Date step helper
   const shiftDate = (days: number) => {
     try {
       const parts = selectedDate.split("-");
@@ -144,6 +180,19 @@ export function GamesClient({
 
   const isToday = selectedDate === initialData.todayDateIso;
 
+  const handleTimezoneChange = (tz: string) => {
+    if (tz === "auto") {
+      try {
+        const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        setActiveTimezone(detected || "UTC");
+      } catch {
+        setActiveTimezone("UTC");
+      }
+    } else {
+      setActiveTimezone(tz);
+    }
+  };
+
   return (
     <div className={styles.gamesContainer}>
       {/* Primary Control Bar */}
@@ -159,7 +208,9 @@ export function GamesClient({
           </button>
           <div className={styles.dateLabelGroup}>
             <span className={styles.dateHeader}>{formatDateHeader(selectedDate)}</span>
-            <span className={styles.timezoneNotice}>Timezone: {userTimezone}</span>
+            <span className={styles.timezoneNotice}>
+              Timezone: {activeTimezone}
+            </span>
           </div>
           <button
             aria-label="Next day"
@@ -172,7 +223,10 @@ export function GamesClient({
           {!isToday ? (
             <button
               className={styles.todayResetBtn}
-              onClick={() => router.push("/games")}
+              onClick={() => {
+                setSelectedDate(initialData.todayDateIso);
+                router.push("/games");
+              }}
               type="button"
             >
               Today
@@ -180,11 +234,17 @@ export function GamesClient({
           ) : null}
         </div>
 
-        {/* Filters */}
+        {/* Filters & Search */}
         <div className={styles.filterGroup}>
-          <label className={styles.filterLabel} htmlFor="competition-select">
-            Competition
-          </label>
+          <input
+            className={styles.filterSelect}
+            placeholder="Search teams or leagues..."
+            style={{ minWidth: "11rem" }}
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+
           <select
             className={styles.filterSelect}
             id="competition-select"
@@ -199,40 +259,54 @@ export function GamesClient({
             ))}
           </select>
 
-          <label className={styles.filterLabel} htmlFor="status-select">
-            Status
-          </label>
           <select
             className={styles.filterSelect}
             id="status-select"
             onChange={(e) => setSelectedStatus(e.target.value)}
             value={selectedStatus}
           >
-            <option value="all">All Statuses</option>
+            <option value="all">All Match Statuses</option>
             <option value="live">Live Matches</option>
             <option value="scheduled">Upcoming / Scheduled</option>
             <option value="finished">Finished (FT)</option>
           </select>
+
+          <select
+            className={styles.filterSelect}
+            id="tz-select"
+            onChange={(e) => handleTimezoneChange(e.target.value)}
+            value={
+              COMMON_TIMEZONES.some((tz) => tz.id === activeTimezone)
+                ? activeTimezone
+                : "auto"
+            }
+          >
+            {COMMON_TIMEZONES.map((tz) => (
+              <option key={tz.id} value={tz.id}>
+                {tz.label}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
-      {/* Freshness Banner */}
+      {/* Freshness & Realtime Indicator */}
       <div className={styles.freshnessRow}>
         <div className={styles.freshnessMeta}>
-          <span className={styles.pulseIndicator} data-freshness={freshness} />
+          <span
+            className={styles.pulseIndicator}
+            data-freshness={freshness}
+            title={isLiveConnected ? "Realtime WebSockets Connected" : "Polling"}
+          />
           <span className={styles.freshnessText}>
-            {freshness === "current"
-              ? "Data current"
-              : freshness === "unavailable"
-                ? "Fixture data is temporarily unavailable"
-                : "Data delayed"}
+            {isLiveConnected ? "Live WebSockets Active" : "Data Current"}
             {lastSyncedAt
-              ? `, updated ${new Date(lastSyncedAt).toLocaleTimeString()}`
+              ? ` • Updated ${new Date(lastSyncedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`
               : ""}
           </span>
         </div>
         <span className={styles.countTag}>
-          Showing {filteredFixtures.length} of {fixtures.length} fixtures
+          Showing {filteredFixtures.length} of {fixtures.length} matches
         </span>
       </div>
 
@@ -240,36 +314,38 @@ export function GamesClient({
       {filteredFixtures.length > 0 ? (
         <div className={styles.fixturesGrid}>
           {filteredFixtures.map((fixture) => (
-            <FixtureCard fixture={fixture} key={fixture.id} timezone={userTimezone} />
+            <FixtureCard
+              fixture={fixture}
+              key={fixture.id}
+              timezone={activeTimezone}
+            />
           ))}
         </div>
       ) : (
-        <div className={styles.emptyStateContainer}>
-          <h3 className={styles.emptyTitle}>
-            {freshness === "unavailable"
-              ? "Fixture data is temporarily unavailable"
-              : "No football fixtures are available"}
-          </h3>
+        <div className={styles.emptyStateCard}>
+          <div className={styles.emptyIconWrapper}>⚽</div>
+          <h3 className={styles.emptyTitle}>No matches found</h3>
           <p className={styles.emptyText}>
-            {freshness === "unavailable"
-              ? "Please try again shortly."
-              : "Try another date or clear the current filters."}
+            {searchQuery || selectedCompetition !== "all" || selectedStatus !== "all"
+              ? "Try clearing your search query or filters."
+              : "No fixtures are scheduled for this date."}
           </p>
-          <div className={styles.emptyActions}>
-            {selectedCompetition !== "all" || selectedStatus !== "all" ? (
+          <div style={{ display: "flex", gap: "0.75rem" }}>
+            {(searchQuery || selectedCompetition !== "all" || selectedStatus !== "all") && (
               <button
-                className={styles.resetFiltersBtn}
+                className={styles.todayResetBtn}
                 onClick={() => {
+                  setSearchQuery("");
                   setSelectedCompetition("all");
                   setSelectedStatus("all");
                 }}
                 type="button"
               >
-                Reset Filters
+                Clear Filters
               </button>
-            ) : null}
-            <Link className={styles.analystLinkBtn} href="/games">
-              Back to today
+            )}
+            <Link className={styles.analyzeAction} href="/games">
+              Return to Today
             </Link>
           </div>
         </div>
@@ -285,6 +361,13 @@ function FixtureCard({
   fixture: PublicFixtureDisplay;
   timezone: string;
 }>) {
+  const isLive =
+    fixture.status === "live" ||
+    fixture.status === "halftime" ||
+    fixture.status === "extra_time" ||
+    fixture.status === "penalties";
+  const isFinished = fixture.status === "finished";
+
   return (
     <article className={styles.fixtureCard} data-status={String(fixture.status)}>
       <div className={styles.cardHeader}>
@@ -292,19 +375,25 @@ function FixtureCard({
         <StatusBadge fixture={fixture} />
       </div>
 
-      <div className={styles.matchBody}>
+      <div className={styles.teamsBlock}>
         <div className={styles.teamRow}>
-          <span className={styles.teamBadgePill}>H</span>
-          <span className={styles.teamName}>{fixture.homeTeam.name}</span>
-          <span className={styles.scoreVal}>{fixture.homeScore ?? "-"}</span>
+          <div className={styles.teamInfo}>
+            <span className={styles.teamLogoPlaceholder}>H</span>
+            <span className={styles.teamName}>{fixture.homeTeam.name}</span>
+          </div>
+          <span className={styles.teamScore}>
+            {isLive || isFinished ? (fixture.homeScore ?? 0) : "-"}
+          </span>
         </div>
 
         <div className={styles.teamRow}>
-          <span className={styles.teamBadgePill} data-away>
-            A
+          <div className={styles.teamInfo}>
+            <span className={styles.teamLogoPlaceholder}>A</span>
+            <span className={styles.teamName}>{fixture.awayTeam.name}</span>
+          </div>
+          <span className={styles.teamScore}>
+            {isLive || isFinished ? (fixture.awayScore ?? 0) : "-"}
           </span>
-          <span className={styles.teamName}>{fixture.awayTeam.name}</span>
-          <span className={styles.scoreVal}>{fixture.awayScore ?? "-"}</span>
         </div>
       </div>
 
@@ -312,11 +401,24 @@ function FixtureCard({
         <span className={styles.kickoffTime}>
           {formatKickoffTime(fixture.kickoffAt, timezone)}
         </span>
-        {fixture.venue?.name ? (
-          <span className={styles.venueName}>{fixture.venue.name}</span>
-        ) : (
-          <span className={styles.roundName}>{fixture.round ?? "Regular Season"}</span>
-        )}
+        <div style={{ display: "flex", gap: "0.45rem", alignItems: "center" }}>
+          <Link
+            className={styles.analyzeAction}
+            href={`/games/${fixture.id}`}
+            title="View verified standings, form, H2H & lineups"
+            style={{ background: "var(--pt-bg-surface-subtle)", color: "var(--pt-stone-700)", border: "1px solid var(--pt-border-default)" }}
+          >
+            <span>Match Intel</span>
+          </Link>
+          <Link
+            className={styles.analyzeAction}
+            href={`/ai-analyst?fixtureId=${fixture.id}`}
+            title="Analyze match with AI Analyst"
+          >
+            <span>AI Chat</span>
+            <span aria-hidden="true">→</span>
+          </Link>
+        </div>
       </div>
     </article>
   );

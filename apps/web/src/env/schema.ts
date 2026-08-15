@@ -29,8 +29,13 @@ export const serverEnvironmentSchema = z.object({
   SPORTS_PROVIDER: z.literal("api-football"),
   SPORTS_PROVIDER_API_KEY: z.string().trim().min(20),
   SPORTS_PROVIDER_BASE_URL: applicationUrlSchema,
-  SPORTS_SYNC_MAX_REQUESTS: z.coerce.number().int().min(2).max(20).default(4),
-  SPORTS_SYNC_MAX_FIXTURES: z.coerce.number().int().min(1).max(200).default(60),
+  SPORTS_SYNC_MAX_REQUESTS: z.coerce.number().int().min(2).max(50).default(10),
+  SPORTS_SYNC_MAX_FIXTURES: z.coerce.number().int().min(1).max(1000).default(500),
+  ODDS_SYNC_MAX_REQUESTS: z.coerce.number().int().min(2).max(50).default(10),
+  ODDS_SYNC_MAX_PAGES: z.coerce.number().int().min(1).max(50).default(5),
+  ODDS_SYNC_MAX_EVENTS: z.coerce.number().int().min(1).max(200).default(50),
+  AI_PROVIDER: z.string().optional(),
+  GEMINI_API_KEY: z.string().trim().min(10).optional(),
   CRON_SECRET: z.string().trim().min(16),
 });
 
