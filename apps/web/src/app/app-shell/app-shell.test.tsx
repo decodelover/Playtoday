@@ -123,7 +123,7 @@ describe("breadcrumbs and placeholders", () => {
 
   it("clearly identifies unavailable pages without internal product language", () => {
     const { container } = render(
-      <PagePlaceholder route={getShellRoute("daily-odds")} />,
+      <PagePlaceholder route={getShellRoute("daily-edge")} />,
     );
     expect(screen.getByText("Not available")).toBeVisible();
     expect(container).toHaveTextContent(

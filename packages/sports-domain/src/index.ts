@@ -5,3 +5,4 @@ export * from "./adapter.js";
 export * from "./basketball-adapter.js";
 export * from "./persistence.js";
 export * from "./intelligence.js";
+export * from "./daily-edge.js";

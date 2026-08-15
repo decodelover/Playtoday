@@ -41,16 +41,16 @@ export const shellRoutes = [
     description: "A future workspace for today's eligible games.",
   },
   {
-    key: "daily-odds",
-    label: "Daily Odds",
-    mobileLabel: "Daily Odds",
-    path: "/daily-odds",
+    key: "daily-edge",
+    label: "Daily Edge",
+    mobileLabel: "Daily Edge",
+    path: "/daily-edge",
     icon: "daily",
     group: "Predictions",
     mobilePrimary: true,
-    breadcrumb: "Daily Odds",
+    breadcrumb: "Daily Edge",
     description:
-      "A future workspace for official daily analysis and transparent outcomes.",
+      "Official published daily sports intelligence targeting ~2.00 combined odds.",
   },
   {
     key: "target-odds",

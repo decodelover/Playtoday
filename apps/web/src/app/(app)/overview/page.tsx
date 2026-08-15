@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAuthenticatedAccountSettings } from "../../../lib/account-settings-service";
 import { getTodaysGames } from "../../../lib/games-service";
+import { getDailyEdgeForDate } from "../../../lib/daily-edge-service";
 import {
   ActivityIcon,
   CalendarIcon,
@@ -37,7 +38,11 @@ export default async function OverviewPage() {
   const account = await getAuthenticatedAccountSettings();
   const userTimezone = account?.preferences.timezone ?? "UTC";
   const displayName = account?.profile?.display_name ?? "there";
-  const todaysData = await getTodaysGames({ userTimezone });
+  const todayIso = new Date().toISOString().split("T")[0]!;
+  const [todaysData, dailyEdge] = await Promise.all([
+    getTodaysGames({ userTimezone }),
+    getDailyEdgeForDate(todayIso),
+  ]);
   const liveFixtures = todaysData.fixtures.filter((fixture) =>
     liveStatuses.has(fixture.status),
   );
@@ -126,6 +131,61 @@ export default async function OverviewPage() {
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* Official Daily Edge Section */}
+      <section aria-label="Official Daily Edge" className={styles.sectionCard}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.sectionTitleGroup}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <h2 className={styles.sectionTitle}>Daily Edge</h2>
+              {dailyEdge?.status === "published" && (
+                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#00e599", background: "rgba(0,229,153,0.12)", padding: "0.2rem 0.6rem", borderRadius: "9999px" }}>
+                  {dailyEdge.originalCombinedOdds?.toFixed(2)}x PUBLISHED
+                </span>
+              )}
+              {dailyEdge?.status === "pass_day" && (
+                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#f59e0b", background: "rgba(245,158,11,0.12)", padding: "0.2rem 0.6rem", borderRadius: "9999px" }}>
+                  PASS DAY
+                </span>
+              )}
+            </div>
+            <p className={styles.sectionSubtitle}>
+              Official daily sports intelligence targeting ~2.00 combined decimal odds.
+            </p>
+          </div>
+          <Link className={styles.sectionActionLink} href="/daily-edge">
+            <span>View details</span>
+            <ChevronRightIcon size={15} />
+          </Link>
+        </div>
+
+        {dailyEdge?.status === "published" && dailyEdge.legs.length > 0 ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", padding: "1rem 1.25rem", background: "rgba(255,255,255,0.02)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
+              <span style={{ fontSize: "1.1rem", fontWeight: 700, color: "#ffffff" }}>
+                {dailyEdge.legs.map((l) => l.fixture?.homeTeamName ?? "Leg").join(" + ")}
+              </span>
+              <span style={{ fontSize: "1.25rem", fontWeight: 800, color: "#00e599" }}>
+                {dailyEdge.originalCombinedOdds?.toFixed(2)}x
+              </span>
+            </div>
+            <div style={{ fontSize: "0.85rem", color: "#94a3b8" }}>
+              {dailyEdge.legs.length} legs on verified bookmaker <strong>{dailyEdge.bookmakerName || "Betfair"}</strong>
+            </div>
+          </div>
+        ) : dailyEdge?.status === "pass_day" ? (
+          <div style={{ padding: "1rem 1.25rem", background: "rgba(245,158,11,0.04)", borderRadius: "12px", border: "1px solid rgba(245,158,11,0.2)", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <span style={{ fontSize: "1.25rem" }}>🛡️</span>
+            <span style={{ fontSize: "0.9rem", color: "#cbd5e1" }}>
+              {dailyEdge.passReasonText || "Disciplined risk management: No selections satisfied our strict model standards today."}
+            </span>
+          </div>
+        ) : (
+          <div style={{ padding: "1rem 1.25rem", color: "#94a3b8", fontSize: "0.88rem" }}>
+            Daily Edge is evaluating today&apos;s upcoming fixtures and odds.
+          </div>
+        )}
       </section>
 
       <div className={styles.dashboardGrid}>

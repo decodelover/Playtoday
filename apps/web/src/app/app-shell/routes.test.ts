@@ -16,7 +16,7 @@ describe("shell route configuration", () => {
   it("defines exactly the intended five mobile destinations", () => {
     expect(
       shellRoutes.filter((route) => route.mobilePrimary).map((route) => route.key),
-    ).toEqual(["overview", "ai-analyst", "games", "daily-odds", "support"]);
+    ).toEqual(["overview", "ai-analyst", "games", "daily-edge", "support"]);
   });
 
   it("matches exact and future nested routes without false positives", () => {
