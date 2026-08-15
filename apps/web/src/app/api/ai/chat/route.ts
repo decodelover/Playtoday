@@ -150,7 +150,7 @@ export async function POST(request: Request) {
       oddsQuotes: formattedOdds,
     };
 
-    const analyst = new GeminiSportsChat(process.env.GEMINI_API_KEY ?? "");
+    const analyst = new GeminiSportsChat(process.env.GEMINI_API_KEY);
     const responseText = await analyst.chat(messages, liveContext);
 
     return NextResponse.json({

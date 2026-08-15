@@ -14,10 +14,13 @@ const validatedEnvironment = validateRuntimeEnvironment({
   ODDS_SYNC_MAX_REQUESTS: process.env.ODDS_SYNC_MAX_REQUESTS,
   ODDS_SYNC_MAX_PAGES: process.env.ODDS_SYNC_MAX_PAGES,
   ODDS_SYNC_MAX_EVENTS: process.env.ODDS_SYNC_MAX_EVENTS,
+  AI_PROVIDER: process.env.AI_PROVIDER,
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY,
   CRON_SECRET: process.env.CRON_SECRET,
   NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
   NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 });
 
 export const serverEnvironment = Object.freeze({
@@ -32,8 +35,11 @@ export const serverEnvironment = Object.freeze({
   ODDS_SYNC_MAX_REQUESTS: validatedEnvironment.ODDS_SYNC_MAX_REQUESTS,
   ODDS_SYNC_MAX_PAGES: validatedEnvironment.ODDS_SYNC_MAX_PAGES,
   ODDS_SYNC_MAX_EVENTS: validatedEnvironment.ODDS_SYNC_MAX_EVENTS,
+  AI_PROVIDER: validatedEnvironment.AI_PROVIDER,
+  GEMINI_API_KEY: validatedEnvironment.GEMINI_API_KEY,
   CRON_SECRET: validatedEnvironment.CRON_SECRET,
   NEXT_PUBLIC_APP_NAME: validatedEnvironment.NEXT_PUBLIC_APP_NAME,
   NEXT_PUBLIC_APP_URL: validatedEnvironment.NEXT_PUBLIC_APP_URL,
   NEXT_PUBLIC_SUPABASE_URL: validatedEnvironment.NEXT_PUBLIC_SUPABASE_URL,
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: validatedEnvironment.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 });

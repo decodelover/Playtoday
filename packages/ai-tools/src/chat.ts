@@ -35,11 +35,13 @@ const MODELS = [
 export class GeminiSportsChat {
   private readonly apiKey: string;
 
-  constructor(apiKey: string) {
-    if (!apiKey || apiKey.trim().length === 0) {
+  constructor(apiKey?: string) {
+    const envKey = (globalThis as any).process?.env?.GEMINI_API_KEY;
+    const key = apiKey && apiKey.trim().length > 0 ? apiKey : envKey;
+    if (!key || key.trim().length === 0) {
       throw new Error("GEMINI_API_KEY is required for GeminiSportsChat");
     }
-    this.apiKey = apiKey.trim();
+    this.apiKey = key.trim();
   }
 
   public async chat(

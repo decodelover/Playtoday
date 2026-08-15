@@ -98,11 +98,13 @@ export class GeminiSportsAnalyst {
   private readonly baseUrl =
     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
-  constructor(apiKey: string) {
-    if (!apiKey || apiKey.trim().length === 0) {
+  constructor(apiKey?: string) {
+    const envKey = (globalThis as any).process?.env?.GEMINI_API_KEY;
+    const key = apiKey && apiKey.trim().length > 0 ? apiKey : envKey;
+    if (!key || key.trim().length === 0) {
       throw new Error("GEMINI_API_KEY is required for GeminiSportsAnalyst");
     }
-    this.apiKey = apiKey.trim();
+    this.apiKey = key.trim();
   }
 
   public async analyzeMatch(input: MatchAnalysisInput): Promise<MatchAnalysisOutput> {
