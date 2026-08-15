@@ -370,6 +370,8 @@
 
   .filterSelect {
     flex: 1;
+    font-size: 16px !important;
+    min-height: 2.5rem;
   }
 
   .fixturesGrid {

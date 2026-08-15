@@ -46,6 +46,7 @@ export function AiAnalystClient({
   const [inputValue, setInputValue] = useState<string>("");
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [userTimezone, setUserTimezone] = useState<string>(initialUserTimezone);
+  const messagesAreaRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -61,9 +62,14 @@ export function AiAnalystClient({
     }
   }, []);
 
-  // Auto-scroll on new messages
+  // Isolated auto-scroll on new messages inside messagesArea container
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesAreaRef.current) {
+      messagesAreaRef.current.scrollTo({
+        top: messagesAreaRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   }, [messages, isTyping]);
 
   const handleSendMessage = async (textToSend?: string) => {
@@ -118,7 +124,6 @@ export function AiAnalystClient({
       setMessages((prev) => [...prev, errorMsg]);
     } finally {
       setIsTyping(false);
-      setTimeout(() => inputRef.current?.focus(), 100);
     }
   };
 
@@ -153,7 +158,7 @@ export function AiAnalystClient({
       </header>
 
       {/* Messages Scroll Area */}
-      <div className={styles.messagesArea}>
+      <div className={styles.messagesArea} ref={messagesAreaRef}>
         {messages.length === 0 ? (
           <div className={styles.welcomeBox}>
             <div className={styles.welcomeIcon}>⚽</div>

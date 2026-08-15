@@ -277,6 +277,8 @@
   border-radius: 0.62rem;
   background: var(--pt-background-input);
   color: var(--pt-text-primary);
+  font-size: 16px;
+  touch-action: manipulation;
 }
 
 .field input:focus-visible,

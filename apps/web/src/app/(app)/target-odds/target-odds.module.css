@@ -212,3 +212,56 @@
   font-size: 0.7rem;
   font-weight: 600;
 }
+
+@media (max-width: 48rem) {
+  .configCard {
+    padding: 1rem 0.85rem;
+    gap: 1rem;
+  }
+
+  .configRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .multiplierPills {
+    justify-content: space-between;
+  }
+
+  .pillBtn {
+    flex: 1;
+    min-width: 2.75rem;
+    padding: 0 0.5rem;
+    text-align: center;
+  }
+
+  .riskGroup {
+    width: 100%;
+  }
+
+  .riskBtn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .generateBtn {
+    width: 100%;
+  }
+
+  .selectionCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .selectionPriceBox {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    border-top: 1px solid var(--pt-border-default);
+    padding-top: 0.5rem;
+  }
+}
