@@ -40,7 +40,7 @@ export async function getMatchAnalysis(fixtureId: string): Promise<MatchAnalysis
     bookmaker: row.bookmakers?.name ?? "Verified Bookmaker",
   }));
 
-  const analyst = new GeminiSportsAnalyst(process.env.GEMINI_API_KEY);
+  const analyst = new GeminiSportsAnalyst(process.env.GEMINI_API_KEY ?? "");
 
   return await analyst.analyzeMatch({
     fixtureId: String(fixture.id),
@@ -143,7 +143,7 @@ export async function generateTargetOdds(options: {
     }
   }
 
-  const analyst = new GeminiSportsAnalyst(process.env.GEMINI_API_KEY);
+  const analyst = new GeminiSportsAnalyst(process.env.GEMINI_API_KEY ?? "");
 
   return await analyst.generateTargetOdds({
     targetMultiplier: options.targetMultiplier,
