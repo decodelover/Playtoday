@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@playtoday/database-types": "workspace:*",
-    "@supabase/supabase-js": "^2.48.1",
+    "@supabase/supabase-js": "^2.112.4",
     "zod": "^3.24.2"
   },
   "devDependencies": {
